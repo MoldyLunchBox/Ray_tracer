@@ -6,7 +6,7 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 18:46:21 by yoelguer          #+#    #+#             */
-/*   Updated: 2021/03/28 16:40:17 by amya             ###   ########.fr       */
+/*   Updated: 2021/04/06 19:30:37 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@ void		f_plane2(char **str, int j, t_obj *plane)
 		plane->trans = ft_atof(str[0]);
 	if (j == 10)
 		plane->refl = ft_atof(str[0]);
+	if (j == 11)
+		plane->disruption = ft_atof(str[0]);
+	plane->is_negative = 0;
 }
 
 void		f_plane(char **str, int j, t_obj *plane)
@@ -57,14 +60,20 @@ int			s_plane(char **table, int i, t_all *data, t_obj *plane)
 {
 	int		j;
 	char	**str;
+	char	**white_split;
 
 	j = -1;
-	plane->name = ft_strdup(table[i - 1]);
-	plane->texture = ft_strdup(table[i]);
-	while (table[++i] && j < 11)
+	plane->name = ft_strsub(table[i - 1], 0, ft_strlen(table[i - 1]) - 1);
+	if (!space_counter(table[i]))
+		return (-1);
+	white_split = ft_strsplit(table[i], ' ');
+	if (!white_split_check(white_split))
+		return(-1);
+	plane->texture = ft_strdup(white_split[1]);
+	free_2d(&white_split);
+	while (table[++i] && j < 12)
 	{
-		str = ft_strsplit(table[i], ' ');
-		if (f_str(str, j, 6) == -1)
+		if (!checker_loop(&str, table[i], j))
 			return (-1);
 		f_plane(str, j, plane);
 		j++;

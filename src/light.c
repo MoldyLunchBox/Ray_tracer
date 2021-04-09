@@ -6,7 +6,7 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 18:47:36 by yoelguer          #+#    #+#             */
-/*   Updated: 2021/04/03 13:21:47 by amya             ###   ########.fr       */
+/*   Updated: 2021/04/06 12:31:01 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ t_2d_d				shadow(t_obj *pos, t_data_light *light, double t1)
 	get_norm_2(sub_vect(light->position, pos->hit));
 	return (light_dest);
 }
-
 t_vect				on_shadow(t_obj *pos, t_all data, t_ray ray, t_vect col)
 {
 	double			dis_shad_lum;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoelguer <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 18:47:13 by yoelguer          #+#    #+#             */
-/*   Updated: 2021/02/09 18:47:18 by yoelguer         ###   ########.fr       */
+/*   Updated: 2021/04/06 13:39:23 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,28 @@
 
 int			ft_objects(t_all *data, int i, char **table, t_obj **obj)
 {
-	if (ft_strcmp("sphere", table[i]) == 0)
+	if (ft_strcmp("sphere:", table[i]) == 0)
 		if (s_sphere(table, i + 1, data, *obj) < 0)
 			return (-1);
-	if (ft_strcmp("plane", table[i]) == 0)
+	if (ft_strcmp("plane:", table[i]) == 0)
 		if (s_plane(table, i + 1, data, *obj) < 0)
 			return (-1);
-	if (ft_strcmp("cylinder", table[i]) == 0)
+	if (ft_strcmp("cylinder:", table[i]) == 0)
 		if (s_cylinder(table, i + 1, data, *obj) < 0)
 			return (-1);
-	if (ft_strcmp("cone", table[i]) == 0)
+	if (ft_strcmp("cone:", table[i]) == 0)
 		if (s_cone(table, i + 1, data, *obj) < 0)
 			return (-1);
-	if (ft_strcmp("ring", table[i]) == 0)
+	if (ft_strcmp("ring:", table[i]) == 0)
 		if (s_ring(table, i + 1, data, *obj) < 0)
 			return (-1);
-	if (ft_strcmp("paraploid", table[i]) == 0)
+	if (ft_strcmp("paraploid:", table[i]) == 0)
 		if (s_paraploid(table, i + 1, data, *obj) < 0)
 			return (-1);
-	if (ft_strcmp("ellipsoid", table[i]) == 0)
+	if (ft_strcmp("ellipsoid:", table[i]) == 0)
 		if (s_ellipsoid(table, i + 1, data, *obj) < 0)
 			return (-1);
-	if (ft_strcmp("cube", table[i]) == 0)
+	if (ft_strcmp("cube:", table[i]) == 0)
 		if (s_cube(table, i + 1, data, *obj) < 0)
 			return (-1);
 	return (0);
@@ -51,14 +51,14 @@ int			ft_obj(char **table, t_all *data)
 	data->id = 0;
 	while (table[++i])
 	{
-		if (ft_strcmp("cylinder", table[i]) == 0
-				|| ft_strcmp("sphere", table[i]) == 0
-				|| ft_strcmp("cone", table[i]) == 0
-				|| ft_strcmp("plane", table[i]) == 0
-				|| ft_strcmp("ring", table[i]) == 0
-				|| ft_strcmp("ellipsoid", table[i]) == 0
-				|| ft_strcmp("cube", table[i]) == 0
-				|| ft_strcmp("paraploid", table[i]) == 0)
+		if (ft_strcmp("cylinder:", table[i]) == 0
+				|| ft_strcmp("sphere:", table[i]) == 0
+				|| ft_strcmp("cone:", table[i]) == 0
+				|| ft_strcmp("plane:", table[i]) == 0
+				|| ft_strcmp("ring:", table[i]) == 0
+				|| ft_strcmp("ellipsoid:", table[i]) == 0
+				|| ft_strcmp("cube:", table[i]) == 0
+				|| ft_strcmp("paraploid:", table[i]) == 0)
 		{
 			if (ft_objects(data, i, table, &obj) < 0)
 				return (-1);

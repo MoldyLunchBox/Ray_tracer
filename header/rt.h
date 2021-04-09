@@ -6,7 +6,7 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 18:37:40 by yoelguer          #+#    #+#             */
-/*   Updated: 2021/04/02 19:00:37 by amya             ###   ########.fr       */
+/*   Updated: 2021/04/06 18:01:12 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void		*raytracing(void *data);
 void		ft_free_obj(t_all *data);
 void		init_li(t_light *li, t_data_light *ligth, t_obj *obj, t_ray ray);
 t_vect		light_obj(t_obj *obj, t_all data, t_ray ray, double t);
-t_vect		on_shadow(t_obj *pos, t_all data, t_ray ray, t_vect col);
+t_vect 		on_shadow(t_obj *pos, t_all data, t_ray ray, t_vect col);
 t_ray		init_rayy(t_2d_i var, t_data_camera *cam, t_2d_d d, t_2d_d p);
 double		find_obj_scnd(t_all data, t_ray ray, t_ray to_light, t_obj *pos);
 double		ft_atof(char *str);
@@ -96,5 +96,11 @@ void		event_focus(t_all *data);
 void		event_go(t_all *data);
 double		comp(double x, double y, double z);
 void		cone_norm(t_obj *cone, t_ray r, double t);
+int			space_counter(char *str);
+void        free_2d(char ***str);
+int         white_split_check(char **str);
+int         info_checker(char **str);
+int		    checker_loop(char ***str, char *table, int j);
+
 
 #endif

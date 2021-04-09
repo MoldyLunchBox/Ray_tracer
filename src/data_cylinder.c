@@ -6,7 +6,7 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 18:46:09 by yoelguer          #+#    #+#             */
-/*   Updated: 2021/04/02 17:04:33 by amya             ###   ########.fr       */
+/*   Updated: 2021/04/06 19:18:12 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ void		f_cylinder2(char **str, int j, t_obj *cylinder)
 		cylinder->trans = ft_atof(str[0]);
 	if (j == 11)
 		cylinder->refl = ft_atof(str[0]);
+	if (j == 12)
+		cylinder->disruption = ft_atof(str[0]);
 	cylinder->is_negative = 0;
 }
 
@@ -60,14 +62,20 @@ int			s_cylinder(char **table, int i, t_all *data, t_obj *cyl)
 {
 	int		j;
 	char	**str;
+	char	**white_split;
 
 	j = -1;
-	cyl->name = ft_strdup(table[i - 1]);
-	cyl->texture = ft_strdup(table[i]);
-	while (table[++i] && j < 12)
+		cyl->name = ft_strsub(table[i - 1], 0, ft_strlen(table[i - 1]) - 1);
+	if (!space_counter(table[i]))
+		return (-1);
+	white_split = ft_strsplit(table[i], ' ');
+	if (!white_split_check(white_split))
+		return(-1);
+	cyl->texture = ft_strdup(white_split[1]);
+	free_2d(&white_split);
+	while (table[++i] && j < 13)
 	{
-		str = ft_strsplit(table[i], ' ');
-		if (f_str(str, j, 6) == -1)
+		if (!checker_loop(&str, table[i], j))
 			return (-1);
 		f_cylinder(str, j, cyl);
 		j++;

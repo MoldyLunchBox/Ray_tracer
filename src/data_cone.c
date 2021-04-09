@@ -6,7 +6,7 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 18:45:53 by yoelguer          #+#    #+#             */
-/*   Updated: 2021/04/01 17:24:54 by amya             ###   ########.fr       */
+/*   Updated: 2021/04/06 19:40:38 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@ void		sd_cone(char **str, int j, t_obj *cone)
 		cone->trans = ft_atof(str[0]);
 	if (j == 11)
 		cone->refl = ft_atof(str[0]);
-	cone->zero_one_to_skip = 0;
+	if (j == 12)
+		cone->disruption = ft_atof(str[0]);
+	cone->is_negative = 0;
 }
 
 void		f_cone(char **str, int j, t_obj *cone)
@@ -56,18 +58,37 @@ void		f_cone(char **str, int j, t_obj *cone)
 	sd_cone(str, j, cone);
 }
 
+void	free_2d(char ***str)
+{
+	int i;
+
+	i = -1;
+	while ((*str)[++i])
+		free((*str)[i]);
+	free((*str));
+	(*str) = NULL;
+}
+
+
+
 int			s_cone(char **table, int i, t_all *data, t_obj *cone)
 {
 	int		j;
 	char	**str;
-
+	char	**white_split;
+	
 	j = -1;
-	cone->name = ft_strdup(table[i - 1]);
-	cone->texture = ft_strdup(table[i]);
-	while (table[++i] && j < 12)
+	cone->name = ft_strsub(table[i - 1], 0, ft_strlen(table[i - 1]) - 1);
+	if (!space_counter(table[i]))
+		return (-1);
+	white_split = ft_strsplit(table[i], ' ');
+	if (!white_split_check(white_split))
+		return(-1);
+	cone->texture = ft_strdup(white_split[1]);
+	free_2d(&white_split);
+		while (table[++i] && j < 12)
 	{
-		str = ft_strsplit(table[i], ' ');
-		if (f_str(str, j, 6) == -1)
+		if (!checker_loop(&str, table[i], j))
 			return (-1);
 		f_cone(str, j, cone);
 		j++;

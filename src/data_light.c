@@ -6,7 +6,7 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 18:46:34 by yoelguer          #+#    #+#             */
-/*   Updated: 2021/03/29 15:53:32 by amya             ###   ########.fr       */
+/*   Updated: 2021/04/06 19:51:41 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,16 +40,20 @@ int			s_light(char **table, int i, t_data_light *light)
 {
 	int		j;
 	int		k;
-	char	**str;
+	char	**space_split;
+	char	**dot_split;
 
 	j = 0;
 	while (table[i] && j < 7)
 	{
 		k = 0;
-		str = ft_strsplit(table[i], ' ');
-		if (f_str(str, j, 2) == -1)
+		space_split = ft_strsplit(table[i], ' ');
+		dot_split = ft_strsplit(space_split[1], ':');
+		if (f_str(dot_split, j, 2) == -1)
 			return (-1);
-		f_light(str, j, light);
+		if (!space_counter(table[i]))
+			return (-1);
+		f_light(dot_split, j, light);
 		j++;
 		i++;
 	}
@@ -67,7 +71,7 @@ int			ft_light(char **table, t_all *data)
 	light = data->light;
 	while (table[i])
 	{
-		if (ft_strcmp("light", table[i]) == 0)
+		if (ft_strcmp("light:", table[i]) == 0)
 		{
 			if (s_light(aray, i + 1, light) < 0)
 				return (-1);

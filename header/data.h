@@ -6,7 +6,7 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 18:37:09 by yoelguer          #+#    #+#             */
-/*   Updated: 2021/04/02 19:02:57 by amya             ###   ########.fr       */
+/*   Updated: 2021/04/06 19:17:26 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,7 @@ typedef struct	s_obj
 	t_vect				color_copy;
 	int					zero_one_to_skip;
 	int					is_negative;
+	int					disruption;
 	struct s_obj		*next;
 }				t_obj;
 
