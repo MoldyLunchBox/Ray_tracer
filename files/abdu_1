@@ -6,7 +6,7 @@ camera:
 
 
 light:
- position: -0.0:0:100
+ position: 0.0:0:-100
  direction: -0.0:-0.0:-0.0
  color: 255:255:255
  intensity: 1500
@@ -14,81 +14,15 @@ light:
  type: 0
  ambient: 0.3
 
-cylinder
- texture: .
- texture_modifie: -0.0:0:0
- position: 0.0:0.0:20
- direction: 0.0:1.0:0
- translation: 0:0:0
- rotation: 0:0:0
- slice: 0:0:0
- pos_slice: 0.0:0:0.0
- color: 0:255:0
- radius_angle: 4
- size: 0
- type_material: 1
- transparency: 0.0
- reflection: 0.3
- disruption: 1
+
+
+
+
+
+
 
 
 sphere
- texture: .
- texture_modifie: -0.0:0:0
- position: -0:0:20
- direction: 0:0.0:0
- translation: 0:0:0
- rotation: 0:0:0
- slice: 0:0:0
- pos_slice: 0.0:0:0.0
- color: 0:255:0
- radius_angle: 6
- size: 0
- type_material: 1
- transparency: 0.5
- reflection: 0
- negative_object: 1
- disruption: 0
-
-
-sphere
- texture: .
- texture_modifie: -0.0:0:0
- position: -5:10:20
- direction: 0:0.0:0
- translation: 0:0:0
- rotation: 0:0:0
- slice: 0:0:0
- pos_slice: 0.0:0:0.0
- color: 0:255:0
- radius_angle: 6
- size: 0
- type_material: 3
- transparency: 0.5
- reflection: 0
- negative_object: 1
- disruption: 0
-
-sphere
- texture: .
- texture_modifie: -0.0:0:0
- position: 5:-10:20
- direction: 0:0.0:0
- translation: 0:0:0
- rotation: 0:0:0
- slice: 0:0:0
- pos_slice: 0.0:0:0.0
- color: 255:255:255
- radius_angle: 6
- size: 0
- type_material: 1
- transparency: 0.5
- reflection: 1
- negative_object: 1
- disruption: 0
-
-
-sphere:
  texture: .
  texture_modifie: -0.0:0:0
  position: 0:0:50
@@ -107,50 +41,5 @@ sphere:
  disruption: 0
 
 
-plane:
- texture: .
- texture_modifie: 0.0:0:0.0
- position: 5.0:15.0:0
- direction: 0.0:1:0
- translation: 0:0:0
- rotation: 0:0:0
- slice: 0:0:0
- pos_slice: 0.0:0:0.0
- color: 255:0:0
- size: 0
- type_material: 0
- transparency: 1
- reflection: 0.0
- disruption: 1
 
 
-plane:
- texture: .
- texture_modifie: 0.0:0:0.0
- position: 5.0:0.0:0
- direction: 0.0:0:1
- translation: 0:0:0
- rotation: 0:0:0
- slice: 0:0:0
- pos_slice: 0.0:0:0.0
- color: 255:0:0
- size: 0
- type_material: 0
- transparency: 1
- reflection: 0.0
- disruption: 1
-
-cone
- texture: .
- texture_modifie: 0.0:0.0:0
- position: -0:0.0:20
- direction: 0.0:1.0:0.0
- translation: 0:0:0
- rotation: 0:0:0
- slice: 0:0:0
- pos_slice: 0.0:0:0.0
- color: 0:255:0
- size: 20
- type_material: 0
- transparency: 1
- reflection: 0.0

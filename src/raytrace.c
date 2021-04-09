@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raytrace.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ramoukha <ramoukha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 18:48:25 by yoelguer          #+#    #+#             */
-/*   Updated: 2021/04/09 17:01:45 by amya             ###   ########.fr       */
+/*   Updated: 2021/04/09 19:30:30 by ramoukha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ double			find_obj_scnd(t_all data, t_ray ray, t_ray to_light, t_obj *pos)
 		else
 		{
 			t.tmin = -1;
-			t.tmax = -1;	
+			t.tmax = -1;
 		}
 		if (t.tmin != -1 && ft_strequ(header->name, (char const *)"cylinder"))
 		{
@@ -177,7 +177,7 @@ t_vect			sorting(t_vect in)
 		order.x = hold;
 	}
 	return (order);
-}		
+}
 
 t_vect			disruption(t_obj *obj, t_vect col)
 {
@@ -236,7 +236,7 @@ float random_gen(){
 	if (!initialized){
 		srand((time(NULL)));
 	}
-	
+
 	return (drand48()  * 2.0 - 1.0)/ 1000.0f;
 }
 
@@ -249,10 +249,10 @@ t_vect			reflection(t_all data, t_obj *obj, int nbrbonds, t_ray ray)
 	t_vect p;
 	double n_dot_d;
 
-	
+
 	// p = (t_vect){obj->hit.x + random_gen(), obj->hit.y + random_gen(),  obj->hit.z + random_gen()};
 
-	
+
 	n_dot_d = vect_scal(ray.direction, obj->norm) * 2;
 	reflected_ray.direction = vect_mult_val(obj->norm, n_dot_d);
 	reflected_ray.direction = sub_vect(ray.direction, reflected_ray.direction);
@@ -278,15 +278,15 @@ t_vect			refraction(t_all data, t_obj *obj, int limit, t_ray ray)
 	double		radical;
 	t_vect		col;
 	t_vect		ref_norm;
-	
+
 	ref_norm = (t_vect){obj->norm.x, obj->norm.y, obj->norm.z};
 	if (vect_scal(ray.direction, obj->norm) > 0)
 	{
 		n1 = 1.3;
-		n2 = 1; 
+		n2 = 1;
 		ref_norm = vect_mult_val(obj->norm, -1);
 	}
-	radical = 1 - pow(n1/n2, 2) * (1 - pow(vect_scal(ref_norm, ray.direction), 2));	
+	radical = 1 - pow(n1/n2, 2) * (1 - pow(vect_scal(ref_norm, ray.direction), 2));
 	if (radical > 0)
 	{
 		refracted_ray.origine = sub_vect(obj->hit, vect_mult_val(ref_norm, 0.001));
@@ -294,8 +294,38 @@ t_vect			refraction(t_all data, t_obj *obj, int limit, t_ray ray)
 		col = rend_pix(data, refracted_ray, limit-1);
 	}
 	return safe_color(col);
-	
+
 }
+
+t_vect  direct_light(t_ray ray, t_all data, t_data_light *light)
+{
+	t_vect color = (t_vect){255,255,255};
+	t_obj *objet;
+	double cam_light;
+	double light_behind;
+	t_vect light_direct;
+	light_direct = sub_vect( light->direction, light->position);
+	light_direct = get_normalized(light_direct);
+	t_vect camera_to_light;
+	camera_to_light = sub_vect(light->position, ray.origine);
+	cam_light = vect_scal(ray.direction, light_direct);
+	light_behind = vect_scal(light_direct, camera_to_light);
+
+	if (cam_light < 0)
+	{
+		if (light_behind < 0)
+		{
+			cam_light = fabs(cam_light);
+			cam_light = pow(cam_light, 500);
+			color = vect_mult_val(color, cam_light);
+
+		}
+
+	}
+	return(color);
+
+}
+
 
 t_vect			rend_pix(t_all data, t_ray ray, int nbrbonds)
 {
@@ -307,6 +337,8 @@ t_vect			rend_pix(t_all data, t_ray ray, int nbrbonds)
 		return ((t_vect){0, 0, 0});
 	pos = find_closest(data, ray);
 	col = (t_vect){0, 0, 0};
+		col = direct_light(ray, data, data.light);
+
 	if (pos->t != -1)
 	{
 		if (pos->disruption)
@@ -317,7 +349,7 @@ t_vect			rend_pix(t_all data, t_ray ray, int nbrbonds)
 		}
 		else if (pos->type == 3)
 			col = add_vect(vect_mult_val(pos->color, pos->trans),refraction(data, pos, nbrbonds, ray));
-		else 
+		else
 		{
 			col = light_obj(pos, data, ray, pos->t);
 			col = on_shadow(pos, data, ray, col);
