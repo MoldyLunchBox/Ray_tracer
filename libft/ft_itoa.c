@@ -3,57 +3,52 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ramoukha <ramoukha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yoelguer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/16 17:51:22 by ramoukha          #+#    #+#             */
-/*   Updated: 2020/02/25 14:58:56 by ramoukha         ###   ########.fr       */
+/*   Created: 2019/04/08 21:40:48 by yoelguer          #+#    #+#             */
+/*   Updated: 2019/04/18 00:53:26 by yoelguer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
 
-static int		nmbrlen(int n)
+static	char	*ft_print(int i, int p, int c, char *str)
 {
-	int		cmpt;
-
-	cmpt = 0;
-	if (n == 0)
-		return (1);
-	if (n < 0)
+	while (--i >= 0)
 	{
-		cmpt++;
-		n = n * (-1);
+		str[i] = (p % 10) + '0';
+		p /= 10;
 	}
-	while (n)
-	{
-		n = n / 10;
-		cmpt++;
-	}
-	return (cmpt);
+	if (c < 0)
+		str[0] = '-';
+	return (str);
 }
 
 char			*ft_itoa(int n)
 {
-	char	*str;
 	int		i;
+	int		p;
+	int		c;
+	char	*str;
 
-	i = nmbrlen(n);
-	if (!(str = (char *)malloc(sizeof(char) * (i + 1))))
-		return (NULL);
+	i = 1;
+	c = n;
+	if (n == -2147483648)
+		return (ft_strdup("-2147483648"));
 	if (n < 0)
-		str[0] = '-';
-	if (n == 0)
-		str[0] = '0';
-	str[i] = '\0';
-	while (n != 0)
 	{
-		i--;
-		if (n < 0)
-			str[i] = -(n % 10) + '0';
-		else
-			str[i] = n % 10 + '0';
-		n = n / 10;
+		i++;
+		n = -n;
 	}
+	p = n;
+	while (n >= 10)
+	{
+		n = n / 10;
+		i++;
+	}
+	if (!(str = (char*)malloc((i + 1) * sizeof(char))))
+		return (NULL);
+	str[i] = '\0';
+	ft_print(i, p, c, str);
 	return (str);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ramoukha <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yoelguer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/08 12:42:19 by ramoukha          #+#    #+#             */
-/*   Updated: 2019/04/20 21:50:59 by ramoukha         ###   ########.fr       */
+/*   Created: 2019/04/03 21:33:00 by yoelguer          #+#    #+#             */
+/*   Updated: 2019/04/16 08:02:53 by yoelguer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,20 @@
 
 int		ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	size_t	i;
+	unsigned char *p_s1;
+	unsigned char *p_s2;
 
-	i = 0;
-	while ((s1[i] || s2[i]) && i < n)
+	p_s1 = (unsigned char*)s1;
+	p_s2 = (unsigned char*)s2;
+	if (*p_s1 == '\0' && *p_s2 == '\0')
+		return (0);
+	if (*p_s1 == *p_s2 && *p_s1 != '\0' && *p_s2 != '\0' && n != 0)
 	{
-		if (s1[i] != s2[i])
-			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
-		i++;
+		return (ft_strncmp((const char*)p_s1 + 1,
+							(const char*)p_s2 + 1, n - 1));
 	}
-	return (0);
+	if (*p_s1 != *p_s2 && n != 0)
+		return (*p_s1 - *p_s2);
+	else
+		return (0);
 }

@@ -3,28 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ramoukha <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yoelguer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/21 01:56:58 by ramoukha          #+#    #+#             */
-/*   Updated: 2019/05/29 02:34:58 by ramoukha         ###   ########.fr       */
+/*   Created: 2019/04/01 10:41:02 by yoelguer          #+#    #+#             */
+/*   Updated: 2019/04/17 03:02:50 by yoelguer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memmove(void *dst, const void *src, size_t n)
+void	*ft_memmove(void *str1, const void *str2, size_t n)
 {
-	char	*dstt;
-	char	*srcc;
+	int				i;
+	unsigned char	*dst;
+	unsigned char	*src;
 
-	dstt = (char *)dst;
-	srcc = (char *)src;
-	if (srcc < dstt)
+	i = 0;
+	dst = (unsigned char*)str1;
+	src = (unsigned char*)str2;
+	if (src >= dst)
 	{
 		while (n--)
-			*(dstt + n) = *(srcc + n);
+		{
+			dst[i] = src[i];
+			i++;
+		}
+		return (dst);
 	}
-	else
-		ft_memcpy(dstt, srcc, n);
-	return (dst);
+	if (dst > src)
+	{
+		while (n--)
+			i++;
+		while (i--)
+			dst[i] = src[i];
+		return (dst);
+	}
+	return (NULL);
 }

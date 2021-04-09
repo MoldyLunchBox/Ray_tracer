@@ -5,44 +5,109 @@
 #                                                     +:+ +:+         +:+      #
 #    By: amya <amya@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2019/07/12 12:17:42 by ramoukha          #+#    #+#              #
-#    Updated: 2021/03/17 17:03:15 by amya             ###   ########.fr        #
+#    Created: 2020/02/22 16:14:13 by yoelguer          #+#    #+#              #
+#    Updated: 2021/04/03 14:49:20 by amya             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-COMP = gcc -Werror -Wextra -Wall -g
-SRC = srcs/main.c srcs/vec_calc.c  srcs/transforms.c srcs/ft_intersection.c srcs/tools.c srcs/checker.c srcs/init.c srcs/normal.c srcs/tools_2.c srcs/light.c
-OB =  srcs/main.o srcs/vec_calc.o srcs/transforms.o  srcs/ft_intersection.o srcs/tools.o srcs/checker.o srcs/init.o srcs/normal.o srcs/tools_2.o srcs/light.o
-INC_DIR = ./includes/
-INC = ./includes/rtv1.h
-OB = $(SRC:.c=.o)
-NAME =  a.out
-LIBFLAGS =  -g -L ./libft -lft -lpthread -lmlx -framework OpenGL -framework AppKit
+SRC		= 	main.c \
+			plane.c\
+			ray.c\
+			sphere.c\
+			cylindre.c\
+			cone.c\
+			ring.c\
+			vector.c\
+			vector2.c\
+			vector3.c\
+			file.c\
+			data_camera.c\
+			data_sphere.c\
+			data_malloc.c\
+			data_plane.c\
+			data_light.c\
+			data_cone.c\
+			data_ring.c\
+			data_cylinder.c\
+			ft_atof.c\
+			raytrace.c\
+			val.c\
+			light.c\
+			sdl.c\
+			paraploid.c\
+			data_paraploid.c\
+			data_ellipsoid.c\
+			texture.c\
+			filtres.c\
+			mb_filter.c\
+			sepia_filtre.c\
+			li.c\
+			cube.c\
+			data_cube.c\
+			val2.c\
+			texture2.c\
+			raytrace2.c\
+			event.c\
+			cone2.c\
+			data_malloc2.c\
+
+HEADER = 	header/data.h\
+			header/ray.h\
+			header/rt.h\
+			header/vector.h\
+
+OBJ = $(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
+
+NAME 	= RT
+
+CFLAGS = -Wall -Wextra -Werror -g
+
+INCLUDE	= -I /Users/$$USER/.brew/Cellar/sdl2/2.0.14_1/include \
+	-I /Users/$$USER/.brew/Cellar/sdl2_image/2.0.5/include \
+
+LIB = -L /Users/$$USER/.brew/Cellar/sdl2/2.0.14_1/lib \
+	-L /Users/$$USER/.brew/Cellar/sdl2_image/2.0.5/lib \
+
+SDL = `sdl2-config --cflags --libs` -lSDL2 -lSDL2_image
+
+SRC_DIR = ./src
+
+OBJ_DIR = ./obj
+
+LIBFT_DIR = ./libft
+
+LIBFT_LIB = $(LIBFT_DIR)/libft.a
+
+
+CC = @gcc 
 
 all : $(NAME)
 
-$(NAME): $(OB)
-	@make -C libft/
-	$(COMP) -g -o $(NAME) $(OB) $(LIBFLAGS)
-	@printf "\033[00;32m"
-	@printf "BINARY CREATED\n"
-	@printf "\033[00;0m"
+$(LIBFT_LIB): force
+	@make -C $(LIBFT_DIR)
 
-%.o : %.c $(INC)
-	$(COMP) -c -o $@ $< -I $(INC_DIR)
+force:
 
-clean:
-	@make -C libft/ clean
-	# @make -C miniLibX clean
-	@rm -f $(OB)
-	@printf "\033[00;32m"
-	@printf "OBJECTS REMOVED\n"
-	@printf "\033[00;0m"
 
-fclean: clean
-	@make -C libft/ fclean
-	@rm -f $(NAME)
-	@printf "\033[00;32m"
-	@printf "BINARY REMOVED\n"
-	@printf "\033[00;0m"
-re: fclean all
+$(NAME) : $(LIBFT_LIB) $(OBJ)
+	@gcc -g $(OBJ) $(CFLAGS) -o $(NAME) $(INCLUDE) $(LIB)  $(SDL) $(LIBFT_LIB)
+	@echo "\033[92mDone for RTV1\033[0m"
+
+$(OBJ_DIR):
+	@-mkdir $(OBJ_DIR)
+
+$(OBJ): $(OBJ_DIR)/%.o : $(SRC_DIR)/%.c $(HEADER) | $(OBJ_DIR)
+	@gcc -c -g $(INCLUDE) $< -o $@ 
+
+clean :
+	@make clean -C ./libft/
+	@rm -rf $(OBJ_DIR)
+
+fclean : clean
+	@make fclean -C ./libft/
+	@rm -rf $(NAME)
+
+norme:
+	@norminette $(SRC_DIR)
+
+re : fclean all

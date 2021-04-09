@@ -1,0 +1,174 @@
+camera
+	position
+	look_at
+	distance
+	focus
+
+sphere
+	texture
+	texture_modifie (x_shift , y_shift,  scale)
+	position
+	translation
+	rotation
+	slice
+	pos_slice
+	color
+	radius
+	type_material
+	transparency
+	reflection
+	
+plane
+	texture
+	texture_modifie (x_shift , y_shift,  scale)
+	position
+	direction
+	translation
+	rotation
+	slice
+	pos_slice
+	color
+	size
+	type_material
+	transparency
+	reflection
+
+cone
+	texture
+	texture_modifie (x_shift , y_shift,  scale)
+	position
+	direction
+	translation
+	rotation
+	slice
+	pos_slice
+	color
+	radius/angle
+	size
+	type_material
+	transparency
+	reflection
+	
+
+cylinder
+	texture
+	texture_modifie (x_shift , y_shift,  scale)
+	position
+	direction
+	translation
+	rotation
+	slice
+	pos_slice
+	color
+	radius/angle
+	size
+	type_material
+	transparency
+	reflection
+	
+paraploid
+	position
+	direction
+	translation
+	rotation
+	color
+	radius
+	type_material
+	transparency
+	reflection
+
+ellipsoid
+	position
+	direction
+	translation
+	rotation
+	color
+	radius
+	size
+	type_material
+	transparency
+	reflection
+
+ring
+	texture
+	texture_modifie (x_shift , y_shift,  scale)
+	position
+	direction
+	translation
+	rotation
+	color
+	radius1
+	radius2
+	type_material
+	transparency
+	reflection
+
+light
+	position
+	direction
+	color
+	intensity
+	angle for direct light
+	ambient
+
+
+/* refraction index exemple */
+Vacuum 1
+Air 1.000293
+Water 1.333
+Ice 1.31
+Window glass 1.52
+Diamond 2.42
+
+
+
+
+
+
+
+plane
+./textures/apple.jpg
+0.0 0 0.0
+0.0 -10.0 0.0
+0.0 1.0 0.0
+0 0 0
+0 0 0
+0 0 0
+0.0 0 0.0
+255 0 0
+0
+0
+1
+0.0
+0.0
+
+sphere
+.
+0.0 0 0.0
+0.0 0.0 0.0
+0.0 0.0 0.0
+0 0 0
+0 1 -1
+0.0 0 0.0
+0 255 0
+20
+1
+0.0
+0.0
+
+cone
+.
+0.0 0 0.0
+0.0 10.0 0.0
+1.0 0.0 0.0
+0 0 0
+0 0 0
+0 0 0
+0.0 0 0.0
+0 255 0
+20
+0
+1
+0.0
+0.0
+
