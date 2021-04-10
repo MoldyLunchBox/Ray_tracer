@@ -6,7 +6,7 @@
 /*   By: ramoukha <ramoukha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 18:47:58 by yoelguer          #+#    #+#             */
-/*   Updated: 2021/04/10 17:50:55 by ramoukha         ###   ########.fr       */
+/*   Updated: 2021/04/10 18:10:46 by ramoukha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ t_sol		intersection_ray_plan(t_obj *pln, t_ray r)
 		return (sol);
 	pln->hit = add_vect(r.origine,
 			vect_mult_val(r.direction, sol.tmin));
-	if (slice_plane(pln) == -1)
-		return (sol);
+	// if (slice_plane(pln) == -1)
+	// 	return (sol);
 	// if (is_slider == 1 && vect_scal(sub_vect(pln->pos_slice,
 	// pln->hit), pln->slice) <= 0.0)
 	// 	return (sol);

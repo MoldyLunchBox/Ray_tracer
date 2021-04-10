@@ -6,7 +6,7 @@
 /*   By: ramoukha <ramoukha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 18:38:44 by yoelguer          #+#    #+#             */
-/*   Updated: 2021/04/10 17:53:13 by ramoukha         ###   ########.fr       */
+/*   Updated: 2021/04/10 18:34:39 by ramoukha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,19 +128,20 @@ t_sol			limited_object(t_obj *cyl, t_ray r,t_sol sol)
 
 	t_obj plane;
 	plane.position = top;
-	plane.axis = cyl->direction;
+	plane.direction = cyl->direction;
 	t_sol  plan;
 	plan = intersection_ray_plan(&plane, r);
 	if (plan.tmin != -1)
 		{
 			t_vect len;
 			len = sub_vect(plane.hit, plane.position);
-			double dot = vect_scal(len, len);
-			if (dot < cyl->radius*cyl->radius)
+			double dot = sqrt(len.x*len.x + len.y*len.y + len.z * len.z);
+			if (dot <= cyl->radius)
 			{
 				sol.tmin = plan.tmin;
-				cyl->t = plane.t;
+				cyl->t = sol.tmin;
 				cyl->hit = plane.hit;
+				cyl->norm =   get_normalized(plane.direction);
 			}
 		}
 	}

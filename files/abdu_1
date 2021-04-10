@@ -1,6 +1,6 @@
 
 camera:
- look_from: 0:30:-100.0
+ look_from: 0:20:-100.0
  look_at: 0.0:0.0:0.0
  something: 3000
  somehing: 150
@@ -19,7 +19,7 @@ light:
 cylinder:
  texture: .
  texture_modifie: -0.0:0:0
- position: 0.0:0.0:20
+ position: 0.0:-20:20
  direction: 0.0:1.0:0
  translation: 0:0:0
  rotation: 0:0:0
@@ -31,7 +31,7 @@ cylinder:
  type_material: 1
  transparency: 0.0
  reflection: 0.3
- disruption: 1
+ disruption: 0
 
 sphere
  texture: .
@@ -123,8 +123,8 @@ plane
 plane
  texture: .
  texture_modifie: 0.0:0:0.0
- position: 5.0:0.0:0
- direction: 0.0:0:1
+ position: 0:6:20
+ direction: 0.0:1:0
  translation: 0:0:0
  rotation: 0:0:0
  slice: 0:0:0
