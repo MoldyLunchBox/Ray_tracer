@@ -6,7 +6,7 @@
 /*   By: ramoukha <ramoukha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 18:48:25 by yoelguer          #+#    #+#             */
-/*   Updated: 2021/04/09 19:30:30 by ramoukha         ###   ########.fr       */
+/*   Updated: 2021/04/10 15:18:19 by ramoukha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -299,15 +299,18 @@ t_vect			refraction(t_all data, t_obj *obj, int limit, t_ray ray)
 
 t_vect  direct_light(t_ray ray, t_all data, t_data_light *light)
 {
-	t_vect color = (t_vect){255,255,255};
+	t_vect color = (t_vect){0,0,0};
 	t_obj *objet;
 	double cam_light;
 	double light_behind;
+	t_ray ray_light;
+
 	t_vect light_direct;
 	light_direct = sub_vect( light->direction, light->position);
 	light_direct = get_normalized(light_direct);
 	t_vect camera_to_light;
-	camera_to_light = sub_vect(light->position, ray.origine);
+	camera_to_light = sub_vect(light->position, data.camera->pos);
+	camera_to_light = get_normalized(camera_to_light);
 	cam_light = vect_scal(ray.direction, light_direct);
 	light_behind = vect_scal(light_direct, camera_to_light);
 
@@ -315,16 +318,31 @@ t_vect  direct_light(t_ray ray, t_all data, t_data_light *light)
 	{
 		if (light_behind < 0)
 		{
+			ray_light.origine = data.camera->pos;
+			ray_light.direction = camera_to_light;
+
+			objet = find_closest(data, ray_light);
+			if(objet->t != -1)
+			{
+				return ((t_vect){0,0,0});
+
+			}
+			color = (t_vect){255,255,255};
 			cam_light = fabs(cam_light);
 			cam_light = pow(cam_light, 500);
 			color = vect_mult_val(color, cam_light);
 
-		}
 
+
+		}
 	}
+
+
 	return(color);
 
 }
+
+
 
 
 t_vect			rend_pix(t_all data, t_ray ray, int nbrbonds)
@@ -335,10 +353,9 @@ t_vect			rend_pix(t_all data, t_ray ray, int nbrbonds)
 
 	if (nbrbonds == 0)
 		return ((t_vect){0, 0, 0});
-	pos = find_closest(data, ray);
 	col = (t_vect){0, 0, 0};
-		col = direct_light(ray, data, data.light);
-
+	col = direct_light(ray, data, data.light);
+	pos = find_closest(data, ray);
 	if (pos->t != -1)
 	{
 		if (pos->disruption)
@@ -360,13 +377,7 @@ t_vect			rend_pix(t_all data, t_ray ray, int nbrbonds)
 
 void			set_pixel(t_all data, t_vect col, t_vect_i var, t_ray ray)
 {
-	int			iten;
 
-	if (data.light->type == 1)
-	{
-		iten = light_direct(data, ray);
-		col = vect_mult_val(col, iten);
-	}
 	if (SDL_SetRenderDrawColor(data.rend, col.x, col.y, col.z, 255) != 0)
 		sdl_error("Get color failed");
 	if (SDL_RenderDrawPoint(data.rend, var.x, var.y) != 0)
@@ -408,6 +419,7 @@ void			*raytracing(void *dataa)
 			set_pixel(data, col, var, ray);
 		}
 	}
+
 	filtre(&data);
 	return (NULL);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   plane.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ramoukha <ramoukha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 18:47:58 by yoelguer          #+#    #+#             */
-/*   Updated: 2021/04/02 19:07:37 by amya             ###   ########.fr       */
+/*   Updated: 2021/04/10 17:50:55 by ramoukha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,11 @@ t_sol		intersection_ray_plan(t_obj *pln, t_ray r)
 	double	nomi;
 	double	dinomi;
 	double	t;
-	int		is_slider;
+	// int		is_slider;
 	t_sol	sol;
 
 	sol.tmin = -1;
-	is_slider = (!pln->slice.x && !pln->slice.y && !pln->slice.z) ? 0 : 1;
+	// is_slider = (!pln->slice.x && !pln->slice.y && !pln->slice.z) ? 0 : 1;
 	nomi = vect_scal(sub_vect(r.origine, pln->position),
 			pln->direction);
 	dinomi = vect_scal(r.direction, pln->direction);
@@ -61,9 +61,9 @@ t_sol		intersection_ray_plan(t_obj *pln, t_ray r)
 			vect_mult_val(r.direction, sol.tmin));
 	if (slice_plane(pln) == -1)
 		return (sol);
-	if (is_slider == 1 && vect_scal(sub_vect(pln->pos_slice,
-	pln->hit), pln->slice) <= 0.0)
-		return (sol);
+	// if (is_slider == 1 && vect_scal(sub_vect(pln->pos_slice,
+	// pln->hit), pln->slice) <= 0.0)
+	// 	return (sol);
 	pln->norm = get_normalized(pln->direction);
 	return (sol);
 }
