@@ -6,7 +6,7 @@
 #    By: ramoukha <ramoukha@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/22 16:14:13 by yoelguer          #+#    #+#              #
-#    Updated: 2021/04/09 18:53:22 by ramoukha         ###   ########.fr        #
+#    Updated: 2021/04/11 11:38:18 by ramoukha         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,6 +51,7 @@ SRC		= 	main.c \
 			cone2.c\
 			data_malloc2.c\
 			pars_error_checker.c\
+			data_limited_cylinder.c\
 
 HEADER = 	header/data.h\
 			header/ray.h\

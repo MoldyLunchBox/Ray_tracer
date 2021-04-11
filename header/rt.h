@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ramoukha <ramoukha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 18:37:40 by yoelguer          #+#    #+#             */
-/*   Updated: 2021/04/06 18:01:12 by amya             ###   ########.fr       */
+/*   Updated: 2021/04/11 11:47:35 by ramoukha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,10 @@ void        free_2d(char ***str);
 int         white_split_check(char **str);
 int         info_checker(char **str);
 int		    checker_loop(char ***str, char *table, int j);
+void		f_limited_cylinder2(char **str, int j, t_obj *cylinder);
+void		f_limited_cylinder(char **str, int j, t_obj *cylinder);
+int			s_limited_cylinder(char **table, int i, t_all *data, t_obj *cyl);
+t_sol			intersection_ray_limited_cylindre(t_obj *cyl, t_ray r);
 
 
 #endif

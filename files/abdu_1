@@ -16,7 +16,7 @@ light:
 
 
 
-cylinder:
+limited_cylinder:
  texture: .
  texture_modifie: -0.0:0:0
  position: 0.0:-20:20
@@ -32,6 +32,7 @@ cylinder:
  transparency: 0.0
  reflection: 0.3
  disruption: 0
+ length: 6
 
 sphere
  texture: .

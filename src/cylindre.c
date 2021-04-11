@@ -6,7 +6,7 @@
 /*   By: ramoukha <ramoukha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 18:38:44 by yoelguer          #+#    #+#             */
-/*   Updated: 2021/04/10 18:34:39 by ramoukha         ###   ########.fr       */
+/*   Updated: 2021/04/11 11:47:25 by ramoukha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,10 +109,10 @@ t_sol			limited_object(t_obj *cyl, t_ray r,t_sol sol)
 
 
 
-	dir = vect_mult_val(cyl->direction, cyl->slice.x);
+	dir = vect_mult_val(cyl->direction, cyl->length);
 
 
-	bottom = add_vect(cyl->position,vect_mult_val(cyl->direction, -cyl->slice.x));
+	bottom = add_vect(cyl->position,vect_mult_val(cyl->direction, -cyl->length));
 	top= add_vect(cyl->position,dir);
 
 
@@ -147,11 +147,45 @@ t_sol			limited_object(t_obj *cyl, t_ray r,t_sol sol)
 	}
 	return(sol);
 
-
-
-
 }
 t_sol			intersection_ray_cylindre(t_obj *cyl, t_ray r)
+{
+	t_sol	sol;
+	t_vect	sly;
+	int		is;
+
+	sol = all(cyl, r);
+	cyl->norm = get_normalized(sub_vect(sub_vect(cyl->hit, cyl->position),
+				vect_mult_val(cyl->direction, vect_scal(cyl->direction,
+				sub_vect(cyl->hit, cyl->position)))));
+	if (cyl->slice.x)
+		sol = limited_object(cyl, r, sol);
+
+	// if (cyl->slice.x || cyl->slice.y || cyl->slice.z)
+	// sol.tmin = cylinder_slicing(sol, cyl, r);
+	// sly = cyl->slice;
+	// if (!sly.x && !sly.y && !sly.z)
+	// 	is = 0;
+	// else
+	// 	is = 1;
+	// if (is == 1 && vect_scal(sub_vect(cyl->pos_slice, cyl->hit), sly) <= 0.0)
+	// 	return (intersection_slice(cyl, r, sol, sly));
+	// if (cyl->size != 0 && vect_scal(sub_vect(add_vect(cyl->position,
+	// 	vect_mult_val(cyl->direction, cyl->half_size)), cyl->hit),
+	// 			cyl->direction) <= 0.0)
+	// 	return (intersection_slice2(cyl, r, sol, sly));
+	// if (cyl->size != 0 && vect_scal(sub_vect(add_vect(cyl->position,
+	// 	vect_mult_val(cyl->direction, -cyl->half_size)), cyl->hit),
+	// 			cyl->direction) >= 0.0)
+	// 	return (intersection_slice3(cyl, r, sol, sly));
+	// cyl->norm = get_normalized(sub_vect(sub_vect(cyl->hit, cyl->position),
+	// 			vect_mult_val(cyl->direction, vect_scal(cyl->direction,
+	// 					sub_vect(cyl->hit, cyl->position)))));
+	return (sol);
+
+}
+
+t_sol			intersection_ray_limited_cylindre(t_obj *cyl, t_ray r)
 {
 	t_sol	sol;
 	t_vect	sly;

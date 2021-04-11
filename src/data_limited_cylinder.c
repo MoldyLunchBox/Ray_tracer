@@ -43,7 +43,7 @@ void		f_limited_cylinder(char **str, int j, t_obj *cylinder)
 	if (j == 5)
 		init_vect(&cylinder->pos_slice, ft_atof(str[0]),
 				ft_atof(str[1]), ft_atof(str[2]));
-	f_cylinder2(str, j, cylinder);
+	f_limited_cylinder2(str, j, cylinder);
 }
 
 int			s_limited_cylinder(char **table, int i, t_all *data, t_obj *cyl)
@@ -65,7 +65,7 @@ int			s_limited_cylinder(char **table, int i, t_all *data, t_obj *cyl)
 	{
 		if (!checker_loop(&str, table[i], j))
 			return (-1);
-		f_cylinder(str, j, cyl);
+		f_limited_cylinder(str, j, cyl);
 		j++;
 	}
 	data->id++;
@@ -76,7 +76,7 @@ int			s_limited_cylinder(char **table, int i, t_all *data, t_obj *cyl)
 	if (ft_strcmp(cyl->texture, ".") == 0)
 		cyl->direction = rot_vect_xyz(cyl->direction, cyl->rotation);
 	cyl->position = trans_vect_xyz(cyl->position, cyl->translation);
-	cyl->inter = &intersection_ray_cylindre;
+	cyl->inter = &intersection_ray_limited_cylindre;
 	cyl->half_size = cyl->size / 2;
 	return (0);
 }

@@ -5,16 +5,16 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
-			"name": "gcc - Build and debug active file",
+			"name": "(lldb) Launch",
 			"type": "cppdbg",
 			"request": "launch",
-			"program": "/Users/ramoukha/Desktop/ramoukha_rt/RT",
+			"program": "/Users/ramoukha/Desktop/rt_raaaaamoukha/RT",
 			"args": ["files/abdu_1"],
-			"stopAtEntry": true,
+			"stopAtEntry": false,
 			"cwd": "${workspaceFolder}",
 			"environment": [],
 			"externalConsole": false,
-			"MIMode": "lldb",
+			"MIMode": "lldb"
 		}
 	]
 }

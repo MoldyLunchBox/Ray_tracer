@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ramoukha <ramoukha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 18:37:09 by yoelguer          #+#    #+#             */
-/*   Updated: 2021/04/06 19:17:26 by amya             ###   ########.fr       */
+/*   Updated: 2021/04/11 11:39:21 by ramoukha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ typedef struct	s_obj
 	double				radius;
 	double				t;
 	double				type;
+	double				length;
 	t_vect				text_modif;
 	t_vect				position;
 	t_vect				translation;
