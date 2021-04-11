@@ -17,6 +17,8 @@ void		f_limited_cylinder2(char **str, int j, t_obj *cylinder)
 		cylinder->refl = ft_atof(str[0]);
 	if (j == 12)
 		cylinder->disruption = ft_atof(str[0]);
+	if (j == 13)
+		cylinder->length = ft_atof(str[0]);
 	cylinder->is_negative = 0;
 }
 
@@ -61,7 +63,7 @@ int			s_limited_cylinder(char **table, int i, t_all *data, t_obj *cyl)
 		return(-1);
 	cyl->texture = ft_strdup(white_split[1]);
 	free_2d(&white_split);
-	while (table[++i] && j < 12)
+	while (table[++i] && j < 14)
 	{
 		if (!checker_loop(&str, table[i], j))
 			return (-1);

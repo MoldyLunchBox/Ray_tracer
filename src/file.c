@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ramoukha <ramoukha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 18:47:13 by yoelguer          #+#    #+#             */
-/*   Updated: 2021/04/11 11:43:03 by ramoukha         ###   ########.fr       */
+/*   Updated: 2021/04/11 12:01:40 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int			ft_objects(t_all *data, int i, char **table, t_obj **obj)
 			return (-1);
 	if (ft_strcmp("cube:", table[i]) == 0)
 		if (s_cube(table, i + 1, data, *obj) < 0)
+			return (-1);
 	if (ft_strcmp("limited_cylinder:", table[i]) == 0)
 		if (s_limited_cylinder(table, i + 1, data, *obj) < 0)
 			return (-1);
