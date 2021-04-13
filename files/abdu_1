@@ -1,6 +1,6 @@
 
 camera:
- look_from: -100:0:300.0
+ look_from: -0:0:300.0
  look_at: 0.0:0.0:0.0
  something: 3000
  somehing: 150
@@ -15,7 +15,7 @@ light:
  ambient: 0.3
 
 
-sphere:
+sphere
  texture: .
  texture_modifie: -0.0:0:0
  position: -20:0:20
@@ -33,11 +33,11 @@ sphere:
  negative_object: 0
  disruption: 1
 
-plane:
+plane
  texture: ./textures/apple.jpg
  texture_modifie: 0.0:0:0.0
- position: 0:0:0
- direction: 0.0:0:1
+ position: 07:1:0
+ direction: 1:0:0
  translation: 0:0:0
  rotation: 0:0:0
  slice: 0:0:0
@@ -50,7 +50,7 @@ plane:
  disruption: 0
 
 
-limited_cylinder:
+limited_cylinder
  texture: .
  texture_modifie: -0.0:0:0
  position: 0.0:-0:20
@@ -68,7 +68,7 @@ limited_cylinder:
  disruption: 0
  length: 6
 
-box
+box:
  texture: .
  texture_modifie: -0.0:0:0
  position: 0.0:-0:0
@@ -79,7 +79,7 @@ box
  pos_slice: 0.0:0:0.0
  color: 0:255:0
  radius_angle: 4
- size: 2
+ size: 7
  type_material: 1
  transparency: 0.0
  reflection: 0.3
