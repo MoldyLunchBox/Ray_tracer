@@ -15,17 +15,17 @@ light:
  ambient: 0.3
 
 
-sphere
+sphere:
  texture: .
  texture_modifie: -0.0:0:0
- position: -20:0:20
+ position: -0:0:20
  direction: 0:0.0:0
  translation: 0:0:0
  rotation: 0:0:0
  slice: 0:0:0
  pos_slice: 0.0:0:0.0
  color: 0:255:0
- radius_angle: 50
+ radius_angle: 5
  size: 0
  type_material: 1
  transparency: 1

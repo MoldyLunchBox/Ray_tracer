@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ramoukha <ramoukha@student.42.fr>          +#+  +:+       +#+         #
+#    By: amya <amya@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/22 16:14:13 by yoelguer          #+#    #+#              #
-#    Updated: 2021/04/13 10:32:15 by ramoukha         ###   ########.fr        #
+#    Updated: 2021/04/13 11:39:44 by amya             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,11 +66,11 @@ NAME 	= RT
 
 CFLAGS = -Wall -Wextra -Werror -g
 
-INCLUDE	= -I /Users/$$USER/goinfre/.brew/Cellar/sdl2/2.0.14_1/include \
-	-I /Users/$$USER/goinfre/.brew/Cellar/sdl2_image/2.0.5/include \
+INCLUDE	= -I /Users/$$USER/.brew/Cellar/sdl2/2.0.14_1/include \
+	-I /Users/$$USER/.brew/Cellar/sdl2_image/2.0.5/include \
 
-LIB = -L /Users/$$USER/goinfre/.brew/Cellar/sdl2/2.0.14_1/lib \
-	-L   /Users/$$USER/goinfre/.brew/Cellar/sdl2_image/2.0.5/lib \
+LIB = -L /Users/$$USER/.brew/Cellar/sdl2/2.0.14_1/lib \
+	-L   /Users/$$USER/.brew/Cellar/sdl2_image/2.0.5/lib \
 
 SDL = `sdl2-config --cflags --libs` -lSDL2 -lSDL2_image
 
@@ -89,9 +89,7 @@ all : $(NAME)
 
 $(LIBFT_LIB): force
 	@make -C $(LIBFT_DIR)
-
 force:
-
 
 $(NAME) : $(LIBFT_LIB) $(OBJ)
 	@gcc -g $(OBJ) $(CFLAGS) -o $(NAME) $(INCLUDE) $(LIB)  $(SDL) $(LIBFT_LIB)
