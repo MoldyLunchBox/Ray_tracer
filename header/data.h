@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ramoukha <ramoukha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 18:37:09 by yoelguer          #+#    #+#             */
-/*   Updated: 2021/04/11 11:39:21 by ramoukha         ###   ########.fr       */
+/*   Updated: 2021/04/12 13:18:42 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,13 @@ typedef struct	s_plg
 	t_vect				*vetrices;
 	t_faces				*faces;
 }				t_plg;
+
+typedef struct s_uv
+{
+	double	u;
+	double	v;
+}				t_uv;
+
 
 typedef struct	s_obj
 {

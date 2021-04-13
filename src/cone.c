@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cone.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ramoukha <ramoukha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 18:38:38 by yoelguer          #+#    #+#             */
-/*   Updated: 2021/04/10 17:19:34 by ramoukha         ###   ########.fr       */
+/*   Updated: 2021/04/11 16:47:10 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ t_sol			intersection_ray_cone(t_obj *cone, t_ray r)
 	// 	sol.tmin = cone_slicing(sol, cone, r);
 	if (cone->slice.x)
 		sol = limited_object_cone(cone, r, sol);
-		
+	
 	// sly = cone->slice;
 	// if (!sly.x && !sly.y && !sly.z)
 	// 	is = 0;

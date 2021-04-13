@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ramoukha <ramoukha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 18:37:40 by yoelguer          #+#    #+#             */
-/*   Updated: 2021/04/11 11:47:35 by ramoukha         ###   ########.fr       */
+/*   Updated: 2021/04/12 13:17:35 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # include "vector.h"
 # include <math.h>
 
+int			s_box(char **table, int i, t_all *data, t_obj *box);
 void		threading(t_all alll);
 void		cartoon_filter(t_all *rt);
 void		ft_filter_mb(t_all *rt);
@@ -104,7 +105,9 @@ int		    checker_loop(char ***str, char *table, int j);
 void		f_limited_cylinder2(char **str, int j, t_obj *cylinder);
 void		f_limited_cylinder(char **str, int j, t_obj *cylinder);
 int			s_limited_cylinder(char **table, int i, t_all *data, t_obj *cyl);
-t_sol			intersection_ray_limited_cylindre(t_obj *cyl, t_ray r);
-
+t_sol		intersection_ray_limited_cylindre(t_obj *cyl, t_ray r);
+t_sol intersection_box(t_obj *box, t_ray ray);
+t_vect		norm_cube(t_obj *box, t_vect hit_point);
+t_vect			sorting(t_vect in);
 
 #endif

@@ -6,30 +6,30 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/28 16:54:18 by amya              #+#    #+#             */
-/*   Updated: 2021/03/29 15:56:22 by amya             ###   ########.fr       */
+/*   Updated: 2021/04/12 11:49:28 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/rt.h"
 
-t_2d_i		plane_uv(t_obj *obj, t_2d_i size)
-{
-	double	u;
-	double	v;
-	t_2d_i	tex;
-	t_vect	u_axis;
-	t_vect	v_axis;
+// t_2d_i		plane_uv(t_obj *obj, t_2d_i size)
+// {
+// 	double	u;
+// 	double	v;
+// 	t_2d_i	tex;
+// 	t_vect	u_axis;
+// 	t_vect	v_axis;
 
-	u_axis = (t_vect){obj->norm.y, obj->norm.z, -obj->norm.x};
-	v_axis = vect_cross(u_axis, obj->norm);
-	u = vect_scal(obj->hit, u_axis) * 0.05;
-	v = vect_scal(obj->hit, v_axis) * 0.05;
-	u = u - floor(u);
-	v = v - floor(v);
-	tex.x = (int)(u * (size.x - 1));
-	tex.y = (int)(v * (size.y - 1));
-	return (tex);
-}
+// 	u_axis = (t_vect){obj->norm.y, obj->norm.z, -obj->norm.x};
+// 	v_axis = vect_cross(u_axis, obj->norm);
+// 	u = vect_scal(obj->hit, u_axis) * 0.05;
+// 	v = vect_scal(obj->hit, v_axis) * 0.05;
+// 	u = u - floor(u);
+// 	v = v - floor(v);
+// 	tex.x = (int)(u * (size.x - 1));
+// 	tex.y = (int)(v * (size.y - 1));
+// 	return (tex);
+// }
 
 int			ft_clamp(int value, int min, int max)
 {

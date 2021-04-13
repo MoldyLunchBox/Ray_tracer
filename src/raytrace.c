@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raytrace.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ramoukha <ramoukha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 18:48:25 by yoelguer          #+#    #+#             */
-/*   Updated: 2021/04/10 15:18:19 by ramoukha         ###   ########.fr       */
+/*   Updated: 2021/04/12 19:57:09 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,6 +179,35 @@ t_vect			sorting(t_vect in)
 	return (order);
 }
 
+t_vect			distrupt_a_sphere(t_obj *obj, t_vect col)
+{
+	t_vect	center_to_hit;
+	double	hit_to_axis;
+	double	center_to_hit_len;
+	center_to_hit = obj->hit;
+	center_to_hit_len = sqrt(center_to_hit.x*center_to_hit.x + center_to_hit.y*center_to_hit.y + center_to_hit.z*center_to_hit.z);
+	// hit_to_axis = sqrt((center_to_hit_len * center_to_hit_len) - (obj->radius * obj->radius));
+	if ((int)center_to_hit_len % 2)
+		col = (t_vect){255,0,0};
+	else
+		col = (t_vect){255,255,255};
+	return (col);
+}
+
+t_vect			distrupt_a_sphere_color(t_obj *obj, t_vect col)
+{
+	
+	col = (t_vect){255, 255, 255};
+	col.x *= 1 - fabs(2*(obj->hit.x - floor(obj->hit.x) - 1));
+col.x = fabs(col.x);
+	col.y *= 1 - fabs(2*(obj->hit.y - floor(obj->hit.y) - 1));
+col.y = fabs(col.y);
+	col.z *= 1 - fabs(2*(obj->hit.z - floor(obj->hit.z) - 1));
+	col.z = fabs(col.z);
+	return (col);
+}
+
+
 t_vect			disruption(t_obj *obj, t_vect col)
 {
 	double	res;
@@ -187,42 +216,49 @@ t_vect			disruption(t_obj *obj, t_vect col)
 	t_vect	vec;
 	t_vect	usable_res;
 
-	// if (obj->norm.y)
-	// 	ft_putendl("s");
-	vec = sorting(obj->norm);
-	// printf("\n%f %f %f %f %f",obj->norm.x, obj->norm.y, obj->norm.z, vec.x, vec.y, vec.z);
-	if (obj->hit.x < 0)
-		res = ((int)obj->hit.x - 1) % 2;
-	else
-		res = ((int)obj->hit.x) % 2;
-	if (obj->hit.y < 0)
-		res2 = ((int)obj->hit.y - 1) % 2;
-	else
-		res2 = ((int)obj->hit.y) % 2;
-	if (obj->hit.z < 0)
-		res3 = ((int)obj->hit.z - 1) % 2;
-	else
-		res3 = ((int)obj->hit.z) % 2;
-	if (vec.x == 1)
-		usable_res.x = res;
-	if (vec.x == 2)
-		usable_res.x = res2;
-	if (vec.x == 3)
-		usable_res.x = res3;
-	if (vec.y == 1)
-		usable_res.y = res;
-	if (vec.y == 2)
-		usable_res.y = res2;
-	if (vec.y == 3)
-		usable_res.y = res3;
-	// exit(1);
-	// t_vect	hit_to_pos=sub_vect(obj->hit, obj->position);
-	// normalize(&hit_to_pos);
-	// test = vect_scal(hit_to_pos, obj->norm);
-	if ((usable_res.x && usable_res.y) || (!usable_res.x && !usable_res.y))
-		col = (t_vect){0, 0, 0};
-	else
-		col = (t_vect){255, 255, 255};
+	if (obj->disruption == 1)
+	{
+		vec = sorting(obj->norm);
+		// printf("\n%f %f %f %f %f",obj->norm.x, obj->norm.y, obj->norm.z, vec.x, vec.y, vec.z);
+		if (obj->hit.x < 0)
+			res = ((int)obj->hit.x - 1) % 2;
+		else
+			res = ((int)obj->hit.x) % 2;
+		if (obj->hit.y < 0)
+			res2 = ((int)obj->hit.y - 1) % 2;
+		else
+			res2 = ((int)obj->hit.y) % 2;
+		if (obj->hit.z < 0)
+			res3 = ((int)obj->hit.z - 1) % 2;
+		else
+			res3 = ((int)obj->hit.z) % 2;
+		if (vec.x == 1)
+			usable_res.x = res;
+		if (vec.x == 2)
+			usable_res.x = res2;
+		if (vec.x == 3)
+			usable_res.x = res3;
+		if (vec.y == 1)
+			usable_res.y = res;
+		if (vec.y == 2)
+			usable_res.y = res2;
+		if (vec.y == 3)
+			usable_res.y = res3;
+		// exit(1);
+		// t_vect	hit_to_pos=sub_vect(obj->hit, obj->position);
+		// normalize(&hit_to_pos);
+		// test = vect_scal(hit_to_pos, obj->norm);
+		if ((usable_res.x && usable_res.y) || (!usable_res.x && !usable_res.y))
+			col = (t_vect){0, 0, 0};
+		else
+			col = (t_vect){255, 255, 255};
+	}
+	
+	if (obj->disruption == 2)
+		col = distrupt_a_sphere(obj, col);
+	if (obj->disruption == 3)
+		col = distrupt_a_sphere_color(obj, col);
+	
 	return (col);
 }
 

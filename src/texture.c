@@ -6,38 +6,77 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/28 16:54:18 by amya              #+#    #+#             */
-/*   Updated: 2021/03/28 18:50:14 by amya             ###   ########.fr       */
+/*   Updated: 2021/04/12 19:47:27 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/rt.h"
 
-t_2d_i		get_uv(t_obj *obj, t_2d_i size)
+t_vect		fill_acording_to_order(t_vect source, t_vect order)
 {
-	t_2d_i	uv;
+	t_vect	ret;
 
-	if (ft_strcmp(obj->name, "sphere") == 0)
-		uv = sphere_uv(obj, size);
-	if (ft_strcmp(obj->name, "cylinder") == 0)
-		uv = uv_mapping_cyl_cone(obj, size);
-	if (ft_strcmp(obj->name, "cone") == 0)
-		uv = uv_mapping_cyl_cone(obj, size);
+	if (order.x == 1)
+		ret.x = source.x;
+	if (order.x == 2)
+		ret.x = source.y;
+	if (order.z == 3)
+		ret.x = source.z;
+	if (order.y == 1)
+		ret.y = source.x;
+	if (order.y == 2)
+		ret.y = source.y;
+	if (order.y == 3)
+		ret.y = source.z;
+	return (ret);	
+}
+t_uv		get_plane_uv(t_obj *plane, t_2d_i size)
+{
+	t_uv	uv;
+	t_vect	order;
+	t_vect	u;
+	t_vect	v;
+
+	// order = sorting(plane->norm);
+	// order = fill_acording_to_order(plane->norm, order);
+	u = (t_vect){plane->norm.y, -plane->norm.z, plane->norm.x};
+	v = vect_cross(plane->norm, u);
+	uv.u =  vect_scal(u, plane->hit) * 0.01;
+	uv.v =  vect_scal(v, plane->hit) * 0.01;
+
+	uv.u = (uv.u - floor(uv.u)) * size.x;
+	uv.v = (uv.v - floor(uv.v)) * size.y;
+	
+	
+	return (uv);
+}
+
+t_uv		get_uv(t_obj *obj, t_2d_i size)
+{
+	t_uv	uv;
+
+	// if (ft_strcmp(obj->name, "sphere") == 0)
+	// 	uv = sphere_uv(obj, size);
+	// if (ft_strcmp(obj->name, "cylinder") == 0)
+	// 	uv = uv_mapping_cyl_cone(obj, size);
+	// if (ft_strcmp(obj->name, "cone") == 0)
+	// 	uv = uv_mapping_cyl_cone(obj, size);
 	if (ft_strcmp(obj->name, "plane") == 0)
-		uv = plane_uv(obj, size);
+		uv = get_plane_uv(obj, size);
 	return (uv);
 }
 
 int			init_bpp(unsigned char **pos, int bpp, t_obj *obj)
 {
-	t_2d_i size;
-	t_2d_i tex;
+	t_2d_i	size;
+	t_uv	tex;
 
 	bpp = obj->surface->format->BytesPerPixel;
 	size.x = obj->surface->w;
 	size.y = obj->surface->h;
 	tex = get_uv(obj, size);
-	*pos = (unsigned char *)obj->surface->pixels + ((int)(tex.y +
-	obj->text_modif.y) * obj->surface->pitch + (int)(tex.x +
+	*pos = (unsigned char *)obj->surface->pixels + ((int)(tex.v +
+	obj->text_modif.y) * obj->surface->pitch + (int)(tex.u +
 	obj->text_modif.x) * bpp);
 	return (bpp);
 }

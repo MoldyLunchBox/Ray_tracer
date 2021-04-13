@@ -6,7 +6,7 @@
 #    By: amya <amya@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/22 16:14:13 by yoelguer          #+#    #+#              #
-#    Updated: 2021/04/11 11:54:09 by amya             ###   ########.fr        #
+#    Updated: 2021/04/11 20:00:09 by amya             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,6 +52,8 @@ SRC		= 	main.c \
 			data_malloc2.c\
 			pars_error_checker.c\
 			data_limited_cylinder.c\
+			box.c\
+			data_box.c\
 
 HEADER = 	header/data.h\
 			header/ray.h\

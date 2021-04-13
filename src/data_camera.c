@@ -6,7 +6,7 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:59:41 by amya              #+#    #+#             */
-/*   Updated: 2021/04/06 20:00:24 by amya             ###   ########.fr       */
+/*   Updated: 2021/04/12 19:14:45 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,9 @@ int			s_camera(char **table, int i, t_data_camera *camera)
 		k = 0;
 		space_split = ft_strsplit(table[i], ' ');
 		dot_split = ft_strsplit(space_split[1], ':');
-		if (f_str2(dot_split, j, 1) == -1)
-			return (-1);
 		if (!space_counter(table[i]))
+			return (-1);
+		if (f_str2(dot_split, j, 1) == -1)
 			return (-1);
 		f_camera(dot_split, j, camera);
 		j++;
