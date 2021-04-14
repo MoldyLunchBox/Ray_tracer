@@ -6,7 +6,7 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 18:37:09 by yoelguer          #+#    #+#             */
-/*   Updated: 2021/04/12 13:18:42 by amya             ###   ########.fr       */
+/*   Updated: 2021/04/14 14:45:13 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,20 @@ typedef struct	s_data_light
 	t_vect				norm_light;
 	struct s_data_light	*next;
 }				t_data_light;
+typedef union u_vect
+{
+	t_vect	order;
+	double	tab[3];
+}				u_vect;
+
+typedef struct 	s_4vects
+{
+	t_vect				one;
+	t_vect				two;
+	t_vect				three;
+	t_vect				four;
+}				t_4vects;
+
 
 typedef struct	s_faces
 {
@@ -127,6 +141,7 @@ typedef struct	s_obj
 	t_sol				(*inter)(struct s_obj *, t_ray);
 	double				radius;
 	double				t;
+	t_sol				sol;
 	double				type;
 	double				length;
 	t_vect				text_modif;

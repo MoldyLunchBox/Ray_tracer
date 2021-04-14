@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   plane.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ramoukha <ramoukha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 18:47:58 by yoelguer          #+#    #+#             */
-/*   Updated: 2021/04/10 18:10:46 by ramoukha         ###   ########.fr       */
+/*   Updated: 2021/04/14 14:45:49 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,19 @@ double		slice_plane(t_obj *pln)
 		return (-1);
 	return (0);
 }
-
+t_sol		plane_slicing(t_obj *obj)
+{
+	t_vect	hit_to_slice_point;
+	t_sol	t;
+ 
+	hit_to_slice_point = sub_vect(obj->hit, obj->pos_slice);
+	if (vect_scal(hit_to_slice_point, obj->slice) < 0)
+	{
+		t.tmin = -1;
+		return (t);
+	}
+	return (t);
+}
 t_sol		intersection_ray_plan(t_obj *pln, t_ray r)
 {
 	double	nomi;
@@ -59,8 +71,12 @@ t_sol		intersection_ray_plan(t_obj *pln, t_ray r)
 		return (sol);
 	pln->hit = add_vect(r.origine,
 			vect_mult_val(r.direction, sol.tmin));
+	pln->t = sol.tmin;
+	pln->sol = sol;
 	// if (slice_plane(pln) == -1)
 	// 	return (sol);
+	// if (pln->slice.x || pln->slice.y || pln->slice.z)
+	// 	sol = plane_slicing(pln);
 	// if (is_slider == 1 && vect_scal(sub_vect(pln->pos_slice,
 	// pln->hit), pln->slice) <= 0.0)
 	// 	return (sol);
