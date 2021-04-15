@@ -6,13 +6,13 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 15:36:32 by amya              #+#    #+#             */
-/*   Updated: 2021/03/29 15:36:48 by amya             ###   ########.fr       */
+/*   Updated: 2021/04/15 11:01:25 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/rt.h"
 
-void			cone_norm(t_obj *cone, t_ray r, double t)
+void	cone_norm(t_obj *cone, t_ray r, double t)
 {
 	double	k;
 	double	m;
@@ -20,11 +20,11 @@ void			cone_norm(t_obj *cone, t_ray r, double t)
 	k = tan((cone->radius * PI / 180) / 2);
 	m = vect_scal(r.direction, vect_mult_val(cone->direction, t))
 		+ vect_scal(sub_vect(r.origine, cone->position), cone->direction);
-	cone->norm = get_normalized(sub_vect(sub_vect(cone->hit, cone->position)
-				, vect_mult_val(cone->direction, (1 + k + k) * m)));
+	cone->norm = get_normalized(sub_vect(sub_vect(cone->hit, cone->position
+					), vect_mult_val(cone->direction, (1 + k + k) * m)));
 }
 
-t_sol			find_solution(double delta, t_vect abc)
+t_sol	find_solution(double delta, t_vect abc)
 {
 	t_sol	sol;
 	double	temp;

@@ -6,7 +6,7 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 18:45:53 by yoelguer          #+#    #+#             */
-/*   Updated: 2021/04/06 19:40:38 by amya             ###   ########.fr       */
+/*   Updated: 2021/04/14 17:02:46 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int			s_cone(char **table, int i, t_all *data, t_obj *cone)
 	free_2d(&white_split);
 		while (table[++i] && j < 12)
 	{
-		if (!checker_loop(&str, table[i], j))
+		if (!checker_loop(&str, table[i], j, 7))
 			return (-1);
 		f_cone(str, j, cone);
 		j++;

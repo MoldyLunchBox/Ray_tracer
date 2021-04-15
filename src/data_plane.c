@@ -6,7 +6,7 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 18:46:21 by yoelguer          #+#    #+#             */
-/*   Updated: 2021/04/06 19:30:37 by amya             ###   ########.fr       */
+/*   Updated: 2021/04/14 17:02:39 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int			s_plane(char **table, int i, t_all *data, t_obj *plane)
 	free_2d(&white_split);
 	while (table[++i] && j < 12)
 	{
-		if (!checker_loop(&str, table[i], j))
+		if (!checker_loop(&str, table[i], j, 7))
 			return (-1);
 		f_plane(str, j, plane);
 		j++;

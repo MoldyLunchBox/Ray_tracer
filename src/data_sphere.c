@@ -6,7 +6,7 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 18:47:00 by yoelguer          #+#    #+#             */
-/*   Updated: 2021/04/06 19:43:23 by amya             ###   ########.fr       */
+/*   Updated: 2021/04/14 17:02:26 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int			s_sphere(char **table, int i, t_all *data, t_obj *sphere)
 	free_2d(&white_split);
 	while (table[++i] && j < 14)
 	{
-		if (!checker_loop(&str, table[i], j))
+		if (!checker_loop(&str, table[i], j, 7))
 			return (-1);
 		f_sphere(str, j, sphere);
 		j++;

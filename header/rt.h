@@ -6,7 +6,7 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 18:37:40 by yoelguer          #+#    #+#             */
-/*   Updated: 2021/04/12 13:17:35 by amya             ###   ########.fr       */
+/*   Updated: 2021/04/14 17:02:03 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int			space_counter(char *str);
 void        free_2d(char ***str);
 int         white_split_check(char **str);
 int         info_checker(char **str);
-int		    checker_loop(char ***str, char *table, int j);
+int		    checker_loop(char ***str, char *table, int j, int max_vects);
 void		f_limited_cylinder2(char **str, int j, t_obj *cylinder);
 void		f_limited_cylinder(char **str, int j, t_obj *cylinder);
 int			s_limited_cylinder(char **table, int i, t_all *data, t_obj *cyl);

@@ -6,7 +6,7 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:01:06 by amya              #+#    #+#             */
-/*   Updated: 2021/04/06 18:35:02 by amya             ###   ########.fr       */
+/*   Updated: 2021/04/14 16:59:34 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int		info_checker(char **ar)
 	return (1);
 }
 
-int		checker_loop(char ***str, char *table, int j)
+int		checker_loop(char ***str, char *table, int j, int max_ints)
 {
 	char	**white_split;
 	char	**str2;
@@ -66,7 +66,7 @@ int		checker_loop(char ***str, char *table, int j)
 	white_split = ft_strsplit(table, ' ');
 	if (!white_split_check(white_split))
 		return(0);
-	if (j < 7)
+	if (j < max_ints)
 		{
 			str2 = ft_strsplit(white_split[1], ':');
 			if (!info_checker(str2))

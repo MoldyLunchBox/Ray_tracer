@@ -65,7 +65,7 @@ int			s_limited_cylinder(char **table, int i, t_all *data, t_obj *cyl)
 	free_2d(&white_split);
 	while (table[++i] && j < 14)
 	{
-		if (!checker_loop(&str, table[i], j))
+		if (!checker_loop(&str, table[i], j, 7))
 			return (-1);
 		f_limited_cylinder(str, j, cyl);
 		j++;

@@ -98,7 +98,7 @@ t_obj	box_sides(t_vect plane_direction, t_obj *box, t_ray ray)
     plane.position = plane_position;
 	plane.color = (t_vect){255,0,0};
 	plane.slice = (t_vect){0,0,0};
-	slice_it_four_times(&plane, ray, box->size);
+	plane.sol = slice_it_four_times(&plane, ray, box->size);
 	return (plane);
 }
 void	init_box(t_obj plane, t_obj *box, t_sol *closest)
@@ -107,50 +107,32 @@ void	init_box(t_obj plane, t_obj *box, t_sol *closest)
 	box->hit = plane.hit;
 	box->norm = plane.norm;
 	box->t = plane.t;
-	closest->tmin = plane.t;
+	closest->tmin = plane.sol.tmin;
 }
 t_sol intersection_box(t_obj *box, t_ray ray)
 {
     t_obj plane;
-    t_vect p1;
-    t_vect d1;
-    t_vect d2;
-    double intersection;
     t_sol closest;
 
 	closest.tmin = -1;
-    d2 = (t_vect){0,1,0};
-    plane = box_sides(d2, box, ray);
-	if (closest.tmin == -1 || closest.tmin > plane.t)
+    plane = box_sides((t_vect){0,1,0}, box, ray);
+	if (closest.tmin == -1 || closest.tmin > plane.sol.tmin)
 		init_box(plane, box, &closest);
-    // d2 = (t_vect){0,-1,0};
-	// plane = box_sides(d2, box, ray);
-	// if (closest.tmin == -1 || closest.tmin > plane.t)
-	// 	init_box(plane, box, &closest);
-	// if (t.tmin == -1)
-	// {d2 = (t_vect){0,-1,0};
-    // p1 = add_vect(vect_mult_val(d2, box->size), box->position);
-    // plane.direction = d2;
-    // plane.position = p1;
-	// t  = slice_it_four_times(&plane, ray, box->size);
-// }
-
-// if (t.tmin == -1)
-// 	{d2 = (t_vect){1,0,0};
-//     p1 = add_vect(vect_mult_val(d2, box->size), box->position);
-//     plane.direction = d2;
-//     plane.position = p1;
-// 	t  = slice_it_four_times(&plane, ray, box->size);
-// }
-  
-
-
-
+	plane = box_sides((t_vect){0,-1,0}, box, ray);
+	if (closest.tmin == -1 || (closest.tmin > plane.sol.tmin && plane.sol.tmin != -1))
+		init_box(plane, box, &closest);
+	plane = box_sides((t_vect){1,0,0}, box, ray);
+	if (closest.tmin == -1 || (closest.tmin > plane.sol.tmin && plane.sol.tmin != -1))
+		init_box(plane, box, &closest);
+	plane = box_sides((t_vect){-1,0,0}, box, ray);
+	if (closest.tmin == -1 || (closest.tmin > plane.sol.tmin && plane.sol.tmin != -1))
+		init_box(plane, box, &closest);
+	plane = box_sides((t_vect){0,0,-1}, box, ray);
+	if (closest.tmin == -1 || (closest.tmin > plane.sol.tmin && plane.sol.tmin != -1))
+		init_box(plane, box, &closest);
+	plane = box_sides((t_vect){0,0,1}, box, ray);
+	if (closest.tmin == -1 || (closest.tmin > plane.sol.tmin && plane.sol.tmin != -1))
+		init_box(plane, box, &closest);
     return(closest);
-
-
-
-
-
 }
 

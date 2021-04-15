@@ -6,7 +6,7 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/28 15:44:37 by amya              #+#    #+#             */
-/*   Updated: 2021/04/02 19:13:54 by amya             ###   ########.fr       */
+/*   Updated: 2021/04/15 11:02:26 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,15 @@ t_vect		norm_cube(t_obj *box, t_vect hit_point)
 static void	init_box(t_obj *box, t_sol sol)
 {
 	init_vect(&box->a, box->position.x + box->size / 2,
-	box->position.y + box->size / 2, box->position.z + box->size / 2);
+		box->position.y + box->size / 2, box->position.z + box->size / 2);
 	init_vect(&box->b, box->position.x - box->size / 2,
-	box->position.y - box->size / 2, box->position.z - box->size / 2);
+		box->position.y - box->size / 2, box->position.z - box->size / 2);
 	sol.tmin = -1;
 }
 
-t_sol		intersection_cube(t_obj *box, t_ray r)
+t_sol	intersection_cube(t_obj *box, t_ray r)
 {
-	t_bb b;
+	t_bb	b;
 	t_sol	sol;
 
 	init_box(box, sol);
