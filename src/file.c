@@ -6,13 +6,13 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 18:47:13 by yoelguer          #+#    #+#             */
-/*   Updated: 2021/04/11 16:49:25 by amya             ###   ########.fr       */
+/*   Updated: 2021/04/15 17:22:05 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/rt.h"
 
-int			ft_objects(t_all *data, int i, char **table, t_obj **obj)
+int	ft_objects(t_all *data, int i, char **table, t_obj **obj)
 {
 	if (ft_strcmp("sphere:", table[i]) == 0)
 		if (s_sphere(table, i + 1, data, *obj) < 0)
@@ -25,9 +25,6 @@ int			ft_objects(t_all *data, int i, char **table, t_obj **obj)
 			return (-1);
 	if (ft_strcmp("cone:", table[i]) == 0)
 		if (s_cone(table, i + 1, data, *obj) < 0)
-			return (-1);
-	if (ft_strcmp("ring:", table[i]) == 0)
-		if (s_ring(table, i + 1, data, *obj) < 0)
 			return (-1);
 	if (ft_strcmp("paraploid:", table[i]) == 0)
 		if (s_paraploid(table, i + 1, data, *obj) < 0)
@@ -44,7 +41,7 @@ int			ft_objects(t_all *data, int i, char **table, t_obj **obj)
 	return (0);
 }
 
-int			ft_obj(char **table, t_all *data)
+int	ft_obj(char **table, t_all *data)
 {
 	int		i;
 	t_obj	*obj;
@@ -55,14 +52,13 @@ int			ft_obj(char **table, t_all *data)
 	while (table[++i])
 	{
 		if (ft_strcmp("cylinder:", table[i]) == 0
-				|| ft_strcmp("sphere:", table[i]) == 0
-				|| ft_strcmp("cone:", table[i]) == 0
-				|| ft_strcmp("plane:", table[i]) == 0
-				|| ft_strcmp("ring:", table[i]) == 0
-				|| ft_strcmp("ellipsoid:", table[i]) == 0
-				|| ft_strcmp("box:", table[i]) == 0
-				|| ft_strcmp("paraploid:", table[i]) == 0
-				|| ft_strcmp("limited_cylinder:", table[i]) == 0)
+			|| ft_strcmp("sphere:", table[i]) == 0
+			|| ft_strcmp("cone:", table[i]) == 0
+			|| ft_strcmp("plane:", table[i]) == 0
+			|| ft_strcmp("ellipsoid:", table[i]) == 0
+			|| ft_strcmp("box:", table[i]) == 0
+			|| ft_strcmp("paraploid:", table[i]) == 0
+			|| ft_strcmp("limited_cylinder:", table[i]) == 0)
 		{
 			if (ft_objects(data, i, table, &obj) < 0)
 				return (-1);
@@ -73,7 +69,7 @@ int			ft_obj(char **table, t_all *data)
 	return (0);
 }
 
-int			ft_checker(char ***table, t_all *data)
+int	ft_checker(char ***table, t_all *data)
 {
 	if (ft_camera(*table, data) < 0)
 	{
@@ -93,26 +89,18 @@ int			ft_checker(char ***table, t_all *data)
 	return (0);
 }
 
-int			ft_lines_in_file(char *str)
+static int	file_check(t_all *data, char **table)
 {
-	int		fd;
-	int		count;
-	char	*line;
-
-	count = 0;
-	if ((fd = open(str, O_RDONLY)) < 0)
-		return (-1);
-	while (get_next_line(fd, &line))
+	if (ft_checker(&table, data) < 0)
 	{
-		count++;
-		free(line);
+		ft_putendl("error data");
+		ft_strdel(table);
+		return (0);
 	}
-	if (close(fd) < 0)
-		return (-1);
-	return (count);
+	return (1);
 }
 
-int			file_checker(char *str, t_all *data)
+int	file_checker(char *str, t_all *data)
 {
 	int		fd;
 	int		lines;
@@ -121,19 +109,17 @@ int			file_checker(char *str, t_all *data)
 
 	i = 0;
 	lines = ft_lines_in_file(str);
-	if (!(table = (char **)malloc(sizeof(char*) * (lines + 1))))
+	table = (char **)malloc(sizeof(char *) * (lines + 1));
+	if (!table)
 		return (-1);
-	if ((fd = open(str, O_RDONLY)) < 0)
+	fd = open(str, O_RDONLY);
+	if (fd < 0)
 		return (-1);
 	while (get_next_line(fd, &table[i]) > 0)
 		i++;
 	table[i] = NULL;
-	if (ft_checker(&table, data) < 0)
-	{
-		ft_putendl("error data");
-		ft_strdel(table);
+	if (!file_check(data, table))
 		return (-1);
-	}
 	if (table != NULL)
 		ft_strdel(table);
 	return (1);

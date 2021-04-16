@@ -6,7 +6,7 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 18:37:40 by yoelguer          #+#    #+#             */
-/*   Updated: 2021/04/14 17:02:03 by amya             ###   ########.fr       */
+/*   Updated: 2021/04/15 17:20:48 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,5 +109,7 @@ t_sol		intersection_ray_limited_cylindre(t_obj *cyl, t_ray r);
 t_sol intersection_box(t_obj *box, t_ray ray);
 t_vect		norm_cube(t_obj *box, t_vect hit_point);
 t_vect			sorting(t_vect in);
+int         space_counter(char *str);
+int         ft_lines_in_file(char *str);
 
 #endif

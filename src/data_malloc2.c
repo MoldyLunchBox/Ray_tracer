@@ -6,13 +6,13 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 15:53:43 by amya              #+#    #+#             */
-/*   Updated: 2021/03/29 15:54:02 by amya             ###   ########.fr       */
+/*   Updated: 2021/04/15 13:29:19 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/rt.h"
 
-void		ft_alloc_obj2(t_obj **obj)
+void	ft_alloc_obj2(t_obj **obj)
 {
 	(*obj)->radius = 0;
 	(*obj)->radius2 = 0;
@@ -22,15 +22,15 @@ void		ft_alloc_obj2(t_obj **obj)
 	(*obj)->trans = 0;
 	(*obj)->half_size = 0;
 	(*obj)->refl = 0;
-	(*obj)->texture = NULL;
 	(*obj)->name = NULL;
 	(*obj)->surface = NULL;
 	(*obj)->next = NULL;
 }
 
-void		ft_alloc_obj(t_obj **obj)
+void	ft_alloc_obj(t_obj **obj)
 {
-	(*obj) = (t_obj*)malloc(sizeof(t_obj));
+	(*obj) = (t_obj *)malloc(sizeof(t_obj));
+	(*obj)->texture = ft_strdup(".");
 	init_vect(&(*obj)->pos_slice, 0, 0, 0);
 	init_vect(&(*obj)->a, 0, 0, 0);
 	init_vect(&(*obj)->b, 0, 0, 0);

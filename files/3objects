@@ -1,6 +1,6 @@
 
 camera:
- look_from: -90:15:100
+ look_from: 15:15:100
  look_at: 0.0:0.0:0.0
  something: 1500
  somehing: 150
@@ -69,64 +69,8 @@ plane:
 limited_cylinder:
  texture: .
  texture_modifie: -0.0:0:0
- position: 0.0:30:0
- direction: 0:1:0
- translation: 0:0:0
- rotation: 0:0:0
- slice: 6:0:0
- pos_slice: 0.0:0:0.0
- color: 1:128:181
- radius_angle: 2
- size: 0
- type_material: 1
- transparency: 0.0
- reflection: 0.3
- disruption: 0
- length: 6
-
-limited_cylinder:
- texture: .
- texture_modifie: -0.0:0:0
- position: 0.0:10:0
- direction: 0:1:0
- translation: 0:0:0
- rotation: 0:0:0
- slice: 6:0:0
- pos_slice: 0.0:0:0.0
- color: 1:128:181
- radius_angle: 2
- size: 0
- type_material: 1
- transparency: 0.0
- reflection: 0.3
- disruption: 0
- length: 6
-
-
-limited_cylinder:
- texture: .
- texture_modifie: -0.0:0:0
- position: -12:20:0
- direction: 1:0:0
- translation: 0:0:0
- rotation: 0:0:0
- slice: 6:0:0
- pos_slice: 0.0:0:0.0
- color: 1:128:181
- radius_angle: 2
- size: 0
- type_material: 1
- transparency: 0.0
- reflection: 0.3
- disruption: 0
- length: 6
-
-
-limited_cylinder:
- texture: .
- texture_modifie: -0.0:0:0
- position: 12:20:0
- direction: 1:0:0
+ position: -10:-8:10
+ direction: 1:0.0:0
  translation: 0:0:0
  rotation: 0:0:0
  slice: 6:0:0
@@ -141,7 +85,7 @@ limited_cylinder:
  length: 6
 
 box:
- position: 0.0:20:0
+ position: 0.0:-4:0
  direction: 0.0:-0:0
  color: 0:255:0
  size: 7
@@ -149,7 +93,7 @@ box:
 sphere:
  texture: .
  texture_modifie: -0.0:0:0
- position: -0:-1:0
+ position: -15:-4:0
  direction: 0:0.0:0
  translation: 0:0:0
  rotation: 0:0:0

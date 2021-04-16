@@ -5,14 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/09 18:47:48 by yoelguer          #+#    #+#             */
-/*   Updated: 2021/03/29 12:55:59 by amya             ###   ########.fr       */
+/*   Created: 2021/04/15 16:33:06 by amya              #+#    #+#             */
+/*   Updated: 2021/04/15 16:33:16 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/rt.h"
 
-void			event_alias(t_all *data)
+void	event_alias(t_all *data)
 {
 	SDL_Rect	dest;
 	SDL_Texture	*aalias;
@@ -31,14 +31,28 @@ void			event_alias(t_all *data)
 		data->aalias = 1 - data->aalias;
 		if (data->aalias == 0)
 			aalias = IMG_LoadTexture(data->rend,
-			"./textures/not_antialias.png");
+					"./textures/not_antialias.png");
 		if (data->aalias == 1)
 			aalias = IMG_LoadTexture(data->rend, "./textures/antialias.png");
 	}
 	SDL_RenderCopy(data->rend, aalias, NULL, &dest);
 }
 
-void			event_filter(t_all *data)
+static void	load_texture(t_all *data, SDL_Texture	*filter)
+{
+	if (data->filter == 2)
+		data->filter = 0;
+	else
+		data->filter++;
+	if (data->filter == 0)
+		filter = IMG_LoadTexture(data->rend, "./textures/no_filter.png");
+	if (data->filter == 1)
+		filter = IMG_LoadTexture(data->rend, "./textures/filter1.png");
+	if (data->filter == 2)
+		filter = IMG_LoadTexture(data->rend, "./textures/filter2.png");
+}
+
+void	event_filter(t_all *data)
 {
 	SDL_Rect	dest_r1;
 	SDL_Texture	*filter;
@@ -55,19 +69,11 @@ void			event_filter(t_all *data)
 	if (data->filter == 2)
 		filter = IMG_LoadTexture(data->rend, "./textures/filter2.png");
 	if (inside_rect(data, dest_r1) == 1)
-	{
-		data->filter == 2 ? data->filter = 0 : data->filter++;
-		if (data->filter == 0)
-			filter = IMG_LoadTexture(data->rend, "./textures/no_filter.png");
-		if (data->filter == 1)
-			filter = IMG_LoadTexture(data->rend, "./textures/filter1.png");
-		if (data->filter == 2)
-			filter = IMG_LoadTexture(data->rend, "./textures/filter2.png");
-	}
+		load_texture(data, filter);
 	SDL_RenderCopy(data->rend, filter, NULL, &dest_r1);
 }
 
-void			event_focus(t_all *data)
+void	event_focus(t_all *data)
 {
 	SDL_Rect	dest_r2;
 	SDL_Texture	*focus;
@@ -92,7 +98,7 @@ void			event_focus(t_all *data)
 	SDL_RenderCopy(data->rend, focus, NULL, &dest_r2);
 }
 
-void			event_go(t_all *data)
+void	event_go(t_all *data)
 {
 	SDL_Rect	dest_r2;
 	SDL_Texture	*go;

@@ -5,34 +5,34 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/09 18:47:48 by yoelguer          #+#    #+#             */
-/*   Updated: 2021/04/13 17:22:01 by amya             ###   ########.fr       */
+/*   Created: 2021/04/15 17:36:32 by amya              #+#    #+#             */
+/*   Updated: 2021/04/15 17:36:43 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/rt.h"
 
-void			ft_alloc(t_all *data)
+void	ft_alloc(t_all *data)
 {
 	data->filter = 0;
 	data->ren = 0;
 	data->aalias = 0;
 	data->deep = 0;
-	data->screen_pixels = (t_vect*)malloc((WIN_W * WIN_H) * sizeof(t_vect));
-	data->camera = (t_data_camera*)malloc(sizeof(t_data_camera));
+	data->screen_pixels = (t_vect *)malloc((WIN_W * WIN_H) * sizeof(t_vect));
+	data->camera = (t_data_camera *)malloc(sizeof(t_data_camera));
 	ft_alloc_obj(&data->obj);
 	ft_alloc_light(&data->light);
 }
 
-int				inside_rect(t_all *data, SDL_Rect r)
+int	inside_rect(t_all *data, SDL_Rect r)
 {
-	if (data->event.x >= r.x && data->event.x <= r.x + r.w &&
-		data->event.y >= r.y && data->event.y <= r.y + r.h)
+	if (data->event.x >= r.x && data->event.x <= r.x + r.w && data->event.y
+		>= r.y && data->event.y <= r.y + r.h)
 		return (1);
 	return (0);
 }
 
-void			menu(t_all *data)
+void	menu(t_all *data)
 {
 	SDL_SetRenderDrawColor(data->rend, 0, 0, 0, 255);
 	event_alias(data);
@@ -43,7 +43,7 @@ void			menu(t_all *data)
 	data->event.y = 0;
 }
 
-void			threading(t_all alll)
+void	threading(t_all alll)
 {
 	pthread_t	thread_id[4];
 	t_all		data[4];
@@ -69,7 +69,7 @@ void			threading(t_all alll)
 	loop_program(&alll);
 }
 
-int				main(int ac, char **av)
+int	main(int ac, char **av)
 {
 	t_all	data;
 

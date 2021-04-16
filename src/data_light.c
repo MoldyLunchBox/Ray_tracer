@@ -6,26 +6,26 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 18:46:34 by yoelguer          #+#    #+#             */
-/*   Updated: 2021/04/06 19:51:41 by amya             ###   ########.fr       */
+/*   Updated: 2021/04/15 13:09:02 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/rt.h"
 
-void		f_light(char **str, int j, t_data_light *light)
+void	f_light(char **str, int j, t_data_light *light)
 {
 	int		k;
 
 	k = 0;
 	if (j == 0)
 		init_vect(&light->position, ft_atof(str[k]),
-				ft_atof(str[k + 1]), ft_atof(str[k + 2]));
+			ft_atof(str[k + 1]), ft_atof(str[k + 2]));
 	if (j == 1)
 		init_vect(&light->direction, ft_atof(str[k]),
-				ft_atof(str[k + 1]), ft_atof(str[k + 2]));
+			ft_atof(str[k + 1]), ft_atof(str[k + 2]));
 	if (j == 2)
 		init_vect(&light->color, ft_atof(str[k]),
-				ft_atof(str[k + 1]), ft_atof(str[k + 2]));
+			ft_atof(str[k + 1]), ft_atof(str[k + 2]));
 	if (j == 3)
 		light->intensity = ft_atof(str[k]);
 	if (j == 4)
@@ -36,7 +36,7 @@ void		f_light(char **str, int j, t_data_light *light)
 		light->ambient = ft_atof(str[k]);
 }
 
-int			s_light(char **table, int i, t_data_light *light)
+int	s_light(char **table, int i, t_data_light *light)
 {
 	int		j;
 	int		k;
@@ -60,7 +60,7 @@ int			s_light(char **table, int i, t_data_light *light)
 	return (0);
 }
 
-int			ft_light(char **table, t_all *data)
+int	ft_light(char **table, t_all *data)
 {
 	int				i;
 	char			**aray;

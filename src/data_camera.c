@@ -6,13 +6,13 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:59:41 by amya              #+#    #+#             */
-/*   Updated: 2021/04/12 19:14:45 by amya             ###   ########.fr       */
+/*   Updated: 2021/04/15 12:44:24 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/rt.h"
 
-void		f_camera(char **str, int j, t_data_camera *camera)
+void	f_camera(char **str, int j, t_data_camera *camera)
 {
 	if (j == 0)
 		camera->pos = new_vect(ft_atof(str[0]),
@@ -26,45 +26,24 @@ void		f_camera(char **str, int j, t_data_camera *camera)
 		camera->focus_dis = ft_atof(str[0]);
 }
 
-int			space_counter(char *str)
+static void	set_camera_dir(t_data_camera *camera)
 {
-	int	i;
-	int	j;
+	t_vect	up;
 
-	j = 0;
-	i = 0;
-	if (str)
-	{
-		while (str[i] == ' ')
-			i++;
-		if (i == 1)
-		{
-			while (ft_isalpha(str[i]) || str[i] == '_')
-				i++;
-			if (str[i] == ':')
-			{
-				i++;
-				while (str[i] == ' ')
-				{
-					i++;
-					j++;
-				}
-			}
-		}
-		if (j == 1)
-			return (1);
-	}
-			
-	return (0);
+	up = new_vect(0, 1.0, 0);
+	if (up.x == camera->pos.x && up.z == camera->pos.z)
+		up = new_vect(0.0001, 1.0001, 0.0001);
+	camera->dir = get_normalized(sub_vect(camera->pos, camera->dir));
+	camera->u_dir = get_normalized(vect_cross(camera->dir, up));
+	camera->v_dir = vect_cross(camera->dir, camera->u_dir);
 }
 
-int			s_camera(char **table, int i, t_data_camera *camera)
+int	s_camera(char **table, int i, t_data_camera *camera)
 {
 	int		j;
 	int		k;
 	char	**space_split;
 	char	**dot_split;
-	t_vect	up;
 
 	j = 0;
 	while (table[i] && j < 4)
@@ -80,16 +59,11 @@ int			s_camera(char **table, int i, t_data_camera *camera)
 		j++;
 		i++;
 	}
-	up = new_vect(0, 1.0, 0);
-	if (up.x == camera->pos.x && up.z == camera->pos.z)
-		up = new_vect(0.0001, 1.0001, 0.0001);
-	camera->dir = get_normalized(sub_vect(camera->pos, camera->dir));
-	camera->u_dir = get_normalized(vect_cross(camera->dir, up));
-	camera->v_dir = vect_cross(camera->dir, camera->u_dir);
+	set_camera_dir(camera);
 	return (0);
 }
 
-int			ft_camera(char **table, t_all *data)
+int	ft_camera(char **table, t_all *data)
 {
 	int		i;
 	int		a;

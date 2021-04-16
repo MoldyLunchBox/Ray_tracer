@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   light.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ramoukha <ramoukha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 18:47:36 by yoelguer          #+#    #+#             */
-/*   Updated: 2021/04/10 15:17:47 by ramoukha         ###   ########.fr       */
+/*   Updated: 2021/04/15 17:30:13 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/rt.h"
 
-t_vect				safe_color(t_vect p)
+t_vect	safe_color(t_vect p)
 {
 	t_vect	col;
 
@@ -22,7 +22,7 @@ t_vect				safe_color(t_vect p)
 	return (col);
 }
 
-t_vect				light_obj(t_obj *obj, t_all data, t_ray ray, double t)
+t_vect	light_obj(t_obj *obj, t_all data, t_ray ray, double t)
 {
 	t_light			li;
 	t_data_light	*ligth;
@@ -40,19 +40,20 @@ t_vect				light_obj(t_obj *obj, t_all data, t_ray ray, double t)
 	return (li.col);
 }
 
-t_2d_d				shadow(t_obj *pos, t_data_light *light, double t1)
+t_2d_d	shadow(t_obj *pos, t_data_light *light, double t1)
 {
 	t_vect			hit_sec;
 	t_2d_d			light_dest;
 
 	hit_sec = add_vect(pos->hit, vect_mult_val(light->to_light.direction, t1));
-	light_dest.x = get_norm_2(sub_vect(hit_sec, pos->hit)) *
-	get_norm_2(sub_vect(hit_sec, pos->hit));
-	light_dest.y = get_norm_2(sub_vect(light->position, pos->hit)) *
-	get_norm_2(sub_vect(light->position, pos->hit));
+	light_dest.x = get_norm_2(sub_vect(hit_sec, pos->hit
+				)) * get_norm_2(sub_vect(hit_sec, pos->hit));
+	light_dest.y = get_norm_2(sub_vect(light->position,
+				pos->hit)) * get_norm_2(sub_vect(light->position, pos->hit));
 	return (light_dest);
 }
-t_vect				on_shadow(t_obj *pos, t_all data, t_ray ray, t_vect col)
+
+t_vect	on_shadow(t_obj *pos, t_all data, t_ray ray, t_vect col)
 {
 	double			dis_shad_lum;
 	double			dis_shad_inter;
@@ -64,7 +65,7 @@ t_vect				on_shadow(t_obj *pos, t_all data, t_ray ray, t_vect col)
 	{
 		light->norm_light = get_normalized(sub_vect(light->position, pos->hit));
 		init_ray(&light->to_light, add_vect(pos->hit,
-					vect_mult_val(light->norm_light, 1)), light->norm_light);
+				vect_mult_val(light->norm_light, 1)), light->norm_light);
 		t1 = find_obj_scnd(data, ray, light->to_light, pos);
 		if (t1 != -1)
 		{

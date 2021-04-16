@@ -6,21 +6,34 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 18:48:25 by yoelguer          #+#    #+#             */
-/*   Updated: 2021/04/12 19:57:09 by amya             ###   ########.fr       */
+/*   Updated: 2021/04/16 14:20:50 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/rt.h"
 
-void			cylinder_surface_normal(t_obj *obj, double t, t_ray ray)
+void	cylinder_surface_normal(t_obj *obj, double t, t_ray ray)
 {
 	obj->hit = add_vect(ray.origine, vect_mult_val(ray.direction, t));
 	obj->norm = get_normalized(sub_vect(sub_vect(obj->hit, obj->position),
-			vect_mult_val(obj->direction, vect_scal(obj->direction,
-			sub_vect(obj->hit, obj->position)))));
+				vect_mult_val(obj->direction, vect_scal(obj->direction,
+						sub_vect(obj->hit, obj->position)))));
 	obj->norm = vect_mult_val(obj->norm, -1);
 }
-t_sol			look_for_negative(t_obj *obj, t_all data, t_sol t, t_ray ray)
+
+static t_sol	return_new_sol(t_obj *obj, t_sol *t, t_sol t2, t_ray ray)
+{
+	t->tmin = -1;
+	if (t->tmax <= t2.tmax && t->tmax >= t2.tmin)
+	{
+		t->tmax = -1;
+		return (*t);
+	}
+	cylinder_surface_normal(obj, t->tmax, ray);
+	return (*t);
+}
+
+t_sol	look_for_negative(t_obj *obj, t_all data, t_sol t, t_ray ray)
 {
 	t_obj	*looper;
 	t_sol	t2;
@@ -32,22 +45,45 @@ t_sol			look_for_negative(t_obj *obj, t_all data, t_sol t, t_ray ray)
 		{
 			t2 = looper->inter(looper, ray);
 			if (t.tmin <= t2.tmax && t.tmin >= t2.tmin)
-			{
-				t.tmin = -1;
-				if (t.tmax <= t2.tmax && t.tmax >= t2.tmin)
-				{
-					t.tmax = -1;
-					return (t);
-				}
-				cylinder_surface_normal(obj, t.tmax, ray);
-				return (t);
-			}
+				return (return_new_sol(obj, &t, t2, ray));
 		}
 		looper = looper->next;
 	}
 	return (t);
 }
-double			find_obj_scnd(t_all data, t_ray ray, t_ray to_light, t_obj *pos)
+
+void static	init_sol(t_sol *t)
+{
+	t->tmin = -1;
+	t->tmax = -1;
+}
+
+static t_sol cyl_inter_negative(t_sol t, t_obj *header, t_all data, t_ray hit_to_light)
+{
+	if (t.tmin != -1 && ft_strequ(header->name, (char const *)"cylinder"))
+	{
+		t = look_for_negative(header, data, t, hit_to_light);
+		if (t.tmin == -1)
+			t.tmin = t.tmax;
+	}
+	return (t);
+}
+
+void static	closest_hit(double *t1, t_sol t)
+{
+	if (t.tmin != -1)
+	{
+		if (*t1 == -1)
+			*t1 = t.tmin;
+		else
+		{
+			if (*t1 > t.tmin)
+				*t1 = t.tmin;
+		}
+	}
+}
+
+double	find_obj_scnd(t_all data, t_ray ray, t_ray hit_to_light, t_obj *pos)
 {
 	t_obj		*header;
 	t_sol		t;
@@ -57,40 +93,34 @@ double			find_obj_scnd(t_all data, t_ray ray, t_ray to_light, t_obj *pos)
 	header = data.obj;
 	while (header->next)
 	{
-		if (header->id == pos->id && (header = header->next))
-			continue;
+		if (header->id == pos->id)
+		{
+			header = header->next;
+			continue ;
+		}
 		if (!header->is_negative)
-			t = header->inter(header, to_light);
+			t = header->inter(header, hit_to_light);
 		else
-		{
-			t.tmin = -1;
-			t.tmax = -1;
-		}
-		if (t.tmin != -1 && ft_strequ(header->name, (char const *)"cylinder"))
-		{
-			t = look_for_negative(header, data, t, to_light);
-			if (t.tmin == -1)
-			{
-				t.tmin = t.tmax;
-			}
-		}
-		if (t.tmin != -1)
-		{
-			if (t1 == -1)
-				t1 = t.tmin;
-			else
-			{
-				if (t1 > t.tmin)
-					t1 = t.tmin;
-			}
-		}
+			init_sol(&t);
+		t = cyl_inter_negative(t, header, data, hit_to_light);
+		closest_hit(&t1, t);
 		header = header->next;
 	}
 	return (t1);
 }
 
+static t_sol	intersect(t_obj *header, t_ray ray)
+{
+	t_sol	t;
 
-t_obj			*find_closest(t_all data, t_ray ray)
+	if (!header->is_negative)
+		t = header->inter(header, ray);
+	else
+		init_sol(&t);
+	return (t);
+}
+
+t_obj	*find_closest(t_all data, t_ray ray)
 {
 	t_obj		*pos;
 	t_obj		*header;
@@ -98,33 +128,25 @@ t_obj			*find_closest(t_all data, t_ray ray)
 	double		t1;
 
 	t1 = -1;
-	t.tmin = -1;
-	t.tmax = -1;
+	init_sol(&t);
 	header = data.obj;
 	pos = header;
 	while (header->next)
 	{
-		if (!header->is_negative)
-			t = header->inter(header, ray);
-		else
-		{
-			t.tmin = -1;
-			t.tmax = -1;
-		}
-		if (t.tmin != -1 && ft_strequ(header->name, (char const *)"cylinder"))
-		{
-			t = look_for_negative(header, data, t, ray);
-			if (t.tmin == -1)
-			{
-				t.tmin = t.tmax;
-			}
-		}
+		t = intersect(header, ray);
+		// t = cyl_inter_negative(t, header, data, ray);
 		if (t.tmin != -1)
 		{
-			t1 == -1 ? pos = header : 0;
-			t1 == -1 ? t1 = t.tmin : 0;
-			t1 > t.tmin ? pos = header : 0;
-			t1 > t.tmin ? t1 = t.tmin : 0;
+			if (t1 == -1)
+			{
+				pos = header;
+				t1 = t.tmin;
+			}
+			if (t1 > t.tmin)
+			{
+				pos = header;
+				t1 = t.tmin;
+			}
 		}
 		header = header->next;
 	}

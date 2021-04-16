@@ -6,7 +6,7 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/28 18:45:52 by amya              #+#    #+#             */
-/*   Updated: 2021/03/28 18:48:22 by amya             ###   ########.fr       */
+/*   Updated: 2021/04/15 12:44:53 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,38 @@ int			f_str2(char **str, int j, int d)
 double		get_length(t_vect u)
 {
 	return (sqrt((u.x * u.x) + (u.y * u.y) + (u.z * u.z)));
+}
+
+static void	check_form(char *str, int *i, int *j)
+{
+	while (ft_isalpha(str[*i]) || str[*i] == '_')
+		(*i)++;
+	if (str[*i] == ':')
+	{
+		(*i)++;
+		while (str[*i] == ' ')
+		{
+			(*i)++;
+			(*j)++;
+		}
+	}
+}
+
+int	space_counter(char *str)
+{
+	int	i;
+	int	j;
+
+	j = 0;
+	i = 0;
+	if (str)
+	{
+		while (str[i] == ' ')
+			i++;
+		if (i == 1)
+			check_form(str, &i, &j);
+		if (j == 1)
+			return (1);
+	}
+	return (0);
 }

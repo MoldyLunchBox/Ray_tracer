@@ -6,7 +6,7 @@
 #    By: amya <amya@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/22 16:14:13 by yoelguer          #+#    #+#              #
-#    Updated: 2021/04/13 11:39:44 by amya             ###   ########.fr        #
+#    Updated: 2021/04/15 17:21:16 by amya             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,6 @@ SRC		= 	main.c \
 			sphere.c\
 			cylindre.c\
 			cone.c\
-			ring.c\
 			vector.c\
 			vector2.c\
 			vector3.c\
@@ -27,7 +26,6 @@ SRC		= 	main.c \
 			data_plane.c\
 			data_light.c\
 			data_cone.c\
-			data_ring.c\
 			data_cylinder.c\
 			ft_atof.c\
 			raytrace.c\
@@ -42,8 +40,6 @@ SRC		= 	main.c \
 			mb_filter.c\
 			sepia_filtre.c\
 			li.c\
-			cube.c\
-			data_cube.c\
 			val2.c\
 			texture2.c\
 			raytrace2.c\
@@ -54,6 +50,7 @@ SRC		= 	main.c \
 			data_limited_cylinder.c\
 			box.c\
 			data_box.c\
+			extra_tools.c\
 
 HEADER = 	header/data.h\
 			header/ray.h\

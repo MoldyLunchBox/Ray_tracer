@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atof.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoelguer <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 18:47:25 by yoelguer          #+#    #+#             */
-/*   Updated: 2021/02/09 18:47:29 by yoelguer         ###   ########.fr       */
+/*   Updated: 2021/04/15 17:25:36 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/rt.h"
-#include <math.h>
 
-double		ft_res(char *str, int i)
+double	ft_res(char *str, int i)
 {
 	int		j;
 	double	res;
@@ -38,7 +37,7 @@ double		ft_res(char *str, int i)
 	return (res);
 }
 
-double		ft_atof(char *str)
+double	ft_atof(char *str)
 {
 	int		i;
 	int		j;
@@ -49,11 +48,12 @@ double		ft_atof(char *str)
 	res = 0;
 	signe = 1;
 	while (str[i] == ' ' || str[i] == '\f' || str[i] == '\t'
-			|| str[i] == '\v' || str[i] == '\r' || str[i] == '\n')
+		|| str[i] == '\v' || str[i] == '\r' || str[i] == '\n')
 		i++;
 	if (str[i] == '+' || str[i] == '-')
 	{
-		signe = str[i] == '-' ? -1 : 1;
+		if (str[i] == '-')
+			signe = -1;
 		i++;
 	}
 	res = ft_res(str, i);

@@ -6,7 +6,7 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 18:38:38 by yoelguer          #+#    #+#             */
-/*   Updated: 2021/04/15 10:55:13 by amya             ###   ########.fr       */
+/*   Updated: 2021/04/15 15:01:03 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,52 +31,12 @@ t_sol	all_cone(t_obj *cone, t_ray r)
 						vect_mult_val(cone->direction, cp.y)), sub_vect(vd,
 						vect_mult_val(cone->direction, cp.x)))
 				* pow(cos(angle), 2)) - (cp.y * cp.x * pow(sin(angle), 2)));
-	abc.z = (get_norm_2(sub_vect(vd, vect_mult_val(cone->direction,
-		cp.x))) * pow(cos(angle), 2)) - (pow(cp.x, 2) * pow(sin(angle), 2));
+	abc.z = (get_norm_2(sub_vect(vd, vect_mult_val(cone->direction, cp.x)))
+			* pow(cos(angle), 2)) - (pow(cp.x, 2) * pow(sin(angle), 2));
 	cp.z = abc.y * abc.y - 4 * abc.x * abc.z;
 	sol = find_solution(cp.z, abc);
 	cone->hit = add_vect(r.origine, vect_mult_val(r.direction, sol.tmin));
 	return (sol);
-}
-
-double	intersection_cone(t_obj *cone, t_ray r, t_sol sol, t_vect sly)
-{
-	double	res;
-
-	res = vect_scal(sub_vect(cone->pos_slice, cone->hit), sly);
-	cone->hit = add_vect(r.origine, vect_mult_val(r.direction, sol.tmax));
-	if (sol.tmax > 0 && res > 0.0)
-	{
-		cone_norm(cone, r, sol.tmax);
-		return (sol.tmax);
-	}
-	return (-1);
-}
-
-double	intersection_cone2(t_obj *cone, t_ray r, t_sol sol, t_vect sly)
-{
-	cone->hit = add_vect(r.origine, vect_mult_val(r.direction, sol.tmax));
-	if (sol.tmax > 0 && vect_scal(sub_vect(add_vect(cone->position,
-		vect_mult_val(cone->direction, cone->half_size)), cone->hit),
-			cone->direction) > 0.0)
-	{
-		cone_norm(cone, r, sol.tmax);
-		return (sol.tmax);
-	}
-	return (-1);
-}
-
-double	intersection_cone3(t_obj *cone, t_ray r, t_sol sol, t_vect sly)
-{
-	cone->hit = add_vect(r.origine, vect_mult_val(r.direction, sol.tmax));
-	if (sol.tmax > 0 && vect_scal(sub_vect(add_vect(cone->position,
-			vect_mult_val(cone->direction, -cone->half_size)), cone->hit),
-			cone->direction) < 0.0)
-	{
-		cone_norm(cone, r, sol.tmax);
-		return (sol.tmax);
-	}
-	return (-1);
 }
 
 double	cone_slicing(t_sol sol, t_obj *cone, t_ray r)
