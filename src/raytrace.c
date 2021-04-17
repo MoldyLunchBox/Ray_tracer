@@ -6,7 +6,7 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 18:48:25 by yoelguer          #+#    #+#             */
-/*   Updated: 2021/04/16 14:20:50 by amya             ###   ########.fr       */
+/*   Updated: 2021/04/17 12:16:31 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,38 +120,81 @@ static t_sol	intersect(t_obj *header, t_ray ray)
 	return (t);
 }
 
+static double	if_t1_isnull(double t1, t_sol t)
+{
+	if (t1 == -1)
+		t1 = t.tmin;
+	return (t1);
+}
+static double	if_t1_isbigger(double t1, t_sol t)
+{
+	if (t1 > t.tmin)
+		t1 = t.tmin;
+	return (t1);
+}
 t_obj	*find_closest(t_all data, t_ray ray)
 {
-	t_obj		*pos;
-	t_obj		*header;
-	t_sol		t;
-	double		t1;
+	t_find_closest var;
 
-	t1 = -1;
-	init_sol(&t);
-	header = data.obj;
-	pos = header;
-	while (header->next)
+	var.t1 = -1;
+	init_sol(&var.t);
+	var.header = data.obj;
+	var.pos = var.header;
+	while (var.header->next)
 	{
-		t = intersect(header, ray);
-		// t = cyl_inter_negative(t, header, data, ray);
-		if (t.tmin != -1)
+		var.t = intersect(var.header, ray);
+		var.t = cyl_inter_negative(var.t, var.header, data, ray);
+		if (var.t.tmin != -1)
 		{
-			if (t1 == -1)
-			{
-				pos = header;
-				t1 = t.tmin;
-			}
-			if (t1 > t.tmin)
-			{
-				pos = header;
-				t1 = t.tmin;
-			}
+			if (var.t1 == -1)
+				var.pos = var.header;
+			var.t1 = if_t1_isnull(var.t1, var.t);
+			if (var.t1 > var.t.tmin)
+				var.pos = var.header;
+			var.t1 = if_t1_isbigger(var.t1, var.t);
 		}
-		header = header->next;
+		var.header = var.header->next;
 	}
-	pos->t = t1;
-	return (pos);
+	var.pos->t = var.t1;
+	return (var.pos);
+}
+
+static void	x_bigger_thany(t_vect *ret, int *hold, t_vect *order)
+{
+	*hold = ret->y;
+	ret->y = ret->x;
+	ret->x = *hold;
+	*hold = order->y;
+	order->y = order->x;
+	order->x = *hold;
+}
+static void	x_bigger_thanz(t_vect *ret, int *hold, t_vect *order)
+{
+	*hold = ret->z;
+	ret->z = ret->x;
+	ret->x = *hold;
+	*hold = order->y;
+	order->y = order->x;
+	order->x = *hold;
+}
+static void	y_bigger_thanz(t_vect *ret, int *hold, t_vect *order)
+{
+	*hold = ret->z;
+	ret->z = ret->y;
+	ret->y = *hold;
+	*hold = order->z;
+	order->z = order->y;
+	order->y = *hold;
+}
+
+static void	x_bigger_thanz2(t_vect *ret, int *hold, t_vect *order)
+{
+	*hold = ret->z;
+	ret->z = ret->x;
+	ret->x = *hold;
+	*hold = order->z;
+	order->z = order->x;
+	order->x = *hold;
 }
 
 t_vect			sorting(t_vect in)
@@ -163,41 +206,13 @@ t_vect			sorting(t_vect in)
 	order = (t_vect){1, 2, 3};
 	ret = (t_vect){fabs(in.x), fabs(in.y), fabs(in.z)};
 	if (ret.x > ret.y)
-	{
-		hold = ret.y;
-		ret.y = ret.x;
-		ret.x = hold;
-		hold = order.y;
-		order.y = order.x;
-		order.x = hold;
-	}
+		x_bigger_thany(&ret, &hold, &order);
 	if (ret.x > ret.z)
-	{
-		hold = ret.z;
-		ret.z = ret.x;
-		ret.x = hold;
-		hold = order.z;
-		order.z = order.x;
-		order.x = hold;
-	}
+		x_bigger_thanz(&ret, &hold, &order);
 	if (ret.y > ret.z)
-	{
-		hold = ret.z;
-		ret.z = ret.y;
-		ret.y = hold;
-		hold = order.z;
-		order.z = order.y;
-		order.y = hold;
-	}
+		y_bigger_thanz(&ret, &hold, &order);
 	if (ret.x > ret.z)
-	{
-		hold = ret.z;
-		ret.z = ret.x;
-		ret.x = hold;
-		hold = order.z;
-		order.z = order.x;
-		order.x = hold;
-	}
+		x_bigger_thanz2(&ret, &hold, &order);
 	return (order);
 }
 
@@ -206,153 +221,163 @@ t_vect			distrupt_a_sphere(t_obj *obj, t_vect col)
 	t_vect	center_to_hit;
 	double	hit_to_axis;
 	double	center_to_hit_len;
-	center_to_hit = obj->hit;
-	center_to_hit_len = sqrt(center_to_hit.x*center_to_hit.x + center_to_hit.y*center_to_hit.y + center_to_hit.z*center_to_hit.z);
-	// hit_to_axis = sqrt((center_to_hit_len * center_to_hit_len) - (obj->radius * obj->radius));
+
+	center_to_hit = sub_vect(obj->hit, (t_vect){0, 0, 1000});
+	center_to_hit_len = sqrt(center_to_hit.x * center_to_hit.x
+			+ center_to_hit.y * center_to_hit.y
+			+ center_to_hit.z * center_to_hit.z);
 	if ((int)center_to_hit_len % 2)
-		col = (t_vect){255,0,0};
+		col = (t_vect){255, 0, 0};
 	else
-		col = (t_vect){255,255,255};
+		col = (t_vect){255, 255, 255};
 	return (col);
 }
 
-t_vect			distrupt_a_sphere_color(t_obj *obj, t_vect col)
+t_vect	distrupt_a_sphere_color(t_obj *obj, t_vect col)
 {
-	
 	col = (t_vect){255, 255, 255};
-	col.x *= 1 - fabs(2*(obj->hit.x - floor(obj->hit.x) - 1));
-col.x = fabs(col.x);
-	col.y *= 1 - fabs(2*(obj->hit.y - floor(obj->hit.y) - 1));
-col.y = fabs(col.y);
-	col.z *= 1 - fabs(2*(obj->hit.z - floor(obj->hit.z) - 1));
+	col.x *= 1 - fabs(2 * (obj->hit.x - floor(obj->hit.x) - 1));
+	col.x = fabs(col.x);
+	col.y *= 1 - fabs(2 * (obj->hit.y - floor(obj->hit.y) - 1));
+	col.y = fabs(col.y);
+	col.z *= 1 - fabs(2 * (obj->hit.z - floor(obj->hit.z) - 1));
 	col.z = fabs(col.z);
 	return (col);
 }
 
+static t_vect	right_result(t_vect template, double res, double res2, double res3)
+{
+	u_vect	sort;
+	t_vect	applied;
+	t_vect	usable_res;
+	int		check;
+
+	check = 0;
+	applied = (t_vect){0, 0, 0};
+	sort.order = applied;
+	sort.tab[(int)template.x - 1] = 1;
+	sort.tab[(int)template.y - 1] = 1;
+	applied = sort.order;
+	if (applied.x == 1)
+		usable_res.x = res;
+	if (applied.x == 1)
+		check = 1;
+	if (applied.y == 1 && check == 0)
+		usable_res.x = res2;
+	else
+		usable_res.y = res2;
+	if (applied.z == 1)
+		usable_res.y = res3;
+	return (usable_res);
+}
+
+static t_vect	possible_results(t_obj *obj)
+{
+	t_vect	res;
+
+	if (obj->hit.x < 0)
+		res.x = ((int)obj->hit.x - 1) % 2;
+	else
+		res.x = ((int)obj->hit.x) % 2;
+	if (obj->hit.y < 0)
+		res.y = ((int)obj->hit.y - 1) % 2;
+	else
+		res.y = ((int)obj->hit.y) % 2;
+	if (obj->hit.z < 0)
+		res.z = ((int)obj->hit.z - 1) % 2;
+	else
+		res.z = ((int)obj->hit.z) % 2;
+	return (res);
+}
 
 t_vect			disruption(t_obj *obj, t_vect col)
 {
-	double	res;
-	double	res2;
-	double	res3;
+	t_vect	res;
 	t_vect	vec;
 	t_vect	usable_res;
 
 	if (obj->disruption == 1)
 	{
 		vec = sorting(obj->norm);
-		// printf("\n%f %f %f %f %f",obj->norm.x, obj->norm.y, obj->norm.z, vec.x, vec.y, vec.z);
-		if (obj->hit.x < 0)
-			res = ((int)obj->hit.x - 1) % 2;
-		else
-			res = ((int)obj->hit.x) % 2;
-		if (obj->hit.y < 0)
-			res2 = ((int)obj->hit.y - 1) % 2;
-		else
-			res2 = ((int)obj->hit.y) % 2;
-		if (obj->hit.z < 0)
-			res3 = ((int)obj->hit.z - 1) % 2;
-		else
-			res3 = ((int)obj->hit.z) % 2;
-		if (vec.x == 1)
-			usable_res.x = res;
-		if (vec.x == 2)
-			usable_res.x = res2;
-		if (vec.x == 3)
-			usable_res.x = res3;
-		if (vec.y == 1)
-			usable_res.y = res;
-		if (vec.y == 2)
-			usable_res.y = res2;
-		if (vec.y == 3)
-			usable_res.y = res3;
-		// exit(1);
-		// t_vect	hit_to_pos=sub_vect(obj->hit, obj->position);
-		// normalize(&hit_to_pos);
-		// test = vect_scal(hit_to_pos, obj->norm);
+		res = possible_results(obj);
+		usable_res = right_result(vec, res.x, res.y, res.z);
 		if ((usable_res.x && usable_res.y) || (!usable_res.x && !usable_res.y))
 			col = (t_vect){0, 0, 0};
 		else
 			col = (t_vect){255, 255, 255};
 	}
-	
 	if (obj->disruption == 2)
 		col = distrupt_a_sphere(obj, col);
 	if (obj->disruption == 3)
 		col = distrupt_a_sphere_color(obj, col);
-	
 	return (col);
 }
 
-#include <time.h>
-#include <stdlib.h>
-#include  <stdio.h>
-
-float random_gen(){
-	static int initialized = 0;
-
-	if (!initialized){
-		srand((time(NULL)));
-	}
-
-	return (drand48()  * 2.0 - 1.0)/ 1000.0f;
-}
-
-t_vect			reflection(t_all data, t_obj *obj, int nbrbonds, t_ray ray)
+t_vect	reflection(t_all data, t_obj *obj, int nbrbonds, t_ray ray)
 {
-	t_vect	light_plus_norm;
-	t_vect	ray_copy;
 	t_ray	reflected_ray;
 	t_vect	color;
-	t_vect p;
-	double n_dot_d;
-
-
-	// p = (t_vect){obj->hit.x + random_gen(), obj->hit.y + random_gen(),  obj->hit.z + random_gen()};
-
+	double	n_dot_d;
 
 	n_dot_d = vect_scal(ray.direction, obj->norm) * 2;
 	reflected_ray.direction = vect_mult_val(obj->norm, n_dot_d);
 	reflected_ray.direction = sub_vect(ray.direction, reflected_ray.direction);
-	// light_plus_norm = add_vect(ray_copy, vect_mult_val(obj->norm, 2));
 	reflected_ray.origine = add_vect(obj->hit, vect_mult_val(obj->norm, 0.01));
-	// reflected_ray.direction = light_plus_norm;
 	color = rend_pix(data, reflected_ray, --nbrbonds);
-	return color;
+	return (color);
 }
 
-int				under_shadow(t_vect col)
+int	under_shadow(t_vect col)
 {
 	if (!col.x && !col.y && !col.z)
 		return (0);
 	return (1);
 }
 
-t_vect			refraction(t_all data, t_obj *obj, int limit, t_ray ray)
+static t_ray	calc_refracted(t_obj *obj, t_ray ray, t_vect ref_norm)
 {
+	double		n1;
+	double		n2;
 	t_ray		refracted_ray;
-	double		n1 = 1;
-	double		n2 = 1.3;
-	double		radical;
-	t_vect		col;
-	t_vect		ref_norm;
+	double		r;
 
-	ref_norm = (t_vect){obj->norm.x, obj->norm.y, obj->norm.z};
+	n2 = 1.3;
+	n1 = 1;
 	if (vect_scal(ray.direction, obj->norm) > 0)
 	{
 		n1 = 1.3;
 		n2 = 1;
-		ref_norm = vect_mult_val(obj->norm, -1);
 	}
-	radical = 1 - pow(n1/n2, 2) * (1 - pow(vect_scal(ref_norm, ray.direction), 2));
-	if (radical > 0)
-	{
-		refracted_ray.origine = sub_vect(obj->hit, vect_mult_val(ref_norm, 0.001));
-		refracted_ray.direction = sub_vect(vect_mult_val(sub_vect(ray.direction, vect_mult_val(ref_norm,vect_scal(ray.direction, ref_norm))), n1/n2) , vect_mult_val(ref_norm , sqrt(radical)));
-		col = rend_pix(data, refracted_ray, limit-1);
-	}
-	return safe_color(col);
+	r = 1 - pow(n1 / n2, 2) * (1 - pow(vect_scal(ref_norm, ray.direction), 2));
+	refracted_ray.origine = sub_vect(obj->hit, vect_mult_val(ref_norm, 0.001));
+	refracted_ray.direction = sub_vect(vect_mult_val(sub_vect(ray.direction,
+					vect_mult_val(ref_norm, vect_scal(ray.direction, ref_norm))
+					), n1 / n2), vect_mult_val(ref_norm, sqrt(r)));
+	return (refracted_ray);
+}
 
+t_vect	refraction(t_all data, t_obj *obj, int limit, t_ray ray)
+{
+	t_refraction	v;
+	double			r;
+
+	v.n1 = 1;
+	v.n2 = 1.3;
+	v.ref_norm = (t_vect){obj->norm.x, obj->norm.y, obj->norm.z};
+	if (vect_scal(ray.direction, obj->norm) > 0)
+	{
+		v.n1 = 1.3;
+		v.n2 = 1;
+		v.ref_norm = vect_mult_val(obj->norm, -1);
+	}
+	r = 1 - pow(v.n1 / v.n2, 2) * (1 - pow(
+				vect_scal(v.ref_norm, ray.direction), 2));
+	if (r > 0)
+	{
+		v.refracted_ray = calc_refracted(obj, ray, v.ref_norm);
+		v.col = rend_pix(data, v.refracted_ray, limit - 1);
+	}
+	return (safe_color(v.col));
 }
 
 t_vect  direct_light(t_ray ray, t_all data, t_data_light *light)

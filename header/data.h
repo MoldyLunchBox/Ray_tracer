@@ -6,7 +6,7 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 18:37:09 by yoelguer          #+#    #+#             */
-/*   Updated: 2021/04/14 14:45:13 by amya             ###   ########.fr       */
+/*   Updated: 2021/04/17 11:23:26 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,5 +189,23 @@ typedef struct	s_all
 	t_event				event;
 	t_vect				*screen_pixels;
 }				t_all;
+
+typedef struct	s_find_closest
+{
+	t_obj		*pos;
+	t_obj		*header;
+	t_sol		t;
+	double		t1;
+}				t_find_closest;
+
+typedef struct	s_refraction
+{
+	t_ray		refracted_ray;
+	double		n1;
+	double		n2;
+	double		r;
+	t_vect		col;
+	t_vect		ref_norm;
+}				t_refraction;
 
 #endif

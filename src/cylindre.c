@@ -6,7 +6,7 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 18:38:44 by yoelguer          #+#    #+#             */
-/*   Updated: 2021/04/11 16:26:55 by amya             ###   ########.fr       */
+/*   Updated: 2021/04/17 12:16:04 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,56 +97,68 @@ double			cylinder_slicing(t_sol sol, t_obj *cyl, t_ray r)
 		return (sol.tmax);
 	return (-1);
 }
-
-t_sol			limited_object(t_obj *cyl, t_ray r,t_sol sol)
+t_sol           limited_object(t_obj *cyl, t_ray r,t_sol sol)
 {
-	t_vect top;
-	t_vect dir;
-	t_vect hit_to_slice_point;
-	t_vect bottom;
-	double  result_top;
-	double  result_bottom;
-
-
-
-	dir = vect_mult_val(cyl->direction, cyl->length);
-
-
-	bottom = add_vect(cyl->position,vect_mult_val(cyl->direction, -cyl->length));
-	top= add_vect(cyl->position,dir);
-
-
-	result_top = vect_scal(sub_vect(top, cyl->hit), cyl->direction);
-	result_bottom = vect_scal(sub_vect(bottom, cyl->hit),vect_mult_val(cyl->direction,-1));
-	if (result_top < 0 || result_bottom<0)
-	{
-		sol.tmin = -1;
-		sol.tmax = -1;
-	}
-	if (result_top < 0 )
-	{
-
-	t_obj plane;
-	plane.position = top;
-	plane.direction = cyl->direction;
-	t_sol  plan;
-	plan = intersection_ray_plan(&plane, r);
-	if (plan.tmin != -1)
-		{
-			t_vect len;
-			len = sub_vect(plane.hit, plane.position);
-			double dot = sqrt(len.x*len.x + len.y*len.y + len.z * len.z);
-			if (dot <= cyl->radius)
-			{
-				sol.tmin = plan.tmin;
-				cyl->t = sol.tmin;
-				cyl->hit = plane.hit;
-				cyl->norm =   get_normalized(plane.direction);
-			}
-		}
-	}
-	return(sol);
-
+    t_vect top;
+    t_vect dir;
+    t_vect hit_to_slice_point;
+    t_vect bottom;
+    double  result_top;
+    double  result_bottom;
+    dir = vect_mult_val(cyl->direction, cyl->slice.x);
+    bottom = add_vect(cyl->position,vect_mult_val(cyl->direction, -cyl->slice.x));
+    top= add_vect(cyl->position,dir);
+    result_top = vect_scal(sub_vect(top, cyl->hit), cyl->direction);
+    result_bottom = vect_scal(sub_vect(bottom, cyl->hit),vect_mult_val(cyl->direction,-1));
+    if (result_top < 0 || result_bottom<0)
+    {
+        sol.tmin = -1;
+        sol.tmax = -1;
+    }
+    if (result_top < 0)
+    {
+    t_obj plane;
+    plane.position = top;
+    plane.direction = cyl->direction;
+    t_sol  plan;
+    plan = intersection_ray_plan(&plane, r);
+    if (plan.tmin != -1)
+        {
+            t_vect len;
+            len = sub_vect(plane.hit, plane.position);
+            double dot = sqrt(len.x*len.x + len.y*len.y + len.z * len.z);
+            if (dot <= cyl->radius)
+            {
+                sol.tmin = plan.tmin;
+                cyl->t = sol.tmin;
+                cyl->hit = plane.hit;
+                cyl->norm =   get_normalized(plane.direction);
+            }
+        }
+    }
+    if (result_bottom <0)
+    {
+    t_obj plane;
+    plane.position = bottom;
+    plane.direction = cyl->direction;
+    t_sol  plan;
+    plan = intersection_ray_plan(&plane, r);
+    if (plan.tmin != -1)
+        {
+            t_vect len;
+            len = sub_vect(plane.hit, plane.position);
+            double dot = sqrt(len.x*len.x + len.y*len.y + len.z * len.z);
+            if (dot <= cyl->radius)
+            {
+                sol.tmin = plan.tmin;
+                cyl->t = sol.tmin;
+                cyl->hit = plane.hit;
+                plane.direction = vect_mult_val(plane.direction,-1);
+                cyl->norm =   get_normalized(plane.direction);
+            }
+        }
+    }
+    return(sol);
 }
 t_sol			intersection_ray_cylindre(t_obj *cyl, t_ray r)
 {

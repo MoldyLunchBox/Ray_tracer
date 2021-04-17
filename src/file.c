@@ -6,7 +6,7 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 18:47:13 by yoelguer          #+#    #+#             */
-/*   Updated: 2021/04/15 17:22:05 by amya             ###   ########.fr       */
+/*   Updated: 2021/04/17 13:06:04 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,9 @@ int	ft_objects(t_all *data, int i, char **table, t_obj **obj)
 	if (ft_strcmp("limited_cylinder:", table[i]) == 0)
 		if (s_limited_cylinder(table, i + 1, data, *obj) < 0)
 			return (-1);
+	if (ft_strcmp("limited_cone:", table[i]) == 0)
+		if (s_limited_cone(table, i + 1, data, *obj) < 0)
+			return (-1);
 	return (0);
 }
 
@@ -58,7 +61,8 @@ int	ft_obj(char **table, t_all *data)
 			|| ft_strcmp("ellipsoid:", table[i]) == 0
 			|| ft_strcmp("box:", table[i]) == 0
 			|| ft_strcmp("paraploid:", table[i]) == 0
-			|| ft_strcmp("limited_cylinder:", table[i]) == 0)
+			|| ft_strcmp("limited_cylinder:", table[i]) == 0
+			|| ft_strcmp("limited_cone:", table[i]) == 0)
 		{
 			if (ft_objects(data, i, table, &obj) < 0)
 				return (-1);

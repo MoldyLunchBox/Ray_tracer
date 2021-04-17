@@ -6,7 +6,7 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 18:37:40 by yoelguer          #+#    #+#             */
-/*   Updated: 2021/04/15 17:20:48 by amya             ###   ########.fr       */
+/*   Updated: 2021/04/17 13:02:12 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,4 +112,6 @@ t_vect			sorting(t_vect in);
 int         space_counter(char *str);
 int         ft_lines_in_file(char *str);
 
+int         s_limited_cone(char **table, int i, t_all *data, t_obj *cyl);
+t_sol	intersection_ray_limited_cone(t_obj *cone, t_ray r);
 #endif

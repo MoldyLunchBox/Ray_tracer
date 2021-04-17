@@ -6,7 +6,7 @@
 #    By: amya <amya@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/22 16:14:13 by yoelguer          #+#    #+#              #
-#    Updated: 2021/04/15 17:21:16 by amya             ###   ########.fr        #
+#    Updated: 2021/04/17 13:01:57 by amya             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,6 +51,7 @@ SRC		= 	main.c \
 			box.c\
 			data_box.c\
 			extra_tools.c\
+			data_limited_cone.c
 
 HEADER = 	header/data.h\
 			header/ray.h\

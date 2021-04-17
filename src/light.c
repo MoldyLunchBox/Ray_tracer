@@ -6,7 +6,7 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 18:47:36 by yoelguer          #+#    #+#             */
-/*   Updated: 2021/04/15 17:30:13 by amya             ###   ########.fr       */
+/*   Updated: 2021/04/17 13:22:32 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,26 @@ t_vect	safe_color(t_vect p)
 	return (col);
 }
 
+int     paralell_light(t_data_light *light, t_obj *objet, t_ray ray, t_light *li)
+{
+    t_vect  spot_drection;
+    t_vect  light_dir;
+    double  teta;
+    double  beta = 0.95;
+    spot_drection = sub_vect(light->direction,light->position);
+    spot_drection = get_normalized(spot_drection);
+    spot_drection = vect_mult_val(spot_drection, -1);
+    light_dir = sub_vect(light->position,objet->hit);
+    light_dir = get_normalized(light_dir);
+    teta = vect_scal(light_dir,spot_drection);
+    li->ambi = vect_mult_val(objet->color, 0.1);
+    if(teta > beta)
+    {
+        return(1);
+    }
+    return(0);
+}
+
 t_vect	light_obj(t_obj *obj, t_all data, t_ray ray, double t)
 {
 	t_light			li;
@@ -33,6 +53,7 @@ t_vect	light_obj(t_obj *obj, t_all data, t_ray ray, double t)
 	init_vect(&li.col, 0., 0., 0.);
 	while (ligth->next)
 	{
+		if (paralell_light(ligth,obj ,ray ,&li))
 		init_li(&li, ligth, obj, ray);
 		ligth = ligth->next;
 	}

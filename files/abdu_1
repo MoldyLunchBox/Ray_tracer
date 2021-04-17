@@ -66,7 +66,7 @@ plane:
  reflection: 0.0
  disruption: 0
 
-limited_cylinder:
+limited_cylinder
  texture: .
  texture_modifie: -0.0:0:0
  position: 0.0:30:0
@@ -84,7 +84,7 @@ limited_cylinder:
  disruption: 0
  length: 6
 
-limited_cylinder:
+limited_cylinder
  texture: .
  texture_modifie: -0.0:0:0
  position: 0.0:10:0
@@ -103,7 +103,7 @@ limited_cylinder:
  length: 6
 
 
-limited_cylinder:
+limited_cylinder
  texture: .
  texture_modifie: -0.0:0:0
  position: -12:20:0
@@ -122,7 +122,7 @@ limited_cylinder:
  length: 6
 
 
-limited_cylinder:
+limited_cylinder
  texture: .
  texture_modifie: -0.0:0:0
  position: 12:20:0
@@ -140,13 +140,32 @@ limited_cylinder:
  disruption: 0
  length: 6
 
-box:
+
+limited_cone:
+ texture: .
+ texture_modifie: -0.0:0:0
+ position: 0:20:0
+ direction: 0:1:0
+ translation: 0:0:0
+ rotation: 0:0:0
+ slice: 0:0:0
+ pos_slice: 0.0:0:0.0
+ color: 1:128:181
+ radius_angle: 20
+ size: 10
+ type_material: 1
+ transparency: 0.0
+ reflection: 0.3
+ disruption: 0
+ length: 6
+
+box
  position: 0.0:20:0
  direction: 0.0:-0:0
  color: 0:255:0
  size: 7
 
-sphere:
+sphere
  texture: .
  texture_modifie: -0.0:0:0
  position: -0:-1:0
