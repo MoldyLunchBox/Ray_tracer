@@ -6,7 +6,7 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/28 16:54:18 by amya              #+#    #+#             */
-/*   Updated: 2021/04/12 11:49:28 by amya             ###   ########.fr       */
+/*   Updated: 2021/04/19 11:00:46 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,14 +60,6 @@ t_2d_i		sphere_uv(t_obj *obj, t_2d_i size)
 	return (tex);
 }
 
-double		comp(double x, double y, double z)
-{
-	if (x <= y)
-		return (y);
-	if (x >= z)
-		return (z);
-	return (x);
-}
 
 t_2d_i		uv_mapping_cyl_cone(t_obj *obj, t_2d_i size)
 {

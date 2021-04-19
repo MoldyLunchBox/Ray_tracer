@@ -80,10 +80,7 @@ t_2d_i		sphere_uv(t_obj *obj, t_2d_i size);
 t_2d_i		uv_mapping_cyl_cone(t_obj *obj, t_2d_i size);
 void		sdl_set_text(char *txt, t_vect_i col, t_4d_i rect, t_all *data);
 t_ray		new_ray(int i, int j, t_all data);
-void		event_alias(t_all *data);
 void		event_filter(t_all *data);
-void		event_focus(t_all *data);
-double		comp(double x, double y, double z);
 void		cone_norm(t_obj *cone, t_ray r, double t);
 int			space_counter(char *str);
 void        free_2d(char ***str);
@@ -103,4 +100,19 @@ void	event_start(t_all *data);
 void	set_camera_dir(t_data_camera *camera);
 int         s_limited_cone(char **table, int i, t_all *data, t_obj *cyl);
 t_sol	intersection_ray_limited_cone(t_obj *cone, t_ray r);
+int	slice_it(t_obj *plane, t_ray ray, double size, t_4vects slicers);
+t_4vects	slicer_maker(t_vect template);
+void	fill_vects(t_4vects *slicers, int *first_two, int the_case);
+void	case_two(t_4vects *slicers, int *first_two, int the_case);
+void	case_one(t_4vects *slicers, int *first_two, int the_case);
+void	event_orbiter(t_all *data);
+int	inside_left_arrow(t_all *data);
+int	inside_right_arrow(t_all *data);
+void	event_orbiter(t_all *data);
+int	inside_filter(t_all *data);
+void	orbiter(t_all *data);
+int	ft_objects_rest(t_all *data, int i, char **table, t_obj **obj);
+int	is_object(char *str);
+
+
 #endif

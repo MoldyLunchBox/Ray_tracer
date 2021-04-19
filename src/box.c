@@ -1,6 +1,5 @@
 #include "../header/rt.h"
 
-
 t_sol	slice_it_four_times(t_obj *plane, t_ray ray, double size)
 {
 	t_vect		template;
@@ -29,6 +28,7 @@ t_obj	box_sides(t_vect plane_direction, t_obj *box, t_ray ray)
 	plane.sol = slice_it_four_times(&plane, ray, box->size);
 	return (plane);
 }
+
 void	init_box(t_obj plane, t_obj *box, t_sol *closest)
 {
 	box->direction = plane.direction;
@@ -38,7 +38,7 @@ void	init_box(t_obj plane, t_obj *box, t_sol *closest)
 	closest->tmin = plane.sol.tmin;
 }
 
-t_sol intersection_box(t_obj *box, t_ray ray)
+t_sol	intersection_box(t_obj *box, t_ray ray)
 {
 	t_obj	plane;
 	t_sol	min;

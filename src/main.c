@@ -6,7 +6,7 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 17:36:32 by amya              #+#    #+#             */
-/*   Updated: 2021/04/18 17:25:51 by amya             ###   ########.fr       */
+/*   Updated: 2021/04/19 11:53:01 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,25 +34,12 @@ int	inside_rect(t_all *data, SDL_Rect r)
 		return (1);
 	return (0);
 }
-static void	orbiter(t_all *data)
-{
-	double	radius;
-	data->orbit_angle += 5;
-	radius = sqrt(data->camera->pos.x * data->camera->pos.x + data->camera->pos.y * data->camera->pos.y + data->camera->pos.z * data->camera->pos.z);
-	if (data->left)
-	{
-		data->camera->pos.x = data->camera->dir.x + (radius * cos(data->orbit_angle));
-		data->camera->pos.z = data->camera->dir.z + (radius * sin(data->orbit_angle));
-		set_camera_dir(data->camera);
-		ft_putendl("check");
-	}
-}
 
 void	menu(t_all *data)
 {
 	SDL_SetRenderDrawColor(data->rend, 0, 0, 0, 255);
 	event_filter(data);
-	event_alias(data);
+	event_orbiter(data);
 	event_start(data);
 	if (data->left || data->right)
 		orbiter(data);
@@ -68,19 +55,18 @@ void	threading(t_all alll)
 	t_all		*all;
 
 	all = &alll;
-	i = 0;
+	i = -1;
 	if (alll.ren == 0)
 		menu(&alll);
 	if (alll.ren == 1)
 	{
-		while (i < 4)
+		while (++i < 4)
 		{
 			all->start = WIN_W / 4 * i;
 			all->end = WIN_H / 4 * i + (WIN_H / 4);
 			ft_memcpy((void *)&data[i], (void *)all, sizeof(t_all));
 			pthread_create(&thread_id[i], NULL, raytracing, &data[i]);
 			pthread_join(thread_id[i], NULL);
-			i++;
 		}
 		alll.ren = 2;
 	}

@@ -6,7 +6,7 @@
 #    By: amya <amya@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/22 16:14:13 by yoelguer          #+#    #+#              #
-#    Updated: 2021/04/17 14:18:42 by amya             ###   ########.fr        #
+#    Updated: 2021/04/19 12:29:13 by amya             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,9 +36,6 @@ SRC		= 	main.c \
 			data_paraploid.c\
 			data_ellipsoid.c\
 			texture.c\
-			filtres.c\
-			mb_filter.c\
-			sepia_filtre.c\
 			li.c\
 			val2.c\
 			texture2.c\
@@ -51,7 +48,10 @@ SRC		= 	main.c \
 			box.c\
 			data_box.c\
 			extra_tools.c\
-			data_limited_cone.c
+			data_limited_cone.c\
+			box_slice.c\
+			event_2.c\
+			
 
 HEADER = 	header/data.h\
 			header/ray.h\
