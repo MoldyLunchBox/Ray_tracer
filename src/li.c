@@ -6,7 +6,7 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/28 15:45:35 by amya              #+#    #+#             */
-/*   Updated: 2021/04/19 11:08:45 by amya             ###   ########.fr       */
+/*   Updated: 2021/04/19 17:52:24 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,11 @@ void	init_li(t_light *li, t_data_light *light, t_obj *obj, t_ray ray)
 	li->col.x = fmin(255, li->col.x + in1 * (li->diff.x + li->spec.x));
 	li->col.y = fmin(255, li->col.y + in1 * (li->diff.y + li->spec.y));
 	li->col.z = fmin(255, li->col.z + in1 * (li->diff.z + li->spec.z));
+}
+
+t_vect	light_n_shadow(t_obj *obj, t_all data, t_ray ray, t_vect col)
+{
+	col = light_obj(obj, data, ray, obj->t);
+	col = on_shadow(obj, data, ray, col);
+	return (col);
 }

@@ -6,30 +6,12 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/28 16:54:18 by amya              #+#    #+#             */
-/*   Updated: 2021/04/17 15:16:17 by amya             ###   ########.fr       */
+/*   Updated: 2021/04/19 17:59:33 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/rt.h"
 
-t_vect		fill_acording_to_order(t_vect source, t_vect order)
-{
-	t_vect	ret;
-
-	if (order.x == 1)
-		ret.x = source.x;
-	if (order.x == 2)
-		ret.x = source.y;
-	if (order.z == 3)
-		ret.x = source.z;
-	if (order.y == 1)
-		ret.y = source.x;
-	if (order.y == 2)
-		ret.y = source.y;
-	if (order.y == 3)
-		ret.y = source.z;
-	return (ret);	
-}
 t_uv		get_plane_uv(t_obj *plane, t_2d_i size)
 {
 	t_uv	uv;
@@ -37,8 +19,6 @@ t_uv		get_plane_uv(t_obj *plane, t_2d_i size)
 	t_vect	u;
 	t_vect	v;
 
-	// order = sorting(plane->norm);
-	// order = fill_acording_to_order(plane->norm, order);
 	u = (t_vect){plane->norm.y, -plane->norm.z, plane->norm.x};
 	v = vect_cross(plane->norm, u);
 	uv.u =  vect_scal(u, plane->hit) * 0.01;
@@ -56,8 +36,8 @@ t_uv		get_uv(t_obj *obj, t_2d_i size)
 	// 	uv = sphere_uv(obj, size);
 	// if (ft_strcmp(obj->name, "cylinder") == 0)
 	// 	uv = uv_mapping_cyl_cone(obj, size);
-	// if (ft_strcmp(obj->name, "cone") == 0)
-	// 	uv = uv_mapping_cyl_cone(obj, size);
+	if (ft_strcmp(obj->name, "cone") == 0)
+		uv = uv_mapping_cyl_cone(obj, size);
 	if (ft_strcmp(obj->name, "plane") == 0)
 		uv = get_plane_uv(obj, size);
 	return (uv);

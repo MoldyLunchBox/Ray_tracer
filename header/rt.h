@@ -77,7 +77,7 @@ int			inside_rect(t_all *data, SDL_Rect r);
 void		init_2d_vect(t_2d_d *v);
 t_2d_i		plane_uv(t_obj *obj, t_2d_i size);
 t_2d_i		sphere_uv(t_obj *obj, t_2d_i size);
-t_2d_i		uv_mapping_cyl_cone(t_obj *obj, t_2d_i size);
+t_uv		uv_mapping_cyl_cone(t_obj *obj, t_2d_i size);
 void		sdl_set_text(char *txt, t_vect_i col, t_4d_i rect, t_all *data);
 t_ray		new_ray(int i, int j, t_all data);
 void		event_filter(t_all *data);
@@ -113,6 +113,28 @@ int	inside_filter(t_all *data);
 void	orbiter(t_all *data);
 int	ft_objects_rest(t_all *data, int i, char **table, t_obj **obj);
 int	is_object(char *str);
-
+t_sol	bottom_cap(t_obj *cyl, t_vect bottom, t_ray r, t_sol sol);
+t_sol	top_cap(t_obj *cyl, t_vect top, t_ray r, t_sol sol);
+t_sol	limited_object(t_obj *cyl, t_ray r, t_sol sol, t_vect top);
+t_vect  light_is_behind(t_vect  cam_to_light, t_all data, double cam_light);
+t_vect	direct_light(t_ray ray, t_all data, t_data_light *light);
+t_obj	*find_closest(t_all data, t_ray ray);
+t_sol 	out_of_range(double result_top, double result_bottom, t_sol sol);
+t_sol	top_cap_cone(t_cone_top var, t_obj *cone, t_sol sol);
+t_sol	cone_top(t_obj *cone, t_ray r, t_sol sol, t_vect top);
+t_sol	bottom_cap_cone(t_cone_bottom var, t_obj *cone, t_sol sol);
+t_sol	cone_bottom(t_obj *cone, t_ray r, t_sol sol, t_vect bottom);
+t_sol	limited_object_cone(t_obj *cone, t_ray r, t_sol sol);
+double	if_t1_isnull(double t1, t_sol t);
+double	if_t1_isbigger(double t1, t_sol t);
+t_sol	look_for_negative(t_obj *obj, t_all data, t_sol t, t_ray ray);
+void    init_sol(t_sol *t);
+t_vect			sorting(t_vect in);
+t_sol cyl_inter_negative(t_sol t, t_obj *header, t_all data, t_ray hit_to_light);
+t_vect			disruption(t_obj *obj, t_vect col);
+t_vect	filter(t_all *data, t_vect col, t_vect_i var);
+t_obj	*find_closest(t_all data, t_ray ray);
+void	set_pixel(t_all data, t_vect col, t_vect_i var, t_ray ray);
+t_vect	light_n_shadow(t_obj *obj, t_all data, t_ray ray, t_vect col);
 
 #endif

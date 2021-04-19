@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "/Users/amya/Desktop/stupidbox/RT",
-            "args": ["files/abdu_1"],
+            "args": ["files/con_fans"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],

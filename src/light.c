@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   light.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/19 13:06:01 by amya              #+#    #+#             */
+/*   Updated: 2021/04/19 13:06:06 by amya             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../header/rt.h"
 
@@ -11,24 +22,26 @@ t_vect	safe_color(t_vect p)
 	return (col);
 }
 
-int     paralell_light(t_data_light *light, t_obj *objet, t_ray ray, t_light *li)
+int	paralell_light(t_data_light *light, t_obj *objet, t_ray ray, t_light *li)
 {
-    t_vect  spot_drection;
-    t_vect  light_dir;
-    double  teta;
-    double  beta = 0.95;
-    spot_drection = sub_vect(light->direction,light->position);
-    spot_drection = get_normalized(spot_drection);
-    spot_drection = vect_mult_val(spot_drection, -1);
-    light_dir = sub_vect(light->position,objet->hit);
-    light_dir = get_normalized(light_dir);
-    teta = vect_scal(light_dir,spot_drection);
-    li->ambi = vect_mult_val(objet->color, 0.1);
-    if(teta > beta)
-    {
-        return(1);
-    }
-    return(0);
+	t_vect	spot_drection;
+	t_vect	light_dir;
+	double	teta;
+	double	beta;
+
+	beta = 0.95;
+	spot_drection = sub_vect(light->direction, light->position);
+	spot_drection = get_normalized(spot_drection);
+	spot_drection = vect_mult_val(spot_drection, -1);
+	light_dir = sub_vect(light->position, objet->hit);
+	light_dir = get_normalized(light_dir);
+	teta = vect_scal(light_dir, spot_drection);
+	li->ambi = vect_mult_val(objet->color, 0.1);
+	if (teta > beta)
+	{
+		return (1);
+	}
+	return (0);
 }
 
 t_vect	light_obj(t_obj *obj, t_all data, t_ray ray, double t)

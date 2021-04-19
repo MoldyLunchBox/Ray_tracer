@@ -200,4 +200,18 @@ typedef struct	s_refraction
 	t_vect		ref_norm;
 }				t_refraction;
 
+typedef struct	s_cone_top
+{
+	t_obj plane;
+    double radius;
+	t_sol  plan;
+}				t_cone_top;
+
+typedef struct	s_cone_bottom
+{
+	t_obj plane;
+    double radius;
+	t_sol  plan;
+}				t_cone_bottom;
+
 #endif

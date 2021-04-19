@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cylinder_limit.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/19 12:59:47 by amya              #+#    #+#             */
+/*   Updated: 2021/04/19 13:00:08 by amya             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../header/rt.h"
 
@@ -38,7 +49,7 @@ t_sol	top_cap(t_obj *cyl, t_vect top, t_ray r, t_sol sol)
 	plane.direction = cyl->direction;
 	plan = intersection_ray_plan(&plane, r);
 	if (plan.tmin != -1)
-{
+	{
 		len = sub_vect(plane.hit, plane.position);
 		dot = sqrt(len.x * len.x + len.y * len.y + len.z * len.z);
 		if (dot <= cyl->radius)
@@ -59,9 +70,9 @@ t_sol	limited_object(t_obj *cyl, t_ray r, t_sol sol, t_vect top)
 	double	result_top;
 	double	result_bottom;
 
-	dir = vect_mult_val(cyl->direction, cyl->slice.x);
+	dir = vect_mult_val(cyl->direction, cyl->size);
 	bottom = add_vect(cyl->position, vect_mult_val
-			(cyl->direction, -cyl->slice.x));
+			(cyl->direction, -cyl->size));
 	top = add_vect(cyl->position, dir);
 	result_top = vect_scal(sub_vect(top, cyl->hit), cyl->direction);
 	result_bottom = vect_scal(sub_vect(bottom, cyl->hit), vect_mult_val

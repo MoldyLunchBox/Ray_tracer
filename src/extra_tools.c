@@ -6,7 +6,7 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 17:20:18 by amya              #+#    #+#             */
-/*   Updated: 2021/04/19 11:30:12 by amya             ###   ########.fr       */
+/*   Updated: 2021/04/19 17:21:38 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,17 @@ int	is_object(char *str)
 		|| ft_strcmp("limited_cone:", str) == 0)
 		return (1);
 	return (0);
+}
+
+double	if_t1_isnull(double t1, t_sol t)
+{
+	if (t1 == -1)
+		t1 = t.tmin;
+	return (t1);
+}
+double	if_t1_isbigger(double t1, t_sol t)
+{
+	if (t1 > t.tmin)
+		t1 = t.tmin;
+	return (t1);
 }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   box.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amya <marvin@42.fr>                        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/19 12:56:14 by amya              #+#    #+#             */
+/*   Updated: 2021/04/19 12:56:16 by amya             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../header/rt.h"
 
 t_sol	slice_it_four_times(t_obj *plane, t_ray ray, double size)
@@ -64,4 +76,3 @@ t_sol	intersection_box(t_obj *box, t_ray ray)
 		init_box(plane, box, &min);
 	return (min);
 }
-

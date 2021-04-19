@@ -6,7 +6,7 @@
 #    By: amya <amya@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/22 16:14:13 by yoelguer          #+#    #+#              #
-#    Updated: 2021/04/19 12:29:13 by amya             ###   ########.fr        #
+#    Updated: 2021/04/19 17:45:51 by amya             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,6 @@ SRC		= 	main.c \
 			plane.c\
 			ray.c\
 			sphere.c\
-			cylindre.c\
 			cone.c\
 			vector.c\
 			vector2.c\
@@ -51,6 +50,15 @@ SRC		= 	main.c \
 			data_limited_cone.c\
 			box_slice.c\
 			event_2.c\
+			cylinder_limit.c\
+			cylinder.c\
+			direct_light.c\
+			negative_obj.c\
+			limited_cone.c\
+			sorting.c\
+			disruption.c\
+			intersection.c\
+			filters.c\
 			
 
 HEADER = 	header/data.h\
