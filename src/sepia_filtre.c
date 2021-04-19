@@ -6,7 +6,7 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 18:48:49 by yoelguer          #+#    #+#             */
-/*   Updated: 2021/03/28 18:50:46 by amya             ###   ########.fr       */
+/*   Updated: 2021/04/17 14:49:39 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ void			sepia_filtre(t_all *rt)
 		loop.j = -1;
 		while (++loop.j < WIN_H)
 		{
-			rt->screen_pixels[loop.i * WIN_W + loop.j] =
-			sepia(rt->screen_pixels[loop.i * WIN_W + loop.j]);
+			rt->screen_pixels[loop.i * WIN_W + loop.j]
+			= sepia(rt->screen_pixels[loop.i * WIN_W + loop.j]);
 			if (SDL_SetRenderDrawColor(rt->rend,
 				rt->screen_pixels[loop.i * WIN_W + loop.j].x,
 				rt->screen_pixels[loop.i * WIN_W + loop.j].y,

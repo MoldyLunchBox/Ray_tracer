@@ -6,13 +6,13 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 18:49:00 by yoelguer          #+#    #+#             */
-/*   Updated: 2021/03/28 19:48:28 by amya             ###   ########.fr       */
+/*   Updated: 2021/04/17 14:50:58 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/rt.h"
 
-int			ft_val(char *str)
+int	ft_val(char *str)
 {
 	int		i;
 
@@ -22,7 +22,7 @@ int			ft_val(char *str)
 	while (str[i])
 	{
 		if ((str[i] <= '9' && str[i] >= '0')
-				|| str[i] == '.')
+			|| str[i] == '.')
 			i++;
 		else
 			return (-1);
@@ -30,7 +30,7 @@ int			ft_val(char *str)
 	return (0);
 }
 
-int			ft_val2(char *str)
+int	ft_val2(char *str)
 {
 	int		i;
 
@@ -38,7 +38,7 @@ int			ft_val2(char *str)
 	while (str[i])
 	{
 		if ((str[i] <= '9' && str[i] >= '0')
-				|| str[i] == '.')
+			|| str[i] == '.')
 			i++;
 		else
 			return (-1);
@@ -46,7 +46,7 @@ int			ft_val2(char *str)
 	return (0);
 }
 
-int			check_str2(char **str, int j, int k)
+int	check_str2(char **str, int j, int k)
 {
 	int		i;
 
@@ -58,7 +58,7 @@ int			check_str2(char **str, int j, int k)
 	return (1);
 }
 
-int			check_str1(char **str, int j, int k)
+int	check_str1(char **str, int j, int k)
 {
 	int		i;
 
@@ -74,7 +74,7 @@ int			check_str1(char **str, int j, int k)
 	return (1);
 }
 
-int			f_str(char **str, int j, int d)
+int	f_str(char **str, int j, int d)
 {
 	int		k;
 
@@ -84,13 +84,13 @@ int			f_str(char **str, int j, int d)
 	if (j < d)
 	{
 		if (ft_val(str[k]) || ft_val(str[k + 1])
-				|| ft_val(str[k + 2]))
+			|| ft_val(str[k + 2]))
 			return (-1);
 	}
 	else if (j == d)
 	{
 		if (ft_val2(str[k]) || ft_val2(str[k + 1])
-				|| ft_val2(str[k + 2]))
+			|| ft_val2(str[k + 2]))
 			return (-1);
 	}
 	else

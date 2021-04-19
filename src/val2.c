@@ -6,13 +6,13 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/28 18:45:52 by amya              #+#    #+#             */
-/*   Updated: 2021/04/15 12:44:53 by amya             ###   ########.fr       */
+/*   Updated: 2021/04/17 14:51:04 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/rt.h"
 
-int			f_str2(char **str, int j, int d)
+int	f_str2(char **str, int j, int d)
 {
 	int		k;
 
@@ -39,7 +39,7 @@ int			f_str2(char **str, int j, int d)
 	return (1);
 }
 
-double		get_length(t_vect u)
+double	get_length(t_vect u)
 {
 	return (sqrt((u.x * u.x) + (u.y * u.y) + (u.z * u.z)));
 }

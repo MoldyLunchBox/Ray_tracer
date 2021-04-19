@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   rt.h                                               :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/09 18:37:40 by yoelguer          #+#    #+#             */
-/*   Updated: 2021/04/17 13:02:12 by amya             ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #ifndef RT_H
 # define RT_H
@@ -68,7 +57,7 @@ void		ft_free_obj(t_all *data);
 void		init_li(t_light *li, t_data_light *ligth, t_obj *obj, t_ray ray);
 t_vect		light_obj(t_obj *obj, t_all data, t_ray ray, double t);
 t_vect 		on_shadow(t_obj *pos, t_all data, t_ray ray, t_vect col);
-t_ray		init_rayy(t_2d_i var, t_data_camera *cam, t_2d_d d, t_2d_d p);
+t_ray		init_rayy(int i, int j, t_data_camera *cam);
 double		find_obj_scnd(t_all data, t_ray ray, t_ray to_light, t_obj *pos);
 double		ft_atof(char *str);
 void		texturing(t_obj *obj);
@@ -94,7 +83,6 @@ t_ray		new_ray(int i, int j, t_all data);
 void		event_alias(t_all *data);
 void		event_filter(t_all *data);
 void		event_focus(t_all *data);
-void		event_go(t_all *data);
 double		comp(double x, double y, double z);
 void		cone_norm(t_obj *cone, t_ray r, double t);
 int			space_counter(char *str);
@@ -111,7 +99,8 @@ t_vect		norm_cube(t_obj *box, t_vect hit_point);
 t_vect			sorting(t_vect in);
 int         space_counter(char *str);
 int         ft_lines_in_file(char *str);
-
+void	event_start(t_all *data);
+void	set_camera_dir(t_data_camera *camera);
 int         s_limited_cone(char **table, int i, t_all *data, t_obj *cyl);
 t_sol	intersection_ray_limited_cone(t_obj *cone, t_ray r);
 #endif

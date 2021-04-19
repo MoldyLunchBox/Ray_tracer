@@ -6,7 +6,7 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 18:38:44 by yoelguer          #+#    #+#             */
-/*   Updated: 2021/04/17 12:16:04 by amya             ###   ########.fr       */
+/*   Updated: 2021/04/17 17:12:24 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,8 +105,8 @@ t_sol           limited_object(t_obj *cyl, t_ray r,t_sol sol)
     t_vect bottom;
     double  result_top;
     double  result_bottom;
-    dir = vect_mult_val(cyl->direction, cyl->slice.x);
-    bottom = add_vect(cyl->position,vect_mult_val(cyl->direction, -cyl->slice.x));
+    dir = vect_mult_val(cyl->direction, cyl->size);
+    bottom = add_vect(cyl->position,vect_mult_val(cyl->direction, -cyl->size));
     top= add_vect(cyl->position,dir);
     result_top = vect_scal(sub_vect(top, cyl->hit), cyl->direction);
     result_bottom = vect_scal(sub_vect(bottom, cyl->hit),vect_mult_val(cyl->direction,-1));
@@ -170,15 +170,9 @@ t_sol			intersection_ray_cylindre(t_obj *cyl, t_ray r)
 	cyl->norm = get_normalized(sub_vect(sub_vect(cyl->hit, cyl->position),
 				vect_mult_val(cyl->direction, vect_scal(cyl->direction,
 				sub_vect(cyl->hit, cyl->position)))));
-	if (cyl->slice.x)
-		sol = limited_object(cyl, r, sol);
-	// if (cyl->slice.x || cyl->slice.y || cyl->slice.z)
-	// sol.tmin = cylinder_slicing(sol, cyl, r);
-	// sly = cyl->slice;
-	// if (!sly.x && !sly.y && !sly.z)
-	// 	is = 0;
-	// else
-	// 	is = 1;
+	if (cyl->slice.x || cyl->slice.y || cyl->slice.z)
+		sol.tmin = cylinder_slicing(sol, cyl, r);
+	
 	// if (is == 1 && vect_scal(sub_vect(cyl->pos_slice, cyl->hit), sly) <= 0.0)
 	// 	return (intersection_slice(cyl, r, sol, sly));
 	// if (cyl->size != 0 && vect_scal(sub_vect(add_vect(cyl->position,

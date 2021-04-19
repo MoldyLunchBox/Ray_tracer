@@ -6,7 +6,7 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:59:41 by amya              #+#    #+#             */
-/*   Updated: 2021/04/15 12:44:24 by amya             ###   ########.fr       */
+/*   Updated: 2021/04/18 16:20:56 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	f_camera(char **str, int j, t_data_camera *camera)
 		camera->focus_dis = ft_atof(str[0]);
 }
 
-static void	set_camera_dir(t_data_camera *camera)
+void	set_camera_dir(t_data_camera *camera)
 {
 	t_vect	up;
 

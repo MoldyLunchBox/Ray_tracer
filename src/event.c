@@ -6,50 +6,80 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 16:33:06 by amya              #+#    #+#             */
-/*   Updated: 2021/04/15 16:33:16 by amya             ###   ########.fr       */
+/*   Updated: 2021/04/18 17:28:55 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/rt.h"
 
-void	event_alias(t_all *data)
+int		inside_left_arrow(t_all *data)
 {
-	SDL_Rect	dest;
-	SDL_Texture	*aalias;
+	SDL_Rect	box;
 
-	aalias = NULL;
-	dest.x = WIN_W / 2 - WIN_W / 3 / 2;
-	dest.y = WIN_H / 5 * 0 + (WIN_H / 5 / 5 * 1);
-	dest.w = WIN_W / 3;
-	dest.h = WIN_H / 5;
-	if (data->aalias == 0)
-		aalias = IMG_LoadTexture(data->rend, "./textures/not_antialias.png");
-	if (data->aalias == 1)
-		aalias = IMG_LoadTexture(data->rend, "./textures/antialias.png");
-	if (inside_rect(data, dest) == 1)
-	{
-		data->aalias = 1 - data->aalias;
-		if (data->aalias == 0)
-			aalias = IMG_LoadTexture(data->rend,
-					"./textures/not_antialias.png");
-		if (data->aalias == 1)
-			aalias = IMG_LoadTexture(data->rend, "./textures/antialias.png");
-	}
-	SDL_RenderCopy(data->rend, aalias, NULL, &dest);
+	box.x = WIN_W / 3 * 2 - (WIN_W / 4 / 7);
+	box.y = WIN_H / 4 - WIN_H / 4 /2 ;
+	box.w = WIN_W / 3 / 2 ;
+	box.h = WIN_H / 3 / 3;
+	if (data->event.x >= box.x && data->event.x <= box.x
+		+ box.w && data->event.y >= box.y && data->event.y <= box.y + box.h)
+		return (1);
+	return (0);
 }
 
-static void	load_texture(t_all *data, SDL_Texture	*filter)
+int		inside_right_arrow(t_all *data)
 {
-	if (data->filter == 2)
-		data->filter = 0;
-	else
-		data->filter++;
+	SDL_Rect	box;
+
+	box.x = WIN_W / 3 * 2 - (WIN_W / 4 / 7) + WIN_W / 3 / 2;
+	box.y = WIN_H / 4 - WIN_H / 4 /2 ;
+	box.w = WIN_W / 3 / 2 ;
+	box.h = WIN_H / 3 / 3;
+	if (data->event.x >= box.x && data->event.x <= box.x
+		+ box.w && data->event.y >= box.y && data->event.y <= box.y + box.h)
+		return (1);
+	return (0);
+}
+
+void	event_alias(t_all *data)
+{
+	if (inside_left_arrow(data))
+		data->left = 1;
+	if (inside_right_arrow(data))
+		data->right = 1;
+}
+
+static void	load_texture(t_all *data)
+{
+	SDL_Rect	interface;
+	SDL_Texture	*filter;
+
+	interface.x = 0;
+	interface.y = 0;
+	interface.w = WIN_W;
+	interface.h = WIN_H;
 	if (data->filter == 0)
-		filter = IMG_LoadTexture(data->rend, "./textures/no_filter.png");
+		filter = IMG_LoadTexture(data->rend, "./textures/interface.jpg");
 	if (data->filter == 1)
-		filter = IMG_LoadTexture(data->rend, "./textures/filter1.png");
+		filter = IMG_LoadTexture(data->rend, "./textures/effect1.jpg");
 	if (data->filter == 2)
-		filter = IMG_LoadTexture(data->rend, "./textures/filter2.png");
+		filter = IMG_LoadTexture(data->rend, "./textures/effect2.jpg");
+	SDL_RenderCopy(data->rend, filter, NULL, &interface);
+}
+
+int		inside_filter(t_all *data)
+{
+	SDL_Rect	box;
+	// SDL_Texture	*focus;
+
+	// focus = IMG_LoadTexture(data->rend, "./textures/focus.png");
+	box.x = WIN_W / 3 * 2;
+	box.y = WIN_H / 2 - (WIN_H / 5 / 4);
+	box.w = WIN_W ;
+	box.h = WIN_H / 3 / 3;
+	if (data->event.x >= box.x && data->event.x <= box.x + box.w && data->event.y >= box.y && data->event.y <= box.y + box.h)
+		return (1);
+	// SDL_RenderCopy(data->rend, focus, NULL, &box);
+	return (0);
 }
 
 void	event_filter(t_all *data)
@@ -62,54 +92,49 @@ void	event_filter(t_all *data)
 	dest_r1.y = WIN_H / 5 * 1 + (WIN_H / 5 / 5 * 2);
 	dest_r1.w = WIN_W / 3;
 	dest_r1.h = WIN_H / 5;
-	if (data->filter == 0)
-		filter = IMG_LoadTexture(data->rend, "./textures/no_filter.png");
-	if (data->filter == 1)
-		filter = IMG_LoadTexture(data->rend, "./textures/filter1.png");
-	if (data->filter == 2)
-		filter = IMG_LoadTexture(data->rend, "./textures/filter2.png");
-	if (inside_rect(data, dest_r1) == 1)
-		load_texture(data, filter);
-	SDL_RenderCopy(data->rend, filter, NULL, &dest_r1);
-}
-
-void	event_focus(t_all *data)
-{
-	SDL_Rect	dest_r2;
-	SDL_Texture	*focus;
-
-	focus = NULL;
-	dest_r2.x = WIN_W / 2 - WIN_W / 3 / 2;
-	dest_r2.y = WIN_H / 5 * 2 + (WIN_H / 5 / 5 * 3);
-	dest_r2.w = WIN_W / 3;
-	dest_r2.h = WIN_H / 5;
-	if (data->deep == 0)
-		focus = IMG_LoadTexture(data->rend, "./textures/no_focus.png");
-	if (data->deep == 1)
-		focus = IMG_LoadTexture(data->rend, "./textures/focus.png");
-	if (inside_rect(data, dest_r2) == 1)
+	if (inside_filter(data) == 1)
 	{
-		data->deep = 1 - data->deep;
-		if (data->deep == 0)
-			focus = IMG_LoadTexture(data->rend, "./textures/no_focus.png");
-		if (data->deep == 1)
-			focus = IMG_LoadTexture(data->rend, "./textures/focus.png");
+		if (data->filter == 2)
+			data->filter = 0;
+		else
+			data->filter++;
 	}
-	SDL_RenderCopy(data->rend, focus, NULL, &dest_r2);
 }
 
-void	event_go(t_all *data)
+int		inside_start(t_all *data)
 {
-	SDL_Rect	dest_r2;
-	SDL_Texture	*go;
+	SDL_Rect	box;
 
-	go = NULL;
-	dest_r2.x = WIN_W / 2 - WIN_W / 3 / 2;
-	dest_r2.y = WIN_H / 5 * 3 + (WIN_H / 5 / 5 * 4);
-	dest_r2.w = WIN_W / 3;
-	dest_r2.h = WIN_H / 5;
-	go = IMG_LoadTexture(data->rend, "./textures/go.png");
-	if (inside_rect(data, dest_r2) == 1)
+	box.x = WIN_W / 3 * 2;
+	box.y = WIN_H / 5 * 4 - (WIN_H / 5 /4 );
+	box.w = WIN_W;
+	box.h = WIN_H / 5 * 1 - (WIN_H / 5 / 3);
+	if (data->event.x >= box.x && data->event.x <= box.x
+		+ box.w && data->event.y >= box.y && data->event.y <= box.y + box.h)
+		return (1);
+	return (0);
+}
+
+void	event_start(t_all *data)
+{
+	SDL_Texture	*start;
+	SDL_Rect	interface;
+
+	interface.x = 0;
+	interface.y = 0;
+	interface.w = WIN_W;
+	interface.h = WIN_H;
+	start = NULL;
+	// start = IMG_LoadTexture(data->rend, "./textures/interface.jpg");
+	if (inside_start(data) == 1)
 		data->ren = 1;
-	SDL_RenderCopy(data->rend, go, NULL, &dest_r2);
+	if (data->ren)
+	{
+		start = IMG_LoadTexture(data->rend, "./textures/interface_start.jpg");
+		SDL_RenderCopy(data->rend, start, NULL, &interface);
+		SDL_RenderPresent(data->rend);
+	}
+	else
+		load_texture(data);
+		// SDL_RenderCopy(data->rend, start, NULL, &interface);
 }

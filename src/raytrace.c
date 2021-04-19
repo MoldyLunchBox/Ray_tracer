@@ -6,7 +6,7 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 18:48:25 by yoelguer          #+#    #+#             */
-/*   Updated: 2021/04/17 12:16:31 by amya             ###   ########.fr       */
+/*   Updated: 2021/04/18 17:22:18 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -245,7 +245,7 @@ t_vect	distrupt_a_sphere_color(t_obj *obj, t_vect col)
 	return (col);
 }
 
-static t_vect	right_result(t_vect template, double res, double res2, double res3)
+static t_vect	sol(t_vect template, double res, double res2, double res3)
 {
 	u_vect	sort;
 	t_vect	applied;
@@ -300,7 +300,7 @@ t_vect			disruption(t_obj *obj, t_vect col)
 	{
 		vec = sorting(obj->norm);
 		res = possible_results(obj);
-		usable_res = right_result(vec, res.x, res.y, res.z);
+		usable_res = sol(vec, res.x, res.y, res.z);
 		if ((usable_res.x && usable_res.y) || (!usable_res.x && !usable_res.y))
 			col = (t_vect){0, 0, 0};
 		else
@@ -426,17 +426,20 @@ t_vect  direct_light(t_ray ray, t_all data, t_data_light *light)
 }
 
 
-
+static t_vect	light_n_shadow(t_obj *obj, t_all data, t_ray ray, t_vect col)
+{
+	col = light_obj(obj, data, ray, obj->t);
+	col = on_shadow(obj, data, ray, col);
+	return (col);
+}
 
 t_vect			rend_pix(t_all data, t_ray ray, int nbrbonds)
 {
 	t_vect		col;
-	int			shad;
 	t_obj		*pos;
 
 	if (nbrbonds == 0)
 		return ((t_vect){0, 0, 0});
-	col = (t_vect){0, 0, 0};
 	col = direct_light(ray, data, data.light);
 	pos = find_closest(data, ray);
 	if (pos->t != -1)
@@ -444,23 +447,19 @@ t_vect			rend_pix(t_all data, t_ray ray, int nbrbonds)
 		if (pos->disruption)
 			pos->color = disruption(pos, pos->color_copy);
 		if (pos->type == 2)
-		{
-			col = add_vect(vect_mult_val(pos->color, pos->refl), reflection(data, pos, nbrbonds, ray));
-		}
+			col = add_vect(vect_mult_val(pos->color, pos->refl),
+					reflection(data, pos, nbrbonds, ray));
 		else if (pos->type == 3)
-			col = add_vect(vect_mult_val(pos->color, pos->trans),refraction(data, pos, nbrbonds, ray));
+			col = add_vect(vect_mult_val(pos->color, pos->trans),
+					refraction(data, pos, nbrbonds, ray));
 		else
-		{
-			col = light_obj(pos, data, ray, pos->t);
-			col = on_shadow(pos, data, ray, col);
-		}
+			col = light_n_shadow(pos, data, ray, col);
 	}
 	return (safe_color(col));
 }
 
-void			set_pixel(t_all data, t_vect col, t_vect_i var, t_ray ray)
+void	set_pixel(t_all data, t_vect col, t_vect_i var, t_ray ray)
 {
-
 	if (SDL_SetRenderDrawColor(data.rend, col.x, col.y, col.z, 255) != 0)
 		sdl_error("Get color failed");
 	if (SDL_RenderDrawPoint(data.rend, var.x, var.y) != 0)
@@ -468,7 +467,7 @@ void			set_pixel(t_all data, t_vect col, t_vect_i var, t_ray ray)
 	data.screen_pixels[var.x * WIN_W + var.y] = col;
 }
 
-t_vect		negative_filter(t_vect col)
+t_vect	negative_filter(t_vect col)
 {
 	col.x = 255 - col.x;
 	col.y = 255 - col.y;
@@ -476,7 +475,33 @@ t_vect		negative_filter(t_vect col)
 	return (col);
 }
 
-void			*raytracing(void *dataa)
+t_vect	red_blue(t_vect col, t_vect_i var)
+{
+	if (var.x < WIN_W / 2)
+	{
+		col.x += 50;
+		col.y = 0;
+		col.z = 0;
+	}
+	else
+	{
+		col.x = 0;
+		col.y = 0;
+		col.z += 50;
+	}
+	return (safe_color(col));
+}
+
+t_vect	filter(t_all *data, t_vect col, t_vect_i var)
+{
+	if (data->filter == 1)
+		col = negative_filter(col);
+	if (data->filter == 2)
+		col = red_blue(col, var);
+	return (col);
+}
+
+void	*raytracing(void *dataa)
 {
 	t_vect_i	var;
 	t_ray		ray;
@@ -491,18 +516,11 @@ void			*raytracing(void *dataa)
 		while (++var.y < WIN_H)
 		{
 			init_vect(&col, 0., 0., 0.);
-			var.z = -1;
-			while (++var.z < ((data.aalias || data.deep) ? NBR_RAYS : 1))
-			{
-				ray = new_ray(var.x, var.y, data);
-				col = add_vect(col, vect_mult_val(rend_pix(data, ray, 6), 1. /
-					((data.aalias || data.deep) ? NBR_RAYS : 1)));
-			}
-			// col = negative_filter(col);
+			ray = new_ray(var.x, var.y, data);
+			col = add_vect(col, rend_pix(data, ray, 6));
+			col = filter(&data, col, var);
 			set_pixel(data, col, var, ray);
 		}
 	}
-
-	filtre(&data);
 	return (NULL);
 }

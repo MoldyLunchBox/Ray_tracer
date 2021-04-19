@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   data.h                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/09 18:37:09 by yoelguer          #+#    #+#             */
-/*   Updated: 2021/04/17 11:23:26 by amya             ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #ifndef DATA_H
 # define DATA_H
@@ -182,6 +171,9 @@ typedef struct	s_all
 	int					id;
 	int					deep;
 	int					aalias;
+	int					orbit_angle;
+	double				left;
+	double				right;					
 	int					filter;
 	int					start;
 	int					end;

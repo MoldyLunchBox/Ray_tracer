@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   vector3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoelguer <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 18:49:34 by yoelguer          #+#    #+#             */
-/*   Updated: 2021/02/09 18:49:41 by yoelguer         ###   ########.fr       */
+/*   Updated: 2021/04/17 15:04:46 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/rt.h"
 
-t_vect		mult_vect(t_vect v1, t_vect v2)
+t_vect	mult_vect(t_vect v1, t_vect v2)
 {
 	t_vect	v3;
 
@@ -22,7 +22,7 @@ t_vect		mult_vect(t_vect v1, t_vect v2)
 	return (v3);
 }
 
-t_vect		vect_mult_val(t_vect v, double a)
+t_vect	vect_mult_val(t_vect v, double a)
 {
 	t_vect	v2;
 
@@ -32,7 +32,7 @@ t_vect		vect_mult_val(t_vect v, double a)
 	return (v2);
 }
 
-t_vect		vect_div_val(t_vect v, double a)
+t_vect	vect_div_val(t_vect v, double a)
 {
 	t_vect	v2;
 
@@ -42,7 +42,7 @@ t_vect		vect_div_val(t_vect v, double a)
 	return (v2);
 }
 
-double		vect_scal(t_vect v1, t_vect v2)
+double	vect_scal(t_vect v1, t_vect v2)
 {
 	double	ret;
 
@@ -50,7 +50,7 @@ double		vect_scal(t_vect v1, t_vect v2)
 	return (ret);
 }
 
-double		get_norm_2(t_vect v)
+double	get_norm_2(t_vect v)
 {
 	double ret;
 

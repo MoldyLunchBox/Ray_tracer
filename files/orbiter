@@ -51,7 +51,7 @@ plane:
  disruption: 0
 
 
-plane:
+plane
  texture: .
  texture_modifie: 0.0:0:0.0
  position: 00:0:-100
@@ -68,18 +68,18 @@ plane:
  disruption: 0
 
 
-limited_cylinder
+limited_cone:
  texture: .
  texture_modifie: -0.0:0:0
- position: 12:20:0
+ position: 0:0:0
  direction: 1:0:0
  translation: 0:0:0
  rotation: 0:0:0
- slice: 6:0:0
+ slice: 1:0:0
  pos_slice: 0.0:0:0.0
  color: 1:128:181
- radius_angle: 2
- size: 0
+ radius_angle: 10
+ size: 10
  type_material: 1
  transparency: 0.0
  reflection: 0.3
@@ -93,7 +93,7 @@ box:
  color: 0:255:0
  size: 7
 
-sphere:
+sphere
  texture: .
  texture_modifie: -0.0:0:0
  position: -0:-1:0

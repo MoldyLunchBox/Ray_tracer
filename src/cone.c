@@ -6,7 +6,7 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 18:38:38 by yoelguer          #+#    #+#             */
-/*   Updated: 2021/04/17 13:18:47 by amya             ###   ########.fr       */
+/*   Updated: 2021/04/17 17:56:48 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,27 +55,7 @@ double	cone_slicing(t_sol sol, t_obj *cone, t_ray r)
 		return (sol.tmax);
 	return (-1);
 }
-t_sol	slice_object_cone(t_obj *cone, t_ray r,t_sol sol)
-{
-	t_vect top;
-	t_vect dir;
-	t_vect hit_to_slice_point;
-	t_vect bottom;
-	double  result_top;
-	double  result_bottom;
 
-	dir = vect_mult_val(cone->direction, cone->slice.x);
-	bottom = add_vect(cone->position,vect_mult_val(cone->direction, -cone->slice.x));
-	top= add_vect(cone->position,dir);
-	result_top = vect_scal(sub_vect(top, cone->hit), cone->direction);
-	result_bottom = vect_scal(sub_vect(bottom, cone->hit),vect_mult_val(cone->direction,-1));
-	if (result_top < 0 || result_bottom<0)
-	{
-		sol.tmin = -1;
-		sol.tmax = -1;
-	}
-	return(sol);
-}
 
 t_sol           limited_object_cone(t_obj *cone, t_ray r,t_sol sol)
 {
@@ -163,9 +143,9 @@ t_sol	intersection_ray_cone(t_obj *cone, t_ray r)
 	cone_norm(cone, r, sol.tmax);
 	// if (cone->slice.x || cone->slice.y || cone->slice.z)
 	// 	sol.tmin = cone_slicing(sol, cone, r);
-	if (cone->slice.x || cone->slice.y || cone->slice.z)
-		sol = slice_object_cone(cone, r, sol);
-	sol = limited_object_cone(cone, r, sol);
+	// if (cone->slice.x || cone->slice.y || cone->slice.z)
+	// 	sol = slice_object_cone(cone, r, sol);
+	// sol = limited_object_cone(cone, r, sol);
 	// sly = cone->slice;
 	// if (!sly.x && !sly.y && !sly.z)
 	// 	is = 0;
@@ -193,10 +173,12 @@ t_sol	intersection_ray_limited_cone(t_obj *cone, t_ray r)
 	sol = all_cone(cone, r);
 	// cone_norm(cone, r, sol.tmax);
 	// if (cone->slice.x || cone->slice.y || cone->slice.z)
-	// 	sol.tmin = cone_slicing(sol, cone, r);
-	// if (cone->slice.x || cone->slice.y || cone->slice.z)
 	// 	sol = slice_object_cone(cone, r, sol);
+	// cone_norm(cone, r, sol.tmax);
+	cone_norm(cone, r, sol.tmax);
 	sol = limited_object_cone(cone, r, sol);
+	if (cone->slice.x || cone->slice.y || cone->slice.z)
+		sol.tmin = cone_slicing(sol, cone, r);
 	// sly = cone->slice;
 	// if (!sly.x && !sly.y && !sly.z)
 	// 	is = 0;

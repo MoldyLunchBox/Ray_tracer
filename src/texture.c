@@ -6,7 +6,7 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/28 16:54:18 by amya              #+#    #+#             */
-/*   Updated: 2021/04/15 12:55:19 by amya             ###   ########.fr       */
+/*   Updated: 2021/04/17 15:16:17 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,8 @@ t_uv		get_plane_uv(t_obj *plane, t_2d_i size)
 	v = vect_cross(plane->norm, u);
 	uv.u =  vect_scal(u, plane->hit) * 0.01;
 	uv.v =  vect_scal(v, plane->hit) * 0.01;
-
 	uv.u = (uv.u - floor(uv.u)) * size.x;
 	uv.v = (uv.v - floor(uv.v)) * size.y;
-	
-	
 	return (uv);
 }
 
