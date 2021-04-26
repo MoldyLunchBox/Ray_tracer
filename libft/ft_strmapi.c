@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoelguer <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: amya <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/09 23:24:01 by yoelguer          #+#    #+#             */
-/*   Updated: 2019/04/16 07:53:14 by yoelguer         ###   ########.fr       */
+/*   Created: 2019/03/31 04:20:39 by amya              #+#    #+#             */
+/*   Updated: 2019/04/08 04:36:24 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,22 @@
 
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	int		i;
-	int		j;
-	int		lent;
-	char	*str;
-	char	*src;
+	unsigned int	i;
+	char			*s2;
 
-	i = 0;
-	j = 0;
-	if (s)
+	s2 = NULL;
+	if (s != NULL && f != NULL)
 	{
-		src = (char*)s;
-		lent = ft_strlen(s) + 1;
-		if (!(str = (char*)malloc(sizeof(char) * lent)))
-			return (NULL);
-		while (src[i] != '\0')
+		i = 0;
+		s2 = (char *)malloc(sizeof(char) * ft_strlen(s) + 1);
+		if (s2 == NULL)
+			return (0);
+		while (s[i])
 		{
-			str[i] = f(j, src[i]);
+			s2[i] = f(i, s[i]);
 			i++;
-			j++;
 		}
-		str[i] = '\0';
-		return (str);
+		s2[i] = '\0';
 	}
-	return (NULL);
+	return (s2);
 }

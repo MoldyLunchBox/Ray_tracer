@@ -5,8 +5,8 @@
 #                                                     +:+ +:+         +:+      #
 #    By: amya <amya@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2020/02/22 16:14:13 by yoelguer          #+#    #+#              #
-#    Updated: 2021/04/19 17:45:51 by amya             ###   ########.fr        #
+#    Created: 2021/04/23 16:50:40 by amya              #+#    #+#              #
+#    Updated: 2021/04/24 10:26:49 by amya             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,7 +70,7 @@ OBJ = $(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
 
 NAME 	= RT
 
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror 
 
 INCLUDE	= -I /Users/$$USER/.brew/Cellar/sdl2/2.0.14_1/include \
 	-I /Users/$$USER/.brew/Cellar/sdl2_image/2.0.5/include \
@@ -89,23 +89,23 @@ LIBFT_DIR = ./libft
 LIBFT_LIB = $(LIBFT_DIR)/libft.a
 
 
-CC = @gcc
+CC = @gcc  -g
 
 all : $(NAME)
 
 $(LIBFT_LIB): force
-	@make -C $(LIBFT_DIR)
+	@make  -C $(LIBFT_DIR)
 force:
 
 $(NAME) : $(LIBFT_LIB) $(OBJ)
-	@gcc -g $(OBJ) $(CFLAGS) -o $(NAME) $(INCLUDE) $(LIB)  $(SDL) $(LIBFT_LIB)
+	@gcc  $(CFLAGS) $(OBJ)  -o $(NAME) $(INCLUDE) $(LIB)  $(SDL) $(LIBFT_LIB)
 	@echo "\033[92mDone for RTV1\033[0m"
 
 $(OBJ_DIR):
 	@-mkdir $(OBJ_DIR)
 
 $(OBJ): $(OBJ_DIR)/%.o : $(SRC_DIR)/%.c $(HEADER) | $(OBJ_DIR)
-	@gcc -c -g $(INCLUDE) $< -o $@
+	@gcc -c -g $(CFLAGS) $(INCLUDE) $< -o $@
 
 clean :
 	@make clean -C ./libft/
@@ -114,8 +114,5 @@ clean :
 fclean : clean
 	@make fclean -C ./libft/
 	@rm -rf $(NAME)
-
-norme:
-	@norminette $(SRC_DIR)
 
 re : fclean all

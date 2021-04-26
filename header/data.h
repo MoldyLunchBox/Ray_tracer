@@ -1,45 +1,55 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   data.h                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/23 13:47:44 by amya              #+#    #+#             */
+/*   Updated: 2021/04/26 11:20:30 by amya             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef DATA_H
 # define DATA_H
-
 # include "ray.h"
 # include "rt.h"
 # include <SDL2/SDL.h>
 
-typedef struct	s_loop
+typedef struct s_loop
 {
 	int			i;
 	int			j;
 	int			k;
 }				t_loop;
 
-typedef struct	s_sol
+typedef struct s_sol
 {
 	double				tmin;
 	double				tmax;
 }				t_sol;
 
-typedef struct	s_bb
+typedef struct s_bb
 {
-	t_vect min;
-	t_vect max;
-	double t1x;
-	double t2x;
-	double txmin;
-	double txmax;
-	double t1y;
-	double t2y;
-	double tymin;
-	double tymax;
-	double t1z;
-	double t2z;
-	double tzmin;
-	double tzmax;
-	double tmin;
-	double tmax;
+	t_vect	min;
+	t_vect	max;
+	double	t1x;
+	double	t2x;
+	double	txmin;
+	double	txmax;
+	double	t1y;
+	double	t2y;
+	double	tymin;
+	double	tymax;
+	double	t1z;
+	double	t2z;
+	double	tzmin;
+	double	tzmax;
+	double	tmin;
+	double	tmax;
 }				t_bb;
 
-typedef struct	s_trns_parm
+typedef struct s_trns_parm
 {
 	t_vect		nm_trns;
 	t_vect		tt;
@@ -51,7 +61,7 @@ typedef struct	s_trns_parm
 	double		rad;
 }				t_trns_parm;
 
-typedef struct	s_light
+typedef struct s_light
 {
 	t_vect				col;
 	t_vect				ambi;
@@ -60,7 +70,7 @@ typedef struct	s_light
 	t_vect				rm;
 }				t_light;
 
-typedef struct	s_data_camera
+typedef struct s_data_camera
 {
 	t_vect				pos;
 	t_vect				dir;
@@ -70,10 +80,11 @@ typedef struct	s_data_camera
 	double				focus_dis;
 }				t_data_camera;
 
-typedef struct	s_data_light
+typedef struct s_data_light
 {
 	t_vect				position;
-	t_vect				direction;
+	t_vect				look_at;
+	t_vect				dir;
 	t_vect				color;
 	double				intensity;
 	t_ray				to_light;
@@ -87,9 +98,9 @@ typedef union u_vect
 {
 	t_vect	order;
 	double	tab[3];
-}				u_vect;
+}				t_uvect;
 
-typedef struct 	s_4vects
+typedef struct s_4vects
 {
 	t_vect				one;
 	t_vect				two;
@@ -97,14 +108,13 @@ typedef struct 	s_4vects
 	t_vect				four;
 }				t_4vects;
 
-
-typedef struct	s_faces
+typedef struct s_faces
 {
 	t_vect				*node;
 	struct s_plg		*next;
 }				t_faces;
 
-typedef struct	s_plg
+typedef struct s_plg
 {
 	t_vect				*vetrices;
 	t_faces				*faces;
@@ -116,8 +126,7 @@ typedef struct s_uv
 	double	v;
 }				t_uv;
 
-
-typedef struct	s_obj
+typedef struct s_obj
 {
 	int					id;
 	char				*name;
@@ -155,13 +164,13 @@ typedef struct	s_obj
 	struct s_obj		*next;
 }				t_obj;
 
-typedef struct	s_event
+typedef struct s_event
 {
 	int					x;
 	int					y;
 }				t_event;
 
-typedef struct	s_all
+typedef struct s_all
 {
 	t_data_camera		*camera;
 	t_data_light		*light;
@@ -169,6 +178,7 @@ typedef struct	s_all
 	SDL_Window			*win;
 	SDL_Renderer		*rend;
 	int					id;
+	int					shadow;
 	int					deep;
 	int					aalias;
 	int					orbit_angle;
@@ -182,7 +192,7 @@ typedef struct	s_all
 	t_vect				*screen_pixels;
 }				t_all;
 
-typedef struct	s_find_closest
+typedef struct s_find_closest
 {
 	t_obj		*pos;
 	t_obj		*header;
@@ -190,7 +200,7 @@ typedef struct	s_find_closest
 	double		t1;
 }				t_find_closest;
 
-typedef struct	s_refraction
+typedef struct s_refraction
 {
 	t_ray		refracted_ray;
 	double		n1;
@@ -200,18 +210,18 @@ typedef struct	s_refraction
 	t_vect		ref_norm;
 }				t_refraction;
 
-typedef struct	s_cone_top
+typedef struct s_cone_top
 {
-	t_obj plane;
-    double radius;
-	t_sol  plan;
+	t_obj	plane;
+	double	radius;
+	t_sol	plan;
 }				t_cone_top;
 
-typedef struct	s_cone_bottom
+typedef struct s_cone_bottom
 {
-	t_obj plane;
-    double radius;
-	t_sol  plan;
+	t_obj	plane;
+	double	radius;
+	t_sol	plan;
 }				t_cone_bottom;
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   box.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amya <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 12:56:14 by amya              #+#    #+#             */
-/*   Updated: 2021/04/19 12:56:16 by amya             ###   ########.fr       */
+/*   Updated: 2021/04/20 16:48:21 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_sol	slice_it_four_times(t_obj *plane, t_ray ray, double size)
 	template = sorting(plane->direction);
 	slicers = slicer_maker(template);
 	sol = intersection_ray_plan(plane, ray);
-	if (sol.tmin != -1 && !slice_it(plane, ray, size, slicers))
+	if (sol.tmin != -1 && !slice_it(plane, size, slicers))
 		sol.tmin = -1;
 	return (sol);
 }
@@ -35,7 +35,7 @@ t_obj	box_sides(t_vect plane_direction, t_obj *box, t_ray ray)
 				box->size), box->position);
 	plane.direction = plane_direction;
 	plane.position = plane_position;
-	plane.color = (t_vect){255, 0, 0};
+	plane.size = 0;
 	plane.slice = (t_vect){0, 0, 0};
 	plane.sol = slice_it_four_times(&plane, ray, box->size);
 	return (plane);

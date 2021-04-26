@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoelguer <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/10 21:45:46 by yoelguer          #+#    #+#             */
-/*   Updated: 2019/04/16 00:58:27 by yoelguer         ###   ########.fr       */
+/*   Created: 2019/04/04 05:05:10 by amya              #+#    #+#             */
+/*   Updated: 2021/04/23 13:39:03 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,21 @@
 char	*ft_strtrim(char const *s)
 {
 	int		i;
-	int		len;
-	char	*str;
+	int		max;
+	int		j;
 
-	if (s == NULL)
+	j = 0;
+	i = 0;
+	if (!s)
 		return (NULL);
-	len = ft_strlen(s);
-	while (s[len - 1] == ' ' || s[len - 1] == '\t' || s[len - 1] == '\n')
-		len--;
-	i = -1;
-	while (s[++i] == ' ' || s[i] == '\t' || s[i] == '\n')
-		len--;
-	if (len <= 0)
-		len = 0;
-	str = (char*)malloc(sizeof(char) * (len + 1));
-	if (str == NULL)
-		return (NULL);
-	s += i;
-	i = -1;
-	while (++i < len)
-		str[i] = *s++;
-	str[i] = '\0';
-	return (str);
+	max = ft_strlen(s);
+	if (max != 1)
+		max -= !!max;
+	while (s[i] == ' ' || s[i] == '\n' || s[i] == '\t')
+		i++;
+	while (s[max] == ' ' || s[max] == '\n' || s[max] == '\t')
+		max--;
+	if (max - i > 0)
+		return (ft_strsub(s, i, max - i + 1));
+	return (NULL);
 }

@@ -1,9 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   disruption.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/20 12:18:55 by amya              #+#    #+#             */
+/*   Updated: 2021/04/23 15:57:17 by amya             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../header/rt.h"
 
-t_vect  distrupt_a_sphere(t_obj *obj, t_vect col)
+t_vect	distrupt_a_sphere(t_obj *obj, t_vect col)
 {
 	t_vect	center_to_hit;
-	double	hit_to_axis;
 	double	center_to_hit_len;
 
 	center_to_hit = sub_vect(obj->hit, (t_vect){0, 0, 1000});
@@ -31,7 +42,7 @@ t_vect	distrupt_a_sphere_color(t_obj *obj, t_vect col)
 
 static t_vect	sol(t_vect template, double res, double res2, double res3)
 {
-	u_vect	sort;
+	t_uvect	sort;
 	t_vect	applied;
 	t_vect	usable_res;
 	int		check;
@@ -74,7 +85,7 @@ static t_vect	possible_results(t_obj *obj)
 	return (res);
 }
 
-t_vect			disruption(t_obj *obj, t_vect col)
+t_vect	disruption(t_obj *obj, t_vect col)
 {
 	t_vect	res;
 	t_vect	vec;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   filters.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amya <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 17:51:18 by amya              #+#    #+#             */
-/*   Updated: 2021/04/19 17:51:20 by amya             ###   ########.fr       */
+/*   Updated: 2021/04/24 11:03:25 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,17 @@ t_vect	filter(t_all *data, t_vect col, t_vect_i var)
 	return (col);
 }
 
-void	set_pixel(t_all data, t_vect col, t_vect_i var, t_ray ray)
+void	set_pixel(t_all data, t_vect col, t_vect_i var)
 {
 	if (SDL_SetRenderDrawColor(data.rend, col.x, col.y, col.z, 255) != 0)
 		sdl_error("Get color failed");
 	if (SDL_RenderDrawPoint(data.rend, var.x, var.y) != 0)
 		sdl_error("draw point failed");
 	data.screen_pixels[var.x * WIN_W + var.y] = col;
+}
+
+void	bad_file(void)
+{
+	ft_putendl("bad file");
+	exit (0);
 }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sdl.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amya <marvin@42.fr>                        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/20 12:03:28 by amya              #+#    #+#             */
+/*   Updated: 2021/04/20 12:03:29 by amya             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../header/rt.h"
 
 void	sdl_error(char *message)
@@ -45,8 +57,10 @@ void	event_conditions(SDL_Event event, t_all *data)
 	{
 		SDL_GetMouseState(&(data->event.x), &(data->event.y));
 		if (data->ren == 0)
-			{SDL_RenderClear(data->rend);
-			threading(*data);}
+		{
+			SDL_RenderClear(data->rend);
+			threading(*data);
+		}
 	}
 }
 

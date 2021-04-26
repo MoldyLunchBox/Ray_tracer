@@ -6,7 +6,7 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 17:17:31 by amya              #+#    #+#             */
-/*   Updated: 2021/04/19 17:18:25 by amya             ###   ########.fr       */
+/*   Updated: 2021/04/20 16:55:49 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ t_sol	cone_top(t_obj *cone, t_ray r, t_sol sol, t_vect top)
 	var.plane.position = top;
 	var.plane.direction =cone->direction;
 	var.plane.slice = (t_vect){0, 0, 0};
+	var.plane.size = 0;
 	var.plan = intersection_ray_plan(&var.plane, r);
 	if (var.plan.tmin != -1)
 	{
@@ -78,6 +79,7 @@ t_sol	cone_bottom(t_obj *cone, t_ray r, t_sol sol, t_vect bottom)
 	var.plane.position = bottom;
 	var.plane.direction =cone->direction;
 	var.plane.slice = (t_vect){0, 0, 0};
+	var.plane.size = 0;
 	var.plan = intersection_ray_plan(&var.plane, r);
 	if (var.plan.tmin != -1)
 	{

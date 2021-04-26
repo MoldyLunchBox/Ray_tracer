@@ -3,28 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoelguer <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: amya <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/03 21:32:46 by yoelguer          #+#    #+#             */
-/*   Updated: 2019/04/16 07:57:49 by yoelguer         ###   ########.fr       */
+/*   Created: 2019/03/30 02:54:23 by amya              #+#    #+#             */
+/*   Updated: 2019/04/01 10:53:41 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_strcmp(const char *s1, const char *s2)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	unsigned char *p_s1;
-	unsigned char *p_s2;
+	int				i;
+	unsigned char	*d1;
+	unsigned char	*d2;
 
-	p_s1 = (unsigned char*)s1;
-	p_s2 = (unsigned char*)s2;
-	if (*p_s1 == '\0' && *p_s2 == '\0')
-		return (0);
-	if (*p_s1 == *p_s2 && *p_s1 != '\0' && *p_s2 != '\0')
-		return (ft_strcmp((const char*)p_s1 + 1, (const char*)p_s2 + 1));
-	if (*p_s1 != *p_s2)
-		return (*p_s1 - *p_s2);
-	else
-		return (0);
+	i = 0;
+	d1 = (unsigned char *)s1;
+	d2 = (unsigned char *)s2;
+	while (d1[i] || d2[i])
+	{
+		if (d1[i] != d2[i])
+			return (d1[i] - d2[i]);
+		i++;
+	}
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 13:02:17 by amya              #+#    #+#             */
-/*   Updated: 2021/04/19 13:02:24 by amya             ###   ########.fr       */
+/*   Updated: 2021/04/22 12:29:19 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_alloc_light(t_data_light **light)
 {
 	(*light) = (t_data_light *)malloc(sizeof(t_data_light));
 	init_vect(&(*light)->position, 0, 0, 0);
-	init_vect(&(*light)->direction, 0, 0, 0);
+	init_vect(&(*light)->look_at, 0, 0, 0);
 	init_vect(&(*light)->color, 0, 0, 0);
 	(*light)->intensity = 0;
 	(*light)->type = 0;
@@ -36,7 +36,7 @@ void	ft_alloc_camera(t_data_camera **camera)
 	(*camera)->focus_dis = 0;
 }
 
-void	ft_lstdel(t_obj **alst)
+void	lst_del(t_obj **alst)
 {
 	t_obj	*temp;
 
@@ -60,5 +60,5 @@ void	ft_free_obj(t_all *data)
 		data->light = data->light->next;
 	}
 	free(data->camera);
-	ft_lstdel(&data->obj);
+	lst_del(&data->obj);
 }

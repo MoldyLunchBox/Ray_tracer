@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/09 18:49:34 by yoelguer          #+#    #+#             */
-/*   Updated: 2021/04/17 15:04:46 by amya             ###   ########.fr       */
+/*   Created: 2021/04/20 12:27:16 by amya              #+#    #+#             */
+/*   Updated: 2021/04/20 12:27:38 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ double	vect_scal(t_vect v1, t_vect v2)
 
 double	get_norm_2(t_vect v)
 {
-	double ret;
+	double	ret;
 
 	ret = (v.x * v.x) + (v.y * v.y) + (v.z * v.z);
 	return (ret);

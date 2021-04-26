@@ -3,27 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoelguer <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/03 21:34:45 by yoelguer          #+#    #+#             */
-/*   Updated: 2019/04/14 22:49:24 by yoelguer         ###   ########.fr       */
+/*   Created: 2019/03/30 01:13:09 by amya              #+#    #+#             */
+/*   Updated: 2021/04/23 13:37:25 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strstr(const char *haystack, const char *needle)
+char	*ft_strstr(const char *str, const char *to_find)
 {
-	size_t	len2;
+	int	i;
+	int	j;
 
-	if (*needle == '\0')
-		return ((char *)haystack);
-	len2 = ft_strlen(needle);
-	while (*haystack != '\0')
+	i = 0;
+	j = 0;
+	if (to_find[0] == '\0')
+		return ((char *)str);
+	while (str[i])
 	{
-		if (*haystack == *needle && ft_memcmp(haystack, needle, len2) == 0)
-			return ((char *)haystack);
-		haystack++;
+		j = 0;
+		while (str[i + j] == to_find[j] && to_find[j] != '\0')
+			j++;
+		if (to_find[j] == '\0')
+			return ((char *)(str + i));
+		i++;
 	}
-	return (NULL);
+	return (0);
 }

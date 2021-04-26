@@ -6,7 +6,7 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 17:49:31 by amya              #+#    #+#             */
-/*   Updated: 2021/04/19 17:49:35 by amya             ###   ########.fr       */
+/*   Updated: 2021/04/23 15:59:30 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ t_vect	rend_pix(t_all data, t_ray ray, int nbrbonds)
 
 	if (nbrbonds == 0)
 		return ((t_vect){0, 0, 0});
-	col = direct_light(ray, data, data.light);
+	col = loop_direct_light(ray, data, data.light);
 	pos = find_closest(data, ray);
 	if (pos->t != -1)
 	{
@@ -115,7 +115,7 @@ void	*raytracing(void *dataa)
 			ray = new_ray(var.x, var.y, data);
 			col = add_vect(col, rend_pix(data, ray, 6));
 			col = filter(&data, col, var);
-			set_pixel(data, col, var, ray);
+			set_pixel(data, col, var);
 		}
 	}
 	return (NULL);

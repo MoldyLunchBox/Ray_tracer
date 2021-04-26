@@ -1,0 +1,35 @@
+
+camera:
+ look_from: -0:0:100
+ look_at: 0.0:0.0:0.0
+ something: 1500
+ somehing: 150
+
+light:
+ position: -20:0:30
+ direction: -0.0:-0.0:-0.0
+ color: 255:255:255
+ intensity: 1500
+ direct_light_angle: 20
+ type: 0
+ ambient: 0.3
+
+
+
+
+
+ellipsoid
+ position: 0:-0:0
+ direction: 0:1:0
+ color: 255:0:0
+ radius_angle: 9
+ radius_angle: 5
+
+
+paraploid:
+ position: -0:-30:-40
+ direction: 0:1:0
+ color: 0:255:0
+ radius_angle: 5
+
+

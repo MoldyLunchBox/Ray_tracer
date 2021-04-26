@@ -6,7 +6,7 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 11:33:18 by amya              #+#    #+#             */
-/*   Updated: 2021/04/19 12:07:41 by amya             ###   ########.fr       */
+/*   Updated: 2021/04/23 15:34:15 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ t_ray	init_rayy(int i, int j, t_data_camera *cam)
 	t_vect	s;
 	t_ray	r;
 	t_vect	destination;
-	t_vect	new_cam_pos;
 
 	s = sub_vect(cam->pos, vect_mult_val(cam->dir, cam->dist));
 	s = sub_vect(s, vect_mult_val(cam->u_dir, i - (WIN_W / 2)));

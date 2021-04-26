@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/09 18:49:00 by yoelguer          #+#    #+#             */
-/*   Updated: 2021/04/17 14:50:58 by amya             ###   ########.fr       */
+/*   Created: 2021/04/23 16:44:33 by amya              #+#    #+#             */
+/*   Updated: 2021/04/23 16:44:37 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	ft_val2(char *str)
 	return (0);
 }
 
-int	check_str2(char **str, int j, int k)
+int	check_str2(char **str)
 {
 	int		i;
 

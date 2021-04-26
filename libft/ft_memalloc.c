@@ -3,29 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memalloc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoelguer <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: amya <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/05 00:18:49 by yoelguer          #+#    #+#             */
-/*   Updated: 2019/04/21 04:21:59 by yoelguer         ###   ########.fr       */
+/*   Created: 2019/03/30 11:28:41 by amya              #+#    #+#             */
+/*   Updated: 2019/04/08 03:22:00 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <limits.h>
 
-void		*ft_memalloc(size_t size)
+void	*ft_memalloc(size_t size)
 {
-	char	*str;
-	size_t	i;
+	void	*ptr;
 
-	i = 0;
-	if (size == 0 || size > 65535)
+	if (size >= SIZE_MAX)
 		return (NULL);
-	if (!(str = (char *)malloc(sizeof(char) * size)))
+	ptr = malloc(size);
+	if (!ptr)
 		return (NULL);
-	while (i < size)
-	{
-		str[i] = 0;
-		i++;
-	}
-	return (str);
+	ft_bzero(ptr, size);
+	return (ptr);
 }

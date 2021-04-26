@@ -3,19 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ray.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoelguer <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/09 18:37:29 by yoelguer          #+#    #+#             */
-/*   Updated: 2021/02/09 18:50:49 by yoelguer         ###   ########.fr       */
+/*   Created: 2021/04/23 16:46:51 by amya              #+#    #+#             */
+/*   Updated: 2021/04/23 16:46:55 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RAY_H
 # define RAY_H
-
 # include "vector.h"
 
-typedef struct	s_ray
+typedef struct s_ray
 {
 	t_vect		origine;
 	t_vect		direction;

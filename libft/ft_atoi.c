@@ -3,39 +3,54 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoelguer <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/03 21:30:58 by yoelguer          #+#    #+#             */
-/*   Updated: 2021/01/05 15:06:13 by yzemmour         ###   ########.fr       */
+/*   Created: 2019/03/30 04:26:28 by amya              #+#    #+#             */
+/*   Updated: 2021/04/23 13:25:26 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <limits.h>
 
-int		ft_atoi(const char *str)
+static	int	ft_sign(const char *str, int i, int sign)
 {
-	int		i;
-	int		res;
-	int		si;
+	if (str[i] == '+' || str[i] == '-')
+	{
+		if (str[i] == '-')
+			sign = -1;
+		else
+			sign = 1;
+		i++;
+	}
+	return (sign);
+}
+
+int	ft_atoi(const char *str)
+{
+	int				i;
+	int				sign;
+	unsigned long	r;
 
 	i = 0;
-	res = 0;
-	si = 1;
-	str = (char*)str;
-	while (str[i] == ' ' || str[i] == '\f' || str[i] == '\t'
-			|| str[i] == '\v' || str[i] == '\r' || str[i] == '\n')
+	sign = 0;
+	r = 0;
+	while (str[i] == '\t' || str[i] == '\n' || str[i] == '\v'
+		|| str[i] == '\f' || str[i] == '\r' || str[i] == ' ')
 		i++;
-	if (str[i] == '+')
+	sign = ft_sign(str, i, sign);
+	if (sign != 0)
 		i++;
-	else if (str[i] == '-')
+	else
+		sign = 1;
+	while (str[i] >= '0' && str[i] <= '9')
 	{
-		si = -1;
+		r = r * 10 + (str[i] - '0');
+		if (r >= LONG_MAX && sign == 1)
+			return (-1);
+		if (r >= (unsigned long)LONG_MIN * (-1) && sign == -1)
+			return (0);
 		i++;
 	}
-	while (str[i] <= '9' && str[i] >= '0')
-	{
-		res = (res * 10) + str[i] - '0';
-		i++;
-	}
-	return (res * si);
+	return (r * sign);
 }

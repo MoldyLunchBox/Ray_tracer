@@ -6,7 +6,7 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 11:58:04 by amya              #+#    #+#             */
-/*   Updated: 2021/04/15 12:38:00 by amya             ###   ########.fr       */
+/*   Updated: 2021/04/23 15:46:02 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int	s_box(char **table, int i, t_all *data, t_obj *box)
 {
 	int		j;
 	char	**str;
-	char	**white_split;
 
 	j = 0;
 	box->name = ft_strsub(table[i - 1], 0, ft_strlen(table[i - 1]) - 1);

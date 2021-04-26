@@ -6,7 +6,7 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 13:04:00 by amya              #+#    #+#             */
-/*   Updated: 2021/04/19 13:04:04 by amya             ###   ########.fr       */
+/*   Updated: 2021/04/23 15:42:45 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ int	ft_objects(t_all *data, int i, char **table, t_obj **obj)
 		if (s_cone(table, i + 1, data, *obj) < 0)
 			return (-1);
 	if (ft_strcmp("paraploid:", table[i]) == 0)
-		if (s_paraploid(table, i + 1, data, *obj) < 0)
+		if (s_paraploid(table, i + 1, *obj) < 0)
 			return (-1);
 	if (ft_strcmp("ellipsoid:", table[i]) == 0)
-		if (s_ellipsoid(table, i + 1, data, *obj) < 0)
+		if (s_ellipsoid(table, i + 1, *obj) < 0)
 			return (-1);
 	if (ft_objects_rest(data, i, table, obj) == -1)
 		return (-1);

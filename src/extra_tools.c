@@ -6,7 +6,7 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 17:20:18 by amya              #+#    #+#             */
-/*   Updated: 2021/04/19 17:21:38 by amya             ###   ########.fr       */
+/*   Updated: 2021/04/24 11:03:04 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,19 @@ int	ft_lines_in_file(char *str)
 	int		fd;
 	int		count;
 	char	*line;
+	int		ret;
 
 	count = 0;
 	fd = open(str, O_RDONLY);
 	if (fd < 0)
 		return (-1);
-	while (get_next_line(fd, &line))
+	while (1)
 	{
+		ret = get_next_line(fd, &line);
+		if (ret < 0)
+			bad_file();
+		if (ret == 0)
+			break ;
 		count++;
 		free(line);
 	}
@@ -67,6 +73,7 @@ double	if_t1_isnull(double t1, t_sol t)
 		t1 = t.tmin;
 	return (t1);
 }
+
 double	if_t1_isbigger(double t1, t_sol t)
 {
 	if (t1 > t.tmin)

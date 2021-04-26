@@ -6,7 +6,7 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/28 16:54:18 by amya              #+#    #+#             */
-/*   Updated: 2021/04/19 17:59:27 by amya             ###   ########.fr       */
+/*   Updated: 2021/04/20 12:26:16 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,20 @@
 
 int	ft_clamp(int value, int min, int max)
 {
-	value > max ? value = max : 0;
-	value < min ? value = min : 0;
+	if (value > max)
+		value = max;
+	if (value < min)
+		value = min;
 	return (value);
 }
 
-t_2d_i	sphere_uv(t_obj *obj, t_2d_i size)
+t_uv	sphere_uv(t_obj *obj, t_2d_i size)
 {
 	t_vect	vp;
 	double	phi;
 	double	u;
 	double	v;
-	t_2d_i	tex;
+	t_uv	uv;
 
 	vp = obj->hit;
 	vp = get_normalized(sub_vect(vp, obj->position));
@@ -34,13 +36,12 @@ t_2d_i	sphere_uv(t_obj *obj, t_2d_i size)
 	if (vect_scal((t_vect){0, 0, 1}, vp) < 0)
 		u = 1 - u;
 	v = phi / M_PI;
-	tex.x = (int)(size.x * u);
-	tex.y = (int)(size.y * v);
-	tex.x = ft_clamp((int)(size.x * u) % size.x, 0, size.x - 1);
-	tex.y = ft_clamp((int)(size.y * v) % size.y, 0, size.y - 1);
-	return (tex);
+	uv.u = (int)(size.x * u);
+	uv.v = (int)(size.y * v);
+	uv.u = ft_clamp((int)(size.x * u) % size.x, 0, size.x - 1);
+	uv.v = ft_clamp((int)(size.y * v) % size.y, 0, size.y - 1);
+	return (uv);
 }
-
 
 t_uv	uv_mapping_cyl_cone(t_obj *obj, t_2d_i size)
 {

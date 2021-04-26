@@ -1,0 +1,103 @@
+
+camera:
+ look_from: -0:0:100
+ look_at: 0.0:0.0:0.0
+ something: 1500
+ somehing: 150
+
+light:
+ position: 15:0:-100
+ direction: -0.0:0:-50
+ color: 255:255:255
+ intensity: 1500
+ direct_light_angle: 20
+ type: 0
+ ambient: 0.3
+
+light
+ position: -10:0:-100
+ direction: -0.0:0:-50
+ color: 255:255:255
+ intensity: 1500
+ direct_light_angle: 20
+ type: 1
+ ambient: 0.3
+
+
+light:
+ position: -0:100:-200
+ direction: -0:0:-200
+ color: 255:255:255
+ intensity: 1500
+ direct_light_angle: 20
+ type: 2
+ ambient: 0.3
+
+
+plane:
+ texture: .
+ texture_modifie: 0.0:0:0.0
+ position: 00:-10:0
+ direction: 0:1:0
+ translation: 0:0:0
+ rotation: 0:0:0
+ slice: 0:0:0
+ pos_slice: 0.0:0:0
+ color: 250:220:250
+ size: 0
+ type_material: 1
+ transparency: 1
+ reflection: 0.0
+ disruption: 0
+
+plane
+ texture: .
+ texture_modifie: 0.0:0:0.0
+ position: 00:0:-100
+ direction: 0:0:1
+ translation: 0:0:0
+ rotation: 0:0:0
+ slice: 0:0:0
+ pos_slice: 0.0:0:0
+ color: 250:250:250
+ size: 0
+ type_material: 1
+ transparency: 1
+ reflection: 0.0
+ disruption: 0
+
+sphere
+ texture: .
+ texture_modifie: -0.0:0:0
+ position: -15:0:20
+ direction: 0:0.0:0
+ translation: 0:0:0
+ rotation: 0:0:0
+ slice: 0:0:0
+ pos_slice: -10:0:20
+ color: 0:255:0
+ radius_angle: 10
+ size: 0
+ type_material: 1
+ transparency: 1
+ reflection: 1
+ negative_object: 0
+ disruption: 2
+
+sphere:
+ texture: .
+ texture_modifie: -0.0:0:0
+ position: -0:0:-200
+ direction: 0:0.0:0
+ translation: 0:0:0
+ rotation: 0:0:0
+ slice: 0:0:0
+ pos_slice: -10:0:20
+ color: 0:255:0
+ radius_angle: 10
+ size: 0
+ type_material: 1
+ transparency: 1
+ reflection: 1
+ negative_object: 0
+ disruption: 0

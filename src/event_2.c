@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   event_2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amya <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 13:03:23 by amya              #+#    #+#             */
-/*   Updated: 2021/04/19 13:03:24 by amya             ###   ########.fr       */
+/*   Updated: 2021/04/24 10:07:29 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ void	orbiter(t_all *data)
 		data->camera->pos.z = data->camera->dir.z
 			+ (rad * sin(data->orbit_angle));
 		set_camera_dir(data->camera);
-		ft_putendl("check");
 	}
 }
 

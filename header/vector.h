@@ -3,43 +3,43 @@
 /*                                                        :::      ::::::::   */
 /*   vector.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoelguer <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/09 18:37:56 by yoelguer          #+#    #+#             */
-/*   Updated: 2021/02/09 18:51:07 by yoelguer         ###   ########.fr       */
+/*   Created: 2021/04/23 16:47:12 by amya              #+#    #+#             */
+/*   Updated: 2021/04/23 16:47:15 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VECTOR_H
 # define VECTOR_H
 
-typedef struct	s_vect
+typedef struct s_vect
 {
 	double		x;
 	double		y;
 	double		z;
 }				t_vect;
 
-typedef struct	s_vect_i
+typedef struct s_vect_i
 {
 	int			x;
 	int			y;
 	int			z;
 }				t_vect_i;
 
-typedef struct	s_2d_d
+typedef struct s_2d_d
 {
 	double		x;
 	double		y;
 }				t_2d_d;
 
-typedef struct	s_2d_i
+typedef struct s_2d_i
 {
 	int			x;
 	int			y;
 }				t_2d_i;
 
-typedef struct	s_4d_i
+typedef struct s_4d_i
 {
 	int			x;
 	int			y;

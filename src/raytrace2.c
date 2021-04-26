@@ -5,14 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/09 18:48:25 by yoelguer          #+#    #+#             */
-/*   Updated: 2021/04/17 14:20:19 by amya             ###   ########.fr       */
+/*   Created: 2021/04/23 16:44:19 by amya              #+#    #+#             */
+/*   Updated: 2021/04/23 16:44:23 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/rt.h"
 
-t_ray			new_ray(int i, int j, t_all data)
+t_ray	new_ray(int i, int j, t_all data)
 {
 	t_ray	ray;
 

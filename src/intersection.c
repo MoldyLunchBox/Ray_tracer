@@ -6,32 +6,41 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 17:50:05 by amya              #+#    #+#             */
-/*   Updated: 2021/04/19 17:51:02 by amya             ###   ########.fr       */
+/*   Updated: 2021/04/22 17:06:58 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/rt.h"
 
-void static	closest_hit(double *t1, t_sol t)
+void static	closest_hit(double *t1, t_sol t, t_obj *obj, double *val)
 {
 	if (t.tmin != -1)
 	{
 		if (*t1 == -1)
+		{
 			*t1 = t.tmin;
+			if (obj->type == 3)
+				*val = 1;
+		}
 		else
 		{
 			if (*t1 > t.tmin)
+			{
 				*t1 = t.tmin;
+				if (obj->type == 3)
+					*val = 1;
+			}
 		}
 	}
 }
 
-double	find_obj_scnd(t_all data, t_ray ray, t_ray hit_to_light, t_obj *pos)
+double	find_obj_scnd(t_all data, t_ray hit_to_light, t_obj *pos, double *val)
 {
 	t_obj		*header;
 	t_sol		t;
 	double		t1;
 
+	*val = 0;
 	t1 = -1;
 	header = data.obj;
 	while (header->next)
@@ -46,7 +55,7 @@ double	find_obj_scnd(t_all data, t_ray ray, t_ray hit_to_light, t_obj *pos)
 		else
 			init_sol(&t);
 		t = cyl_inter_negative(t, header, data, hit_to_light);
-		closest_hit(&t1, t);
+		closest_hit(&t1, t, header, val);
 		header = header->next;
 	}
 	return (t1);

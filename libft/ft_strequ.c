@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/09 23:29:19 by yoelguer          #+#    #+#             */
-/*   Updated: 2021/04/03 15:05:58 by amya             ###   ########.fr       */
+/*   Created: 2019/04/02 05:45:29 by amya              #+#    #+#             */
+/*   Updated: 2021/04/23 13:33:33 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,17 @@
 
 int	ft_strequ(char const *s1, char const *s2)
 {
-	unsigned int	i;
+	int	i;
 
-	i = 0;
-	if (!s1 || !s2)
-		return (s1 == s2 ? 1 : 0);
-	if (ft_strlen((char*)s1) != ft_strlen((char*)s2))
-		return (0);
-	while (s1[i] && s2[i])
+	if (s1 != NULL && s2 != NULL)
 	{
-		if (s1[i] != s2[i])
-			return (0);
-		++i;
+		i = 0;
+		while (s1[i] == s2[i])
+		{
+			if (!s1[i] && !s2[i])
+				return ('1' - '0');
+			i++;
+		}
 	}
-	return (1);
+	return ('0' - '0');
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atof.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amya <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/17 15:17:46 by amya              #+#    #+#             */
-/*   Updated: 2021/04/17 15:17:48 by amya             ###   ########.fr       */
+/*   Updated: 2021/04/23 15:35:52 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ double	ft_res(char *str, int i)
 double	ft_atof(char *str)
 {
 	int		i;
-	int		j;
 	int		signe;
 	double	res;
 

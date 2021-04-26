@@ -3,52 +3,57 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoelguer <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/08 21:40:48 by yoelguer          #+#    #+#             */
-/*   Updated: 2019/04/18 00:53:26 by yoelguer         ###   ########.fr       */
+/*   Created: 2019/04/05 02:00:35 by amya              #+#    #+#             */
+/*   Updated: 2021/04/23 13:27:24 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static	char	*ft_print(int i, int p, int c, char *str)
+static int	ft_alloc(int n)
 {
-	while (--i >= 0)
-	{
-		str[i] = (p % 10) + '0';
-		p /= 10;
-	}
-	if (c < 0)
-		str[0] = '-';
-	return (str);
-}
+	int	i;
 
-char			*ft_itoa(int n)
-{
-	int		i;
-	int		p;
-	int		c;
-	char	*str;
-
-	i = 1;
-	c = n;
-	if (n == -2147483648)
-		return (ft_strdup("-2147483648"));
+	i = 0;
 	if (n < 0)
-	{
-		i++;
-		n = -n;
-	}
-	p = n;
-	while (n >= 10)
+		i = 1;
+	if (n == 0)
+		return (1);
+	while (n)
 	{
 		n = n / 10;
 		i++;
 	}
-	if (!(str = (char*)malloc((i + 1) * sizeof(char))))
-		return (NULL);
-	str[i] = '\0';
-	ft_print(i, p, c, str);
-	return (str);
+	return (i);
+}
+
+char	*ft_itoa(int nbr)
+{
+	char			*ptr;
+	unsigned int	n;
+	unsigned int	i;
+	unsigned int	total;
+
+	if (nbr < 0)
+		n = (unsigned int)(nbr * -1);
+	else
+		n = (unsigned int)nbr;
+	total = (unsigned int)ft_alloc(nbr);
+	i = 0;
+	ptr = (char *)malloc(sizeof(char) * (total + 1));
+	if (!ptr)
+		return (0);
+	if (nbr < 0)
+		ptr[i] = '-';
+	i = total - 1;
+	while (n >= 10)
+	{
+		ptr[i--] = (char)(n % 10 + 48);
+		n /= 10;
+	}
+	ptr[i] = (char)(n % 10 + 48);
+	ptr[total] = '\0';
+	return (ptr);
 }

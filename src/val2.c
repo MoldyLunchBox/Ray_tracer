@@ -6,7 +6,7 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/28 18:45:52 by amya              #+#    #+#             */
-/*   Updated: 2021/04/17 14:51:04 by amya             ###   ########.fr       */
+/*   Updated: 2021/04/20 12:26:40 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ int	f_str2(char **str, int j, int d)
 	if (j < d)
 	{
 		if (ft_val(str[k]) || ft_val(str[k + 1])
-				|| ft_val(str[k + 2]))
+			|| ft_val(str[k + 2]))
 			return (-1);
 	}
 	else if (j == d)
 	{
 		if (ft_val(str[k]) || ft_val(str[k + 1])
-				|| ft_val(str[k + 2]))
+			|| ft_val(str[k + 2]))
 			return (-1);
 	}
 	else

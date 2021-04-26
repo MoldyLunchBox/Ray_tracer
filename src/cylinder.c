@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cylindre.c                                         :+:      :+:    :+:   */
+/*   cylinder.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/09 18:38:44 by yoelguer          #+#    #+#             */
-/*   Updated: 2021/04/19 12:54:51 by amya             ###   ########.fr       */
+/*   Created: 2021/04/23 16:42:07 by amya              #+#    #+#             */
+/*   Updated: 2021/04/23 16:53:31 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,6 @@ double	cylinder_slicing(t_sol sol, t_obj *cyl, t_ray r)
 t_sol	intersection_ray_cylindre(t_obj *cyl, t_ray r)
 {
 	t_sol	sol;
-	t_vect	sly;
-	int		is;
 
 	sol = all(cyl, r);
 	cyl->norm = get_normalized(sub_vect(sub_vect(cyl->hit, cyl->position),
@@ -70,10 +68,9 @@ t_sol	intersection_ray_cylindre(t_obj *cyl, t_ray r)
 t_sol	intersection_ray_limited_cylindre(t_obj *cyl, t_ray r)
 {
 	t_sol	sol;
-	t_vect	sly;
-	int		is;
 	t_vect	top;
 
+	top = (t_vect){0, 0, 0};
 	sol = all(cyl, r);
 	cyl->norm = get_normalized(sub_vect(sub_vect(cyl->hit, cyl->position),
 				vect_mult_val(cyl->direction, vect_scal(cyl->direction,

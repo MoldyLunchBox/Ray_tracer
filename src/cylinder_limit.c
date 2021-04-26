@@ -6,7 +6,7 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 12:59:47 by amya              #+#    #+#             */
-/*   Updated: 2021/04/19 13:00:08 by amya             ###   ########.fr       */
+/*   Updated: 2021/04/20 16:54:11 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ t_sol	bottom_cap(t_obj *cyl, t_vect bottom, t_ray r, t_sol sol)
 
 	plane.position = bottom;
 	plane.direction = cyl->direction;
+	plane.slice = (t_vect){0, 0, 0};
+	plane.size = 0;
 	plan = intersection_ray_plan(&plane, r);
 	if (plan.tmin != -1)
 	{
@@ -47,6 +49,8 @@ t_sol	top_cap(t_obj *cyl, t_vect top, t_ray r, t_sol sol)
 
 	plane.position = top;
 	plane.direction = cyl->direction;
+	plane.slice = (t_vect){0, 0, 0};
+	plane.size = 0;
 	plan = intersection_ray_plan(&plane, r);
 	if (plan.tmin != -1)
 	{

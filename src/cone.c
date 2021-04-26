@@ -6,7 +6,7 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 17:16:57 by amya              #+#    #+#             */
-/*   Updated: 2021/04/19 17:26:05 by amya             ###   ########.fr       */
+/*   Updated: 2021/04/23 15:35:38 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,6 @@ t_sol 	out_of_range(double result_top, double result_bottom, t_sol sol)
 t_sol	intersection_ray_cone(t_obj *cone, t_ray r)
 {
 	t_sol	sol;
-	t_vect	sly;
-	int		is;
 
 	sol = all_cone(cone, r);
 	cone_norm(cone, r, sol.tmax);
@@ -82,8 +80,6 @@ t_sol	intersection_ray_cone(t_obj *cone, t_ray r)
 t_sol	intersection_ray_limited_cone(t_obj *cone, t_ray r)
 {
 	t_sol	sol;
-	t_vect	sly;
-	int		is;
 
 	sol = all_cone(cone, r);
 	cone_norm(cone, r, sol.tmax);
